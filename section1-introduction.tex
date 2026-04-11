@@ -1,0 +1,175 @@
+%% Section 1: Introduction
+%% Paper: Littlewood-Richardson Coefficients: From Puzzles to the Integrability Hierarchy
+
+\section{Introduction}\label{sec:introduction}
+
+The Littlewood-Richardson coefficients $c^\lambda_{\mu\nu}$ are among the most
+studied numbers in algebraic combinatorics.  They appear as the structure
+constants of the ring of symmetric functions,
+\begin{equation}\label{eq:lr-def}
+  s_\mu \cdot s_\nu \;=\; \sum_\lambda c^\lambda_{\mu\nu}\, s_\lambda,
+\end{equation}
+as tensor product multiplicities of $GL_n$ representations, and as intersection
+numbers in the Schubert calculus of Grassmannians.  What is remarkable is not
+that they can be computed---they can, in many ways---but that so many
+\emph{independent} combinatorial interpretations coexist.  The
+Littlewood-Richardson rule counts skew tableaux satisfying a lattice word
+condition.  The Knutson-Tao-Woodward puzzle model~\cite{knutson-tao-woodward-2004}
+tiles a triangle with three species of unit rhombi.  Purbhoo's
+mosaics~\cite{purbhoo-2007} give a hybrid between the two.  Pipe dreams and
+bumpless pipe dreams compute the same numbers via reduced decompositions in the
+symmetric group.  Gaetz and Gao's interlacing triangular
+arrays~\cite{gaetz-gao-2024} provide yet another model, discovered from
+the geometry of Coxeter groups.  Each of these was found independently, often
+by different communities---algebraists, combinatorialists, geometers---and the
+bijections connecting them, while known, have the character of ad hoc
+constructions.  One is left with a question that is more structural than
+computational: \emph{why do all of these models exist?}
+
+\subsection*{The integrable perspective}
+
+The first hint of a deeper explanation came from Zinn-Justin's
+observation~\cite{zinn-justin-2008} that KTW puzzle pieces \emph{are} the
+Boltzmann weights of an exactly solvable lattice model.  More precisely, the
+three puzzle tiles carry weights that satisfy the \emph{Yang-Baxter equation}
+(YBE), the fundamental integrability condition for two-dimensional statistical
+mechanics.  This is not a metaphor.  The row transfer matrix of the lattice
+model literally processes the puzzle triangle row by row, and its partition
+function evaluates to $c^\lambda_{\mu\nu}$.  The YBE guarantees that the
+transfer matrices for different rows commute, which is why the boundary data
+(the partitions $\lambda$, $\mu$, $\nu$) determine the count regardless of the
+internal tiling---exactly as they should, since the LR coefficient depends on
+the partitions alone.
+
+Bump and Naprienko~\cite{bump-naprienko-2025} elevated this observation to a
+structural principle.  They introduced the \emph{Yang-Baxter groupoid}: its
+objects are combinatorial models (each specified by a choice of boundary
+conditions and local vertex weights), and its morphisms are R-matrix
+transformations arising from the YBE.  Two models connected by a morphism
+compute the same structure constants.  Within this framework, the ``mysterious''
+bijections between puzzles, tableaux, and pipe dreams become groupoid morphisms
+---canonical consequences of the Yang-Baxter equation rather than feats of
+combinatorial ingenuity.  At a still deeper level, Garbali and
+Gunna~\cite{garbali-gunna-2024} showed that all vertex models in this story
+are representations of the Feigin-Odesskii \emph{shuffle algebra}, providing a
+single algebraic substrate from which the entire zoo of models can be derived.
+
+\subsection*{The categorical phase diagram}
+
+The Yang-Baxter groupoid explains the horizontal proliferation of models: many
+combinatorial objects, all computing the same number, related by R-matrix moves.
+But there is a second, orthogonal direction of variation that the groupoid alone
+does not capture.  The LR coefficients are the \emph{classical} case---they
+govern the cohomology ring of the Grassmannian.  One can deform to K-theory
+(Grothendieck polynomials), to quantum K-theory, or to spin models
+(Hall-Littlewood and $q$-Whittaker polynomials).  Each deformation has its own
+integrable lattice model, its own R-matrix, and its own family of structure
+constants---yet all satisfy the full Yang-Baxter
+equation~\cite{wheeler-zinn-justin-2016, gunna-wheeler-zj-2025}.  The
+deformation axis is orthogonal to the groupoid axis: it changes \emph{which}
+structure constants are computed, not the mechanism by which models proliferate.
+
+The central contribution of this paper is a \emph{categorical phase diagram}
+that organises both directions simultaneously.  The horizontal axis parameterises
+the deformation type (classical, K-theoretic, quantum K-theoretic, spin).  The
+vertical axis parameterises the \emph{integrability level}---the categorical
+structure that governs the symmetry of the model.  We identify three levels,
+governed by the Hecke algebra chain $H_q \to H_0 \to \mathbb{C}[S_n]$:
+
+\begin{enumerate}
+\item \textbf{Braided monoidal} (generic $q$).  The Hecke generators satisfy
+  $(T_i - q)(T_i + 1) = 0$, and the full Yang-Baxter equation holds.
+  Symmetry is governed by the braid group $B_n$.  This is the world of
+  Zinn-Justin's lattice models, Bump-Naprienko's groupoid, and the rich zoo
+  of combinatorial models related by R-matrix moves.
+
+\item \textbf{Coboundary monoidal} ($q = 0$).  At $q = 0$ the Hecke relation
+  becomes $T_i(T_i + 1) = 0$; equivalently, the Demazure operators
+  $\pi_i = T_i + 1$ satisfy $\pi_i^2 = \pi_i$, and the braiding
+  degenerates.  What survives is a \emph{coboundary} structure: the commutor
+  (the categorical analogue of the swap map) still exists, but it no longer
+  satisfies the braid relation---only the weaker \emph{cactus group} relations
+  of Henriques and Kamnitzer~\cite{henriques-kamnitzer-2006}.  This is the
+  world of column-level integrability and the ``quasi-solvable'' models of
+  Buciumas and Scrimshaw~\cite{buciumas-scrimshaw}.
+
+\item \textbf{Symmetric monoidal} (crystal limit).  At the crystal level,
+  $q$ is specialised away entirely, and only the symmetric group $S_n$ acts.
+  The commutor becomes the trivial swap.  Crystal bases~\cite{kashiwara-1990}
+  provide a purely combinatorial framework: Kashiwara operators, crystal graphs,
+  tensor product rules.
+\end{enumerate}
+
+Each downward transition forgets something precise.  To state what, we recall
+the \emph{Schur-Weyl decomposition}: for the defining representation $V$ of
+$GL_n$, the tensor power decomposes as
+\begin{equation}\label{eq:schur-weyl}
+  V^{\otimes k} \;\cong\; \bigoplus_{\lambda \vdash k} V_\lambda \otimes S_\lambda,
+\end{equation}
+where $V_\lambda$ is the irreducible $GL_n$-module of highest weight $\lambda$
+and $S_\lambda$ is the Specht module carrying the action of $S_k$.  The two
+tensor factors---the ``physical'' space $V_\lambda$ and the ``multiplicity''
+space $S_\lambda$---play sharply different roles in the hierarchy.
+
+The key result (the \emph{Multiplicity Bundle Theorem}, proved in
+Section~\ref{sec:hierarchy}) states that the coboundary commutor factorises as
+\begin{equation}\label{eq:commutor}
+  \sigma_{[i,j]} \;=\; \mathrm{id}_{V_\lambda} \otimes \rho_{S_\lambda}(w_0),
+\end{equation}
+where $w_0$ is the longest element of $S_{j-i+1}$ and $\rho_{S_\lambda}$
+denotes the Specht module representation.  The commutor lives entirely in the
+multiplicity space---it acts as the identity on the ``physical'' irreducible
+$V_\lambda$ and as the longest-element involution on the Specht module
+$S_\lambda$.  The crystal functor, which retains only the combinatorial skeleton
+of the representation, kills the multiplicity space: since the tensor square
+$B(\omega_1)^{\otimes 2}$ of the crystal of the defining representation is
+multiplicity-free (a property special to the defining representation; the
+general statement requires the Henriques-Kamnitzer crystal commutor theory),
+every crystal automorphism is forced to be the identity by rigidity.  The
+commutor becomes invisible.
+
+This gives concrete mathematical content to each transition in the hierarchy.
+The passage from braided to coboundary forgets the \emph{spectral parameter}:
+the R-matrix $R(u)$, which depends on a continuous parameter $u$ and satisfies
+the full parametric YBE, degenerates to the commutor $\sigma$, which is a
+single fixed morphism satisfying only the cactus relations.  The passage from
+coboundary to symmetric forgets the \emph{multiplicity bundle}: the Specht
+module factor in~\eqref{eq:schur-weyl}, which carries the nontrivial action
+of $\sigma$, is killed by the crystal functor, leaving only the symmetric
+swap.
+
+A crucial subtlety, clarified by Kamnitzer and
+Tingley~\cite{kamnitzer-tingley-2007}: the coboundary structure is already
+present at generic $q$, constructed from Drinfeld's unitarised R-matrix.
+At $q = 0$, the braiding dies but the coboundary commutor survives.
+The transition from braided to coboundary is not a creation but an
+\emph{extraction}---the coboundary structure was always there, hidden inside
+the braiding, and the $q = 0$ specialisation strips away the braided
+superstructure to reveal it.  Like a zipper pulled open, the debraiding
+separates two interlocking layers that were always distinct but moved in
+concert.
+
+\subsection*{Plan of the paper}
+
+Section~\ref{sec:classical} reviews the classical theory of LR coefficients:
+their definition via symmetric functions, tableaux, and Schubert calculus, and
+the puzzle and Hopf algebra perspectives that set the stage for integrability.
+Section~\ref{sec:lattice} introduces the integrable lattice model framework of
+Zinn-Justin, presenting the Yang-Baxter equation and the transfer matrix
+formalism.  Section~\ref{sec:groupoid} develops the Yang-Baxter groupoid of
+Bump and Naprienko, explaining how classical bijections between combinatorial
+models arise as groupoid morphisms.  Section~\ref{sec:hierarchy}, the heart of
+the paper, constructs the categorical phase diagram and proves the Multiplicity
+Bundle Theorem.  Section~\ref{sec:shuffle} briefly discusses the shuffle algebra
+substrate underlying the entire framework.
+Section~\ref{sec:open} collects open questions.
+
+The picture that emerges is, we hope, both clarifying and aesthetically
+satisfying.  The many combinatorial models for LR coefficients are not
+historical accidents.  They are shadows of a single algebraic structure---the
+integrable R-matrix and its degenerations---cast from different angles onto the
+combinatorial plane.  The categorical phase diagram tells us which angles are
+available, what is preserved at each level, and what is lost in each projection.
+The coefficients themselves, those nonnegative integers governing the
+multiplication of Schur functions, sit at the centre like a fixed point: the one
+invariant that every shadow faithfully records.
