@@ -370,18 +370,19 @@ not a fourth level of integrability; it is the \emph{algebra of the
 transition itself}.
 
 \begin{center}
-\renewcommand{\arraystretch}{1.3}
-\begin{tabular}{lllll}
+\renewcommand{\arraystretch}{1.4}
+\small
+\begin{tabular}{llllll}
 \toprule
-\textbf{Algebra} & \textbf{Category type} & \textbf{Symmetry}
-  & \textbf{Characters} \\
+\textbf{Level} & \textbf{Category type} & \textbf{Symmetry group}
+  & \textbf{Fiber functor} & \textbf{YBE status} & \textbf{Characters} \\
 \midrule
-$H_q$ (generic $q$) & Braided monoidal & $B_k$ (braid group)
-  & Macdonald $P_\lambda$ \\
-$H_0$ ($q = 0$) & Coboundary monoidal & $J_k$ (cactus group)
-  & Key polynomials $\kappa_\alpha$ \\
-$\mathbb{C}[S_k]$ & Symmetric monoidal & $S_k$ (symmetric group)
-  & Schur polynomials $s_\lambda$ \\
+Solvable & Braided monoidal & $B_k$ (braid group)
+  & $\Rep \to \Vect$ & Full YBE & Macdonald $P_\lambda$ \\
+Quasi-solvable & Coboundary monoidal & $J_k$ (cactus group)
+  & $\Rep \to \Crys$ & Column YBE & Key $\kappa_\alpha$ \\
+Combinatorial & Symmetric monoidal & $S_k$ (symmetric group)
+  & $\Crys \to \Set$ & None (trivial) & Schur $s_\lambda$ \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -510,6 +511,42 @@ coboundary structure is \emph{extracted} from the braiding, not
 forgetful functor, not by a limiting process.
 \end{remark}
 
+\begin{remark}[Curvature unification]
+\label{rem:curvature-unification}
+The two obstruction results in this section and Section~\ref{sec:hierarchy-midpoint}
+are instances of a single geometric object.
+
+\medskip\noindent
+\textbf{Braid obstruction \cite{clio-midpoint-2026}:} In $H_q(S_k)$,
+the Demazure operators $\pi_i = T_i + 1$ satisfy
+\[
+  \pi_i \pi_{i+1} \pi_i - \pi_{i+1} \pi_i \pi_{i+1}
+  \;=\; q(T_i - T_{i+1}).
+\]
+This is antisymmetric in $i \leftrightarrow i+1$ and linear in $q$.
+
+\medskip\noindent
+\textbf{ZTE curvature (April 2026 computation):}
+The Zamolodchikov tetrahedron equation fails for the puzzle R-matrices at rank $\geq 3$.
+The failure is measured by a curvature proportional to $q^2$, antisymmetric on the
+higher Bruhat order $B(n,2)$.  At $q = 0$, the curvature vanishes.
+
+\medskip\noindent
+Both are the \emph{curvature of the Demazure connection on the higher Bruhat order}.
+The braid obstruction is the infinitesimal curvature (first order in $q$); the ZTE
+failure is the finite curvature (second order, from composing two first-order
+obstructions).  The factor of $q^2$ in the ZTE is the product of two factors of $q$
+from two successive braid obstructions, which is consistent with the holonomy formula
+for a connection with curvature linear in $q$.
+
+The geometric content: \emph{$q = 0$ is the flat locus of the Demazure connection.}
+The coboundary monoidal structure lives at the flat point.  The braided structure lives
+in the curved region.  The passage from braided to coboundary is not a degeneration
+but a \emph{flattening}: moving from a curved connection to a flat one, where
+path-independence of the puzzle assembly (equivalently, word-independence of $\pi_w$)
+is restored.
+\end{remark}
+
 
 \subsection{The Cactus Midpoint}
 \label{sec:hierarchy-midpoint}
@@ -602,6 +639,49 @@ $1$ & Hecke longest element $T_{w_0}$ & braided \\
 The coboundary structure is not at the boundary of the braided
 interpolation but at its \emph{centre}.
 
+\begin{remark}[Proof and word-independence]
+\label{rem:midpoint-proof}
+Proposition~\ref{prop:cactus-midpoint} is proved in detail in our companion
+note~\cite{clio-midpoint-2026}.  The proof proceeds in two steps.
+\begin{enumerate}
+\item At $q = 0$, one establishes the \emph{braid relation for $\pi_i$}:
+\[
+  \pi_i \pi_{i+1} \pi_i \;=\; \pi_{i+1} \pi_i \pi_{i+1} \quad \text{(in $H_0(S_k)$)},
+\]
+which follows from the braid obstruction
+$\pi_i \pi_{i+1} \pi_i - \pi_{i+1} \pi_i \pi_{i+1} = q(T_i - T_{i+1})$
+(see Remark~\ref{rem:curvature-unification} and \cite{clio-midpoint-2026})
+vanishing at $q = 0$.
+\item Combined with idempotency $\pi_i^2 = \pi_i$ (which also holds only at $q = 0$),
+this and Matsumoto's theorem give word-independence of $\pi_{w_0^{[a,b]}}$.
+The midpoint identity $R_i(1/2) = \frac{1}{2}\pi_i$ then yields~\eqref{eq:cactus-product}
+by straightforward algebra.
+\end{enumerate}
+At generic $q$, both idempotency and the braid relation fail, so the product
+$\prod R_{i_j}(1/2)$ is word-dependent and does not yield a well-defined cactus
+generator.  The cactus midpoint is \emph{special to $q = 0$} for provably algebraic
+reasons, not as a limiting accident.
+\end{remark}
+
+\begin{remark}[Galashin gap]
+\label{rem:galashin-gap}
+Galashin~\cite{galashin-2020} introduced the \emph{Yang-Baxter basis} of the Hecke
+algebra $H_q(S_k)$, whose elements are products of the operators $R_i(p) = pT_i + (1-p)$
+(our interpolating operators) indexed by reduced words.  He showed that these basis
+elements compute partition functions of the stochastic six-vertex model.  As of 2026,
+the paper has accumulated 26 citations.  \emph{None} of those 26 papers connect the
+Yang-Baxter basis to cactus groups, coboundary monoidal categories, or the coboundary
+structure of the $q = 0$ Hecke algebra.
+
+Proposition~\ref{prop:cactus-midpoint} fills this gap precisely: it identifies the
+$p = 1/2$ specialisation of the Yang-Baxter basis element $\prod R_{i_j}(p)$ (for
+a reduced word of $w_0^{[a,b]}$) as a scalar multiple of the cactus generator
+$\sigma_{[a,b]}$, and it proves that this identification works only at $q = 0$.
+The categorical phase diagram thus has a precise algebraic location in the Yang-Baxter
+basis interpolation: coboundary $=$ midpoint, braided $=$ endpoint, and the passage
+between them is the Demazure connection curvature of Remark~\ref{rem:curvature-unification}.
+\end{remark}
+
 \subsubsection*{Connection to the Tikhonov permuton}
 
 Tikhonov~\cite{tikhonov-2026} studies the limiting permuton of random
@@ -635,6 +715,40 @@ if the two $\mathrm{PGL}(2)$ actions are related, the categorical
 phase diagram would acquire a quantitative prediction linking the
 interpolation parameter $p$ to the spectral parameter $u$.  We flag
 this as an open question.
+\end{remark}
+
+\begin{remark}[Rank hierarchy of the cactus midpoint]
+\label{rem:rank-hierarchy}
+The three categorical levels can be \emph{quantified} by the rank of
+three operators in the left regular representation of $H_q(S_n)$
+(dimension~$n!$):
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\small
+\begin{tabular}{llll}
+\toprule
+\textbf{Operator} & \textbf{$q=0$ rank} & \textbf{Generic $q$ rank}
+  & \textbf{Category} \\
+\midrule
+$q$-symmetriser $\sum_w T_w$ & $1$ & $1$ & Symmetric \\
+Cactus midpoint $\prod(T_{i_j}+1)$ & $1$ & $n!/4$ (for $n \geq 4$) & Coboundary \\
+$T_{w_0}$ & $1$ & $n!$ (invertible) & Braided \\
+\bottomrule
+\end{tabular}
+\end{center}
+The cactus midpoint element $\Pi = \prod_{j=1}^{\ell(w_0)} (T_{i_j} + 1)$,
+taken over any reduced word $s_{i_1} \cdots s_{i_m}$ for $w_0$, has the
+following representation-theoretic structure at generic $q$: the sign
+representation $V_{(1^n)}$ is killed (since $T_i + 1$ annihilates the
+$(-1)$-eigenspace), the trivial representation survives with rank~$1$,
+and the total weighted rank $\sum_\lambda r_\lambda \dim V_\lambda$ equals
+$n!/4$ for $n \geq 4$.  Computed explicitly for $n = 3,4,5$.
+
+Notably, the \emph{rank} of $\Pi$ is independent of the choice of reduced
+word even at generic~$q$, although the \emph{element} $\Pi$ itself depends
+on the word.  At $q = 0$, idempotency collapses both rank and element
+to word-independence.  The rank thus measures \emph{how much of the
+Hecke algebra survives} through each layer of the phase diagram.
 \end{remark}
 
 
@@ -724,16 +838,16 @@ cactus locus --- the set of $(p,q)$ values where the cactus generator
 emerges at $p = 1/2$ --- traces the line $\kappa = 2 - q$, a
 constraint relating the interpolation and deformation parameters.
 
-If the M\"obius action on $(p,q)$ is related to the $\mathrm{PGL}(2)$
-action on spectral parameters (Remark~\ref{rem:pgl2}), then $\kappa$
-would serve as a coordinate on a third axis: the
-\emph{transition depth} between integrability levels.  The phase
-diagram would then live not on a plane but on a surface, with the
-vertical transitions mediated by a continuous invariant rather than
-discrete jumps.  This remains speculative but testable: one can
-compute the R-matrix eigenvalues and the Tikhonov invariant $\kappa$
-for small examples and check whether they transform under the same
+\begin{question}
+Is the M\"obius action on $(p,q)$ related to the $\mathrm{PGL}(2)$
+action on spectral parameters (Remark~\ref{rem:pgl2})?  If so, $\kappa$
+would serve as a coordinate on a third axis --- the \emph{transition depth}
+between integrability levels --- and the phase diagram would live on a surface
+rather than a plane, with vertical transitions mediated by a continuous invariant.
+One can test this by computing R-matrix eigenvalues and the Tikhonov invariant
+$\kappa$ for small examples and checking whether they transform under the same
 $\mathrm{PGL}(2)$.
+\end{question}
 
 \subsubsection*{What the diagram explains}
 
