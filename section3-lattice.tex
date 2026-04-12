@@ -1,0 +1,456 @@
+%% Section 3: The Integrable Lattice Model Perspective
+%% To be \input{} into the main document.
+
+\section{The Integrable Lattice Model Perspective}
+\label{sec:lattice}
+
+Section~\ref{sec:classical} closed with an observation: the transfer
+operators $T_{\mathrm{free}}$ and $\bar{T}_{\mathrm{free}}$ are row
+transfer matrices of a lattice model, and the matrix element
+$\langle\varnothing|T_{\mathrm{free}}(u_1)\cdots
+T_{\mathrm{free}}(u_n)|\lambda\rangle$ is a partition function---a
+weighted sum over all configurations with prescribed boundary
+conditions.  In this section we make the lattice model explicit.
+The punchline is that the puzzle pieces of Knutson-Tao-Woodward are
+\emph{Boltzmann weights} of an exactly solvable vertex model, and the
+exact solvability follows from a single algebraic identity: the
+Yang-Baxter equation.
+
+The reader familiar with symmetric functions but not with statistical
+mechanics should think of a vertex model as follows.  One draws a
+planar graph (the lattice), assigns labels---called
+\emph{spins}---to the edges, and assigns a \emph{weight} to each
+vertex as a function of its surrounding spins.  A \emph{configuration}
+is a global assignment of spins to all edges.  The \emph{partition
+function} is the sum of the products of all vertex weights, taken over
+all configurations with fixed boundary spins.  The partition function
+is the quantity one wants to compute; the Yang-Baxter equation is what
+makes the computation tractable.
+
+\subsection{Zinn-Justin's observation}
+\label{sec:lattice-zj}
+
+The starting point is the paper of Zinn-Justin
+\cite{zinn-justin-2008}, which recast the KTW puzzle model in the
+language of integrable lattice models.  We present the key ideas in
+three steps: reformulation, integrability, and consequences.
+
+\subsubsection*{Step 1: Puzzles as a vertex model}
+
+A KTW puzzle (Definition~\ref{def:ktw-puzzle}) tiles an equilateral
+triangle with unit triangles and rhombi, each edge carrying a label
+$0$ or~$1$.  The internal geometry consists of two families of
+triangles---upward-pointing ($\triangle$) and downward-pointing
+($\nabla$)---arranged in rows.  Each row processes a horizontal slice
+of the puzzle triangle, reading edge labels from left to right.
+
+To pass from a tiling model to a vertex model, one performs a standard
+duality: each \emph{rhombus} (two triangles sharing an internal edge)
+becomes a \emph{vertex}, and the labels on its four external edges
+become the spins.  The three orientations of rhombus correspond to
+three orientations of vertex.  But a more economical reformulation is
+available: decompose the row processing into elementary steps, one
+$\triangle$ or $\nabla$ at a time.  Each elementary step reads two
+input edge labels and produces one output label (for $\triangle$,
+which is deterministic) or reads one input label and produces two
+outputs with possible branching (for $\nabla$, which is where all the
+multiplicity lives).  Composing these steps across a row yields the
+row transfer matrix $T(u)$.
+
+The upshot is that a KTW puzzle of side $N$ becomes a vertex model on
+an $N$-row lattice, where each row has $2i-1$ vertices (at row $i$
+from the top), the boundary spins are determined by the partitions
+$\lambda$, $\mu$, $\nu$, and each configuration of internal spins is
+a valid puzzle tiling.  The partition function---the sum of the
+products of all vertex weights---equals the LR coefficient
+$c^{\nu}_{\lambda,\mu}$.
+
+\begin{remark}
+Since all nonzero vertex weights in the KTW model are equal to~$1$
+(the model is \emph{unweighted}), the partition function is simply a
+\emph{count} of valid configurations.  This is why the LR coefficient
+is a nonneg\-ative integer: it counts puzzle tilings, hence
+configurations of a vertex model with unit weights.
+\end{remark}
+
+\subsubsection*{Step 2: The Yang-Baxter equation}
+
+The Yang-Baxter equation (YBE) is the fundamental integrability
+condition.  In its graphical form, it asserts an equivalence between
+two ways of routing three lines past one another:
+\begin{equation}
+\label{eq:ybe}
+  R_{12}(u-v)\, R_{13}(u)\, R_{23}(v)
+  \;=\;
+  R_{23}(v)\, R_{13}(u)\, R_{12}(u-v),
+\end{equation}
+where $R_{ij}(u)$ is a matrix acting on the tensor product of the
+$i$-th and $j$-th copies of the local spin space $\mathbb{C}^2$, and
+$u, v$ are \emph{spectral parameters}---continuous deformation
+variables that will play a central role in
+Section~\ref{sec:hierarchy}.  Graphically, the left-hand side
+represents three lines crossing in the order $(1,2), (1,3), (2,3)$
+from right to left, and the right-hand side represents the opposite
+order $(2,3), (1,3), (1,2)$.  The YBE states that these two composite
+crossings give the same overall map.
+
+\begin{remark}
+The YBE is a system of cubic polynomial equations in the matrix
+entries of $R$.  For $2 \times 2$ spin spaces, $R$ is a $4 \times 4$
+matrix with $16$ entries, and the YBE imposes $64$ equations (one for
+each matrix element of the $8 \times 8$ equation~\eqref{eq:ybe}).
+That the six puzzle weights---most of them equal to~$1$---satisfy this
+overdetermined system is a genuine surprise, not something one would
+guess from the puzzle picture.  It is this ``miracle'' that
+Zinn-Justin's observation brought to light.
+\end{remark}
+
+\subsubsection*{Step 3: Transfer matrix commutativity}
+
+The YBE has a celebrated consequence: the \emph{commutativity of
+transfer matrices}.  Define the row transfer matrix
+\begin{equation}
+\label{eq:transfer-matrix}
+  T(u) \;=\; \mathrm{tr}_a\bigl(
+    R_{a,1}(u)\, R_{a,2}(u) \cdots R_{a,N}(u)
+  \bigr),
+\end{equation}
+where the trace is over an auxiliary space $a$ and the matrices
+$R_{a,i}(u)$ act on the tensor product of $a$ with the $i$-th
+``physical'' spin.  The transfer matrix processes one row of the
+lattice: it reads the spin configuration below and produces the
+configuration above, summing over the auxiliary spin.
+
+The YBE implies that transfer matrices at different values of the
+spectral parameter commute:
+\begin{equation}
+\label{eq:transfer-commute}
+  [T(u),\, T(v)] = 0 \qquad \text{for all } u, v.
+\end{equation}
+The proof is a direct consequence of~\eqref{eq:ybe}: one ``pushes''
+the auxiliary line of $T(u)$ past the auxiliary line of $T(v)$ using
+$N$ applications of the YBE, one at each physical site.  The
+R-matrices appear and cancel in pairs, leaving the two transfer
+matrices in reversed order.
+
+This is the connection to Section~\ref{sec:classical-hopf}.  The
+operators $T_{\mathrm{free}}(u)$ and $\bar{T}_{\mathrm{free}}(v)$
+defined there are precisely the transfer matrices of the
+free-fermionic vertex model at spectral parameters $u$ and $v$.
+Their commutativity---which we used to compute the coproduct
+$\Delta(s_\lambda)$---is not an algebraic coincidence.  It is the
+Yang-Baxter equation in action.
+
+\subsubsection*{What integrability buys}
+
+Without the YBE, computing the partition function $Z$ (which equals
+the LR coefficient) requires enumerating all valid configurations of
+the lattice model---a sum over exponentially many terms.  With the
+YBE, the situation changes qualitatively.
+
+First, the commuting family $\{T(u)\}_{u \in \mathbb{C}}$ can be
+\emph{simultaneously diagonalized}.  The common eigenvectors are
+constructed by the \emph{Bethe ansatz}, a technique from quantum
+inverse scattering that expresses each eigenvector as a product of
+creation operators applied to a reference state, with the creation
+parameters (the ``Bethe roots'') determined by a system of algebraic
+equations.
+
+Second, the partition function can be expressed as a product of
+eigenvalues, bypassing the configuration sum entirely.  One passes
+from an \emph{enumerative} computation (count all tilings) to an
+\emph{algebraic} one (diagonalise a commuting family of matrices).
+This is the fundamental advantage of integrability: it replaces
+brute-force enumeration with structure.
+
+For the LR coefficient specifically, the Bethe ansatz machinery
+yields determinantal formulas, contour integral representations, and
+functional equations that would be invisible from the puzzle picture
+alone.  The Yang-Baxter equation does not merely \emph{explain} why
+puzzles work---it gives access to tools that go beyond what any
+single combinatorial model can offer.
+
+\subsection{The R-matrix}
+\label{sec:lattice-rmatrix}
+
+We now write down the R-matrix explicitly.  A vertex of the model
+has four edges: two horizontal (``in'' from the left and ``out'' to
+the right) and two vertical (``in'' from below and ``out'' above).
+Each edge carries a spin in $\{0, 1\}$.  The R-matrix
+$R \colon \mathbb{C}^2 \otimes \mathbb{C}^2 \to \mathbb{C}^2 \otimes
+\mathbb{C}^2$ assigns a Boltzmann weight to each combination of input
+and output spins.
+
+\subsubsection*{The five-vertex model}
+
+For the KTW puzzle model, the nonzero weights are as follows.  We
+write the vertex as $(a, b) \to (c, d)$, where $(a, b)$ are the
+input spins (left, bottom) and $(c, d)$ are the output spins (right,
+top):
+
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{ccccl}
+\toprule
+$a$ & $b$ & $c$ & $d$ & weight \\
+\midrule
+$0$ & $0$ & $0$ & $0$ & $1$ \\
+$1$ & $1$ & $1$ & $1$ & $1$ \\
+$0$ & $1$ & $1$ & $0$ & $1$ \\
+$1$ & $0$ & $0$ & $1$ & $1$ \\
+$0$ & $1$ & $0$ & $1$ & $1$ \\
+\midrule
+$1$ & $0$ & $1$ & $0$ & $0$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Five of the six possible ``ice-type'' vertex configurations (those
+preserving the number of $1$s) have weight~$1$; the sixth---the
+configuration $(1,0) \to (1,0)$, in which a spin-$1$ on the left
+and a spin-$0$ from below exit unchanged to the right and above---is
+\emph{forbidden} (weight~$0$).  This is the \emph{five-vertex model},
+also known as the free-fermionic model.
+
+In matrix form, writing $R$ in the basis $\{|00\rangle,
+|01\rangle, |10\rangle, |11\rangle\}$:
+\begin{equation}
+\label{eq:rmatrix-puzzle}
+  R \;=\;
+  \begin{pmatrix}
+    1 & 0 & 0 & 0 \\
+    0 & 1 & 1 & 0 \\
+    0 & 0 & 0 & 0 \\
+    0 & 0 & 0 & 1
+  \end{pmatrix}
+  \quad\longleftrightarrow\quad
+  \begin{pmatrix}
+    1 & 0 & 0 & 0 \\
+    0 & 0 & 1 & 0 \\
+    0 & 1 & 1 & 0 \\
+    0 & 0 & 0 & 1
+  \end{pmatrix},
+\end{equation}
+where the two forms correspond to two natural orderings of the basis
+(the right-hand matrix uses the ordering
+$|00\rangle, |10\rangle, |01\rangle, |11\rangle$ to make the
+block structure visible).  The zero row reflects the forbidden vertex.
+
+The physical interpretation is conservation of ``charge'' (the number
+of $1$s): every vertex has the same total spin on its input edges as
+on its output edges.  In the puzzle picture, this is the constraint
+that $1$-labeled edges form continuous paths through the triangle.
+
+\subsubsection*{The spectral parameter}
+
+The R-matrix above is the \emph{specialised} form, with all nonzero
+weights equal to~$1$.  The general five-vertex R-matrix depends on a
+spectral parameter $u$:
+\begin{equation}
+\label{eq:rmatrix-spectral}
+  R(u) \;=\;
+  \begin{pmatrix}
+    1 & 0 & 0 & 0 \\
+    0 & u & 1 & 0 \\
+    0 & 0 & 0 & 0 \\
+    0 & 0 & 0 & 1
+  \end{pmatrix},
+\end{equation}
+where the weights of the five allowed vertices are $1, 1, 1, u, 1$
+in the order listed in the table above (the ``straight-through''
+vertex $(0,1) \to (0,1)$ acquires a weight $u$, while the crossing
+vertex $(0,1) \to (1,0)$ retains weight~$1$).  The forbidden vertex
+$(1,0) \to (1,0)$ remains forbidden at all values of $u$.
+
+One verifies directly that $R(u)$ satisfies the Yang-Baxter equation
+\eqref{eq:ybe} with additive spectral parameters:
+\[
+  R_{12}(u-v)\, R_{13}(u)\, R_{23}(v)
+  \;=\;
+  R_{23}(v)\, R_{13}(u)\, R_{12}(u-v).
+\]
+The puzzle model corresponds to $u = 0$ (or $u = 1$, depending on
+normalisation conventions).  The spectral parameter does not change
+\emph{which} configurations are allowed---it changes how they are
+\emph{weighted}.  But because $R(u)$ satisfies the YBE for all~$u$,
+the transfer matrices $T(u)$ form a commuting family, and all members
+of the family share the same eigenvectors.  Changing $u$ changes the
+eigenvalues, not the eigenspaces.  This is the power of the spectral
+parameter: a single diagonalisation governs an entire family of
+models.
+
+\begin{remark}
+The spectral parameter $u$ is precisely the variable appearing in the
+transfer operator $T_{\mathrm{free}}(u)$ of Section~\ref{sec:classical-hopf}.
+Setting $u = u_i$ in $R(u)$ and forming the transfer matrix via
+\eqref{eq:transfer-matrix} recovers $T_{\mathrm{free}}(u_i)$ as an
+operator on binary strings.  The formula
+$s_{\lambda/\mu}(u_1, \ldots, u_n) = \langle\mu|
+T_{\mathrm{free}}(u_1) \cdots T_{\mathrm{free}}(u_n)|\lambda\rangle$
+is then a partition function with \emph{inhomogeneous} spectral
+parameters, one per row.
+\end{remark}
+
+\subsubsection*{Connection to quantum groups}
+
+The R-matrix \eqref{eq:rmatrix-spectral} is not an isolated
+construction.  It is the image of the \emph{universal R-matrix} of
+the quantum group $U_q(\widehat{\mathfrak{sl}}_2)$ in the fundamental
+(two-dimensional) representation, at a specific value of $q$
+corresponding to the free-fermionic point.  The Yang-Baxter equation
+is the defining relation of the quantum group: any solution of the
+YBE furnishes a representation of $U_q(\widehat{\mathfrak{sl}}_2)$,
+and conversely, every representation yields an R-matrix satisfying the
+YBE.
+
+This connection is important for two reasons.  First, it places the
+puzzle model in the vast landscape of quantum group representations,
+where powerful algebraic tools (Bethe ansatz, fusion, quantum inverse
+scattering) are available.  Second, it explains why R-matrices for
+\emph{different} symmetric function families (Schur, Grothendieck,
+Hall-Littlewood) are all solutions of the same equation: they are
+different representations of the same quantum group, or of closely
+related quantum groups in the same family.  We turn to these
+extensions next.
+
+
+\subsection{Extensions: the lattice model zoo}
+\label{sec:lattice-extensions}
+
+The five-vertex R-matrix of Section~\ref{sec:lattice-rmatrix}
+governs the Schur case: its partition function computes LR
+coefficients, and its transfer matrices build Schur functions row by
+row.  But the Schur functions are only the first member of a
+hierarchy of symmetric function families, each with its own
+R-matrix and its own lattice model.  The integrable perspective
+extends to each level of the hierarchy, and the R-matrix changes
+in systematic, algebraically controlled ways.
+
+\subsubsection*{Grothendieck polynomials}
+
+Wheeler and Zinn-Justin \cite{wheeler-zinn-justin-2016} showed that
+the \emph{stable Grothendieck polynomials}---the K-theoretic
+analogues of Schur functions, representing Schubert classes in the
+K-theory of the Grassmannian---arise as partition functions of a
+\emph{trigonometric} five-vertex model.  The R-matrix is again
+five-vertex (one vertex type forbidden), but the weights depend on an
+additional parameter $\beta$ that deforms the Schur case:
+\[
+  R^{\mathrm{Groth}}(u; \beta) \;=\;
+  \begin{pmatrix}
+    1 & 0 & 0 & 0 \\
+    0 & u + \beta & 1 & 0 \\
+    0 & 0 & 0 & 0 \\
+    0 & 0 & 0 & 1+\beta u
+  \end{pmatrix}.
+\]
+At $\beta = 0$ this reduces to the Schur R-matrix
+\eqref{eq:rmatrix-spectral}.  The parameter $\beta$ measures the
+``K-theoretic deformation'': it introduces corrections beyond
+cohomology, corresponding to higher-order terms in the Grothendieck
+group.  The key fact is that this deformed R-matrix still satisfies
+the Yang-Baxter equation, so the transfer matrices still commute, and
+the partition function still computes the structure constants---now
+the K-theoretic LR coefficients of Buch
+\cite{buch-2002}.
+
+\subsubsection*{Hall-Littlewood and spin models}
+
+A different direction of generalisation leads to
+\emph{higher-spin} models.  The five-vertex model has spins in
+$\{0, 1\}$; allowing spins in $\{0, 1, \ldots, s\}$ for $s > 1$
+produces lattice models whose partition functions are
+\emph{Hall-Littlewood polynomials} and their relatives.
+
+Borodin and Wheeler \cite{borodin-wheeler-2018} and
+Wheeler and Zinn-Justin \cite{wheeler-zinn-justin-2025}
+developed a family of \emph{coloured} and
+\emph{higher-rank} vertex models whose partition functions compute
+spin Hall-Littlewood polynomials.  Gunna, Wheeler, and Zinn-Justin
+\cite{gunna-wheeler-zj-2025} showed that the structure constants of
+these spin polynomials---analogues of LR coefficients for
+Hall-Littlewood functions---are \emph{positive polynomials in~$q$}.
+This positivity was not obvious from any previously known formula; it
+emerged from the lattice model as a natural consequence of the vertex
+weights being nonneg\-ative.
+
+These higher-spin models are ``fully solvable'' in the sense of
+satisfying the complete Yang-Baxter equation, in contrast to the
+``quasi-solvable'' models of the next example.
+
+\subsubsection*{Demazure characters and the $q=0$ specialisation}
+
+Yang \cite{yang-2025} and Brubaker, Bump, Buciumas, and Gustafsson
+\cite{brubaker-bump-buciumas-gustafsson-2021} constructed vertex
+models whose partition functions are \emph{key polynomials}
+(Demazure characters)---the characters of Demazure modules for
+$GL_n$.  These models use a coloured five-vertex model at the
+specialisation $q = 0$ of the Hecke algebra parameter.
+
+At $q = 0$, the Hecke relation $(T_i - q)(T_i + 1) = 0$ degenerates
+to $T_i(T_i + 1) = 0$, and the Demazure operators $\pi_i = T_i + 1$
+become idempotent: $\pi_i^2 = \pi_i$.  The R-matrix still satisfies
+the YBE restricted to pairs of adjacent rows (the ``column-level''
+integrability of Buciumas and Scrimshaw), but the full three-line YBE
+fails.  What survives is a weaker algebraic structure---a
+\emph{coboundary} category governed by the cactus group rather than
+the braid group.  We will develop this distinction systematically in
+Section~\ref{sec:hierarchy}.
+
+The states of the Demazure vertex model biject with
+\emph{Demazure crystal} elements, and the partition function
+manifestly computes the key polynomial.  Since the key polynomial
+expands positively in the monomial basis, and the Schur function
+expands positively in key polynomials (via the Kostka numbers), the
+lattice model provides a direct bridge between the crystal
+combinatorics of Kashiwara \cite{kashiwara-1990} and the integrable
+lattice models of Zinn-Justin---a bridge that passes through the
+Hecke algebra at $q = 0$.
+
+\subsubsection*{The emerging pattern}
+
+We can now see a pattern that is too regular to be coincidental.  At
+each level of the character hierarchy---Schur, Grothendieck, key,
+Hall-Littlewood, Macdonald---there is a solvable lattice model whose
+partition function computes the corresponding symmetric (or
+nonsymmetric) function:
+
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{lll}
+\toprule
+\textbf{Function} & \textbf{R-matrix type} & \textbf{Reference} \\
+\midrule
+Schur & rational 5-vertex & \cite{zinn-justin-2008} \\
+Grothendieck & trigonometric 5-vertex & \cite{wheeler-zinn-justin-2016} \\
+Key / Demazure & coloured 5-vertex, $q=0$ & \cite{yang-2025, brubaker-bump-buciumas-gustafsson-2021} \\
+Hall-Littlewood & higher-spin & \cite{wheeler-zinn-justin-2025} \\
+Macdonald & elliptic / higher-rank & --- \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Integrability is not an accident of the Schur case.  It is a
+structural feature of the entire hierarchy of symmetric function
+theories.  Each level has its own R-matrix, its own Yang-Baxter
+equation (or a controlled degeneration thereof), and its own family of
+commuting transfer matrices.
+
+This raises the question that drives the remainder of the paper.  If
+every character has a solvable model, what is the
+\emph{relationship} between these models?  When we deform the Schur
+R-matrix to the Grothendieck R-matrix, or specialise it to the
+Demazure case, what algebraic structure governs the deformation?  Are
+the bijections between different combinatorial models (puzzles,
+tableaux, pipe dreams) for the \emph{same} character also controlled
+by the Yang-Baxter equation?
+
+The answer to the last question is yes, and the organising framework
+is the \emph{Yang-Baxter groupoid} of Bump and Naprienko---the
+subject of Section~\ref{sec:groupoid}.  The answer to the
+deformation question leads to the \emph{categorical phase diagram} of
+Section~\ref{sec:hierarchy}, where the vertical axis---braided,
+coboundary, symmetric---classifies the integrability level, and the
+horizontal axis---rational, trigonometric, elliptic---classifies the
+deformation type.  Together, these two axes organise the full zoo of
+lattice models into a single coherent picture.

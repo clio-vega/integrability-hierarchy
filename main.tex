@@ -1,0 +1,271 @@
+\documentclass[11pt,a4paper]{article}
+
+%%% Packages %%%
+\usepackage{amsmath,amsthm,amssymb,amsfonts}
+\usepackage{mathrsfs}
+\usepackage{tikz}
+\usetikzlibrary{matrix,arrows,decorations.pathmorphing,positioning,calc}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+\usepackage{enumerate}
+\usepackage{graphicx}
+\usepackage{xcolor}
+
+%%% Page geometry %%%
+\usepackage[margin=1in]{geometry}
+
+%%% Theorem environments %%%
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+%%% Macros %%%
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\GL}{\mathrm{GL}}
+\newcommand{\gl}{\mathfrak{gl}}
+\newcommand{\Sym}{\mathrm{Sym}}
+\newcommand{\Rep}{\mathrm{Rep}}
+\newcommand{\Crys}{\mathrm{Crys}}
+\newcommand{\Vect}{\mathrm{Vect}}
+\newcommand{\Set}{\mathrm{Set}}
+
+%%% Title %%%
+\title{Littlewood--Richardson Coefficients:\\
+  From Puzzles to the Integrability Hierarchy}
+\author{[To be determined]}
+\date{April 2026}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+% TODO: Write abstract.
+%
+% The abstract should cover:
+% - LR coefficients as the central object (multiplicities in tensor products,
+%   Schubert calculus, symmetric function structure constants)
+% - The puzzle/honeycomb combinatorial perspective (Knutson--Tao--Woodward)
+% - The integrable lattice model perspective (Zinn-Justin, Wheeler--Zinn-Justin)
+% - The hierarchy: Yang--Baxter (braided) -> coboundary (cactus) -> crystal (symmetric)
+%   as successive forgetting of structure
+% - The categorical phase diagram organizing these levels
+% - How every known combinatorial rule for LR coefficients fits into
+%   this integrability hierarchy
+%
+Littlewood--Richardson coefficients $c_{\lambda\mu}^{\nu}$ govern the
+multiplication of Schur functions, the decomposition of tensor products
+of $\GL_n$ representations, and the intersection theory of Grassmannians.
+We survey the landscape of combinatorial rules for these coefficients---from
+the classical Littlewood--Richardson rule through Knutson--Tao--Woodward
+puzzles to integrable lattice models---and organize them into a hierarchy
+controlled by the Yang--Baxter equation and its degenerations.
+At the top sits the fully solvable regime (braided monoidal, spectral parameter,
+$R$-matrices); in the middle, the quasi-solvable or coboundary regime
+(cactus group, crystals with commutor); at the bottom, the symmetric
+monoidal regime (bare crystals, no spectral data). We argue that every
+known combinatorial rule for $c_{\lambda\mu}^{\nu}$ and its
+$K$-theoretic and equivariant generalizations finds a natural home in
+this categorical phase diagram, and we identify the open problems that
+remain.
+% TODO: Revise and polish once all sections are complete.
+\end{abstract}
+
+\tableofcontents
+
+\bigskip
+
+%%% Section files %%%
+\input{section1-introduction}
+\input{section2-classical}
+\input{section3-lattice}
+\input{section4-groupoid}
+\input{section5-hierarchy}
+\input{section6-shuffle}
+\input{section7-open}
+
+%%% Acknowledgements %%%
+\section*{Acknowledgements}
+% TODO: Add acknowledgements.
+
+%%% Bibliography %%%
+\begin{thebibliography}{99}
+
+\bibitem{azenhas-feller-torres-2022}
+O.~Azenhas, P.~L.~Feller, and J.~Torres,
+\emph{Symplectic cacti, virtualization, and Berenstein--Zelevinsky data},
+J. Comb.\ Algebra, to appear (2026).
+
+\bibitem{baxter-1982}
+R.~J.~Baxter,
+\emph{Exactly Solved Models in Statistical Mechanics},
+Academic Press, London, 1982.
+
+\bibitem{borodin-wheeler-2018}
+A.~Borodin and M.~Wheeler,
+\emph{Coloured stochastic vertex models and their spectral theory},
+arXiv:1808.01866 (2018).
+
+\bibitem{brubaker-bump-buciumas-gustafsson-2021}
+B.~Brubaker, D.~Bump, V.~Buciumas, and H.~P.~A.~Gustafsson,
+\emph{Colored five-vertex models and Demazure atoms},
+J. Combin.\ Theory Ser.~A \textbf{178} (2021), 105354.
+
+\bibitem{brubaker-bump-hardt-spink}
+B.~Brubaker, D.~Bump, A.~Hardt, and H.~Spink,
+\emph{Kazhdan--Lusztig theory and the Yang--Baxter equation},
+arXiv preprint (2024).
+
+\bibitem{buciumas-scrimshaw}
+V.~Buciumas and T.~Scrimshaw,
+\emph{Quasi-solvable lattice models for $\mathrm{Sp}_{2n}$ and $\mathrm{SO}_{2n+1}$ Demazure atoms and characters},
+arXiv:2201.01026 (2022).
+
+\bibitem{bump-naprienko-2025}
+D.~Bump and S.~Naprienko,
+\emph{The Yang--Baxter equation and Schur functions},
+arXiv preprint (2025).
+
+\bibitem{devyatov-2015}
+R.~Devyatov,
+\emph{On subgroups of the pure cactus group},
+arXiv:1507.04699 (2015).
+
+\bibitem{fan-guo-xiong}
+N.~Fan, P.~Guo, and R.~Xiong,
+\emph{Bumpless pipe dreams meet puzzles},
+arXiv preprint (2024).
+
+\bibitem{fulton-1997}
+W.~Fulton,
+\emph{Young Tableaux: With Applications to Representation Theory and Geometry},
+London Math.\ Soc.\ Student Texts \textbf{35}, Cambridge Univ.\ Press, 1997.
+
+\bibitem{gaetz-gao-2024}
+C.~Gaetz and Y.~Gao,
+\emph{Integrable triangle-accessible lattice models},
+arXiv preprint (2024).
+
+\bibitem{galashin-2020}
+P.~Galashin,
+\emph{Symmetries of stochastic colored vertex models},
+Ann.\ Probab.\ \textbf{49} (2021), no.~5, 2175--2219.
+
+\bibitem{garbali-gunna-2024}
+A.~Garbali and J.~Gunna,
+\emph{Shuffle algebras and lattice paths},
+arXiv preprint (2024).
+
+\bibitem{garbali-negut-2025}
+A.~Garbali and A.~Negut,
+\emph{Shuffle algebras and Yangians},
+arXiv preprint (2025).
+
+\bibitem{gorbounov-korff-mihalcea-2025}
+V.~Gorbounov, C.~Korff, and L.~Mihalcea,
+\emph{Quantum $K$-theory and the Yang--Baxter equation},
+arXiv preprint (2025).
+
+\bibitem{gunna-wheeler-zj-2025}
+J.~Gunna, M.~Wheeler, and P.~Zinn-Justin,
+\emph{Spin Hall--Littlewood polynomials and vertex models},
+arXiv preprint (2025).
+
+\bibitem{henriques-kamnitzer-2006}
+A.~Henriques and J.~Kamnitzer,
+\emph{Crystals and coboundary categories},
+Duke Math.~J.\ \textbf{132} (2006), no.~2, 191--216.
+
+\bibitem{jimbo-1986}
+M.~Jimbo,
+\emph{A $q$-analogue of $U(\mathfrak{gl}(N+1))$, Hecke algebra,
+and the Yang--Baxter equation},
+Lett.\ Math.\ Phys.\ \textbf{11} (1986), no.~3, 247--252.
+
+\bibitem{kalmykov}
+A.~Kalmykov,
+\emph{Shuffle algebra, degenerate affine Hecke algebra, and Yangian},
+preprint.
+
+\bibitem{kamnitzer-tingley-2007}
+J.~Kamnitzer and P.~Tingley,
+\emph{The crystal commutor and Drinfeld's unitarized $R$-matrix},
+J.~Algebraic Combin.\ \textbf{29} (2009), no.~3, 315--335.
+
+\bibitem{kashiwara-1990}
+M.~Kashiwara,
+\emph{Crystallizing the $q$-analogue of universal enveloping algebras},
+Comm.\ Math.\ Phys.\ \textbf{133} (1990), no.~2, 249--260.
+
+\bibitem{knutson-tao-1999}
+A.~Knutson and T.~Tao,
+\emph{The honeycomb model of $\mathrm{GL}_n(\mathbb{C})$ tensor products~I:
+Proof of the saturation conjecture},
+J.~Amer.\ Math.\ Soc.\ \textbf{12} (1999), no.~4, 1055--1090.
+
+\bibitem{knutson-tao-woodward-2004}
+A.~Knutson, T.~Tao, and C.~Woodward,
+\emph{The honeycomb and saturation conjectures},
+J.~Amer.\ Math.\ Soc.\ \textbf{17} (2004), no.~1, 19--48.
+
+\bibitem{macdonald-1995}
+I.~G.~Macdonald,
+\emph{Symmetric Functions and Hall Polynomials},
+2nd ed., Oxford Math.\ Monographs, Oxford Univ.\ Press, 1995.
+
+\bibitem{morales-panova-petrov-yeliussizov}
+A.~H.~Morales, G.~Panova, L.~Petrov, and D.~Yeliussizov,
+\emph{Grothendieck shenanigans},
+arXiv preprint (2024).
+
+\bibitem{norton-1979}
+P.~N.~Norton,
+\emph{$0$-Hecke algebras},
+J.~Austral.\ Math.\ Soc.\ Ser.~A \textbf{27} (1979), no.~3, 337--357.
+
+\bibitem{purbhoo-2007}
+K.~Purbhoo,
+\emph{Puzzles, tableaux, and mosaics},
+J.~Algebraic Combin.\ \textbf{28} (2008), no.~4, 461--480.
+
+\bibitem{savage-2020}
+A.~Savage,
+\emph{Crystals, coboundary categories, and the commutor},
+lecture notes (2020).
+
+\bibitem{stanley-1999}
+R.~P.~Stanley,
+\emph{Enumerative Combinatorics}, vol.~2,
+Cambridge Studies in Adv.\ Math.\ \textbf{62}, Cambridge Univ.\ Press, 1999.
+
+\bibitem{tikhonov-2026}
+K.~Tikhonov,
+\emph{Random permutations from $q$-Demazure products},
+arXiv:2604.06532 (2026).
+
+\bibitem{wheeler-zinn-justin-2016}
+M.~Wheeler and P.~Zinn-Justin,
+\emph{Littlewood--Richardson coefficients for Grothendieck polynomials
+from integrability},
+J.~Reine Angew.\ Math.\ \textbf{757} (2019), 159--195.
+
+\bibitem{yang-2025}
+J.~Yang,
+\emph{Closed colored lattice models and Demazure crystals},
+arXiv:2512.05479 (2025).
+
+\end{thebibliography}
+
+\end{document}

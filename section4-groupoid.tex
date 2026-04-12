@@ -1,0 +1,470 @@
+%% Section 4: The Yang-Baxter Groupoid and the Five-Vertex Classification
+%% To be \input{} into the main document.
+
+\section{The Yang-Baxter Groupoid and the Five-Vertex Classification}
+\label{sec:groupoid}
+
+Section~\ref{sec:lattice} established that the KTW puzzle model is an
+integrable vertex model: the puzzle pieces carry R-matrix weights
+satisfying the Yang-Baxter equation, and the LR coefficient is a
+partition function.  We also saw that the Schur case is not isolated
+--- Grothendieck, Hall-Littlewood, and Demazure characters each have
+their own solvable (or quasi-solvable) lattice model, each with its
+own R-matrix.  The section closed with two questions: what is the
+\emph{relationship} between the many combinatorial models for the same
+coefficient, and what is the \emph{relationship} between the R-matrices
+at different levels of the character hierarchy?
+
+This section answers both questions.  The first answer is the
+\emph{Yang-Baxter groupoid} of Bump and
+Naprienko~\cite{bump-naprienko-2025}: classical bijections between
+combinatorial models for LR coefficients are morphisms in a groupoid
+whose composition law is the Yang-Baxter equation.  The second answer
+is a \emph{classification} of five-vertex R-matrices satisfying the
+YBE, which organises the R-matrices into a strict three-level
+hierarchy.  Together, these two results set the stage for the
+categorical phase diagram of Section~\ref{sec:hierarchy}.
+
+
+\subsection{The groupoid framework of Bump and Naprienko}
+\label{sec:groupoid-bn}
+
+The starting point is a simple observation: if the Yang-Baxter
+equation~\eqref{eq:ybe} holds, then replacing the crossing pattern
+$R_{12}R_{13}R_{23}$ with $R_{23}R_{13}R_{12}$ in a portion of the
+lattice does not change the partition function.  Each such replacement
+is a \emph{local bijection} on configurations --- it permutes the
+internal spin assignments without altering the boundary data or the
+total weight.  Bump and Naprienko~\cite{bump-naprienko-2025} elevate
+this observation to a categorical framework: the \emph{Yang-Baxter
+groupoid}.
+
+\subsubsection*{Objects and morphisms}
+
+The objects of the Yang-Baxter groupoid are \emph{models}: each model
+is specified by a choice of lattice domain (the shape of the grid),
+boundary data (the partitions or binary strings fixed on the boundary
+edges), and local vertex weights (the R-matrix entries at each
+vertex).  Two models may have different lattice domains --- a
+triangular puzzle grid versus a rectangular grid of Gelfand-Tsetlin
+type, say --- but both compute the same structure constants through
+their respective partition functions.
+
+The morphisms are \emph{sequences of Yang-Baxter moves}.  A single YBE
+move acts on a local patch of the lattice containing three crossing
+lines: it replaces the crossing order $(1,2), (1,3), (2,3)$ with
+$(2,3), (1,3), (1,2)$, or vice versa.  Because the YBE guarantees
+that both orderings produce the same map on boundary spins, the move
+defines a bijection between the configurations of the original local
+patch and the configurations of the transformed patch, weighted
+consistently.  A \emph{groupoid morphism} is a finite composition of
+such local moves, carrying one model to another while preserving the
+partition function at every step.
+
+The groupoid axioms are satisfied by construction:
+\begin{itemize}
+\item \emph{Identity.}  The trivial sequence of zero moves is the
+  identity morphism on any model.
+\item \emph{Composition.}  Composing two sequences of YBE moves
+  gives another sequence.
+\item \emph{Inverses.}  Every YBE move is its own inverse (applying
+  it twice returns to the original crossing order), so every morphism
+  is invertible.
+\end{itemize}
+
+\noindent
+The crucial additional property is \emph{coherence}: if two different
+sequences of YBE moves relate the same pair of models, they induce the
+\emph{same} bijection on configurations.  This follows from the
+Zamolodchikov tetrahedron equation in low rank and from braid group
+relations in general --- the braid group acts faithfully on the space
+of crossing orders, and the YBE is precisely the braid relation.  In
+practice, coherence means that groupoid morphisms are well-defined
+maps, not merely equivalence classes of move sequences.
+
+\begin{remark}
+The groupoid is not a group: different objects (models) are not
+isomorphic in general --- a puzzle model on a triangular lattice and
+a Gelfand-Tsetlin model on a rectangular lattice have genuinely
+different configuration spaces.  But whenever two models \emph{are}
+connected by a morphism, the morphism provides a canonical,
+weight-preserving bijection between their configuration sets.
+\end{remark}
+
+\subsubsection*{Recovering classical bijections}
+
+The power of the groupoid framework lies in its ability to
+\emph{explain} bijections that were previously understood only through
+explicit, often intricate constructions.  Bump and Naprienko show that
+several classical bijections in the theory of LR coefficients are
+Yang-Baxter groupoid morphisms:
+
+\begin{enumerate}
+\item \textbf{The commutation isomorphism.}  The symmetry
+  $c^{\nu}_{\lambda,\mu} = c^{\nu}_{\mu,\lambda}$ is obvious from the
+  Schur function definition ($s_\mu \cdot s_\nu = s_\nu \cdot s_\mu$
+  by commutativity), but at the level of puzzle tilings it is
+  nontrivial: the two sides correspond to different boundary
+  conditions, and one must construct an explicit bijection between the
+  two sets of tilings.  In the groupoid framework, this bijection is a
+  morphism obtained by ``sliding'' one set of auxiliary lines past
+  another using YBE moves.  The commutativity of multiplication
+  becomes a geometric consequence of integrability.
+
+\item \textbf{The Sch\"utzenberger involution.}
+  Gustafsson and Westerlund~\cite{gustafsson-westerlund-2025} showed
+  that the Sch\"utzenberger involution on semistandard Young
+  tableaux --- an involution that plays a central role in the theory of
+  jeu de taquin and crystal bases --- arises as a Yang-Baxter groupoid
+  morphism.  Their construction interprets the involution as a sequence
+  of R-matrix moves that ``reverses the spectral parameters,''
+  transforming the lattice model by reflecting the order in which rows
+  are processed.  The fact that this reflection preserves the
+  partition function is a direct consequence of transfer matrix
+  commutativity~\eqref{eq:transfer-commute}.
+
+\item \textbf{The puzzle--tableau correspondence.}  The bijection
+  between KTW puzzle tilings and LR skew-tableaux, mediated by
+  Purbhoo's mosaics~\cite{purbhoo-2007}, has a natural interpretation
+  as a groupoid morphism.  The two models --- puzzles on a triangular
+  domain and tableaux on a skew shape --- correspond to different
+  objects in the groupoid, and the bijection between them is
+  a composition of YBE moves that deforms the triangular lattice into
+  the rectangular lattice underlying the tableau model.  We state this
+  as a guiding principle rather than a proven theorem: verifying it
+  requires checking that each step of Purbhoo's mosaic
+  correspondence can be decomposed into elementary R-matrix moves, a
+  computation that has been carried out for small examples ($n \leq 4$)
+  but not yet in full generality.
+\end{enumerate}
+
+The unifying message is this: the ``mysterious'' bijections of LR
+coefficient theory are not feats of combinatorial ingenuity.  They are
+canonical consequences of the Yang-Baxter equation --- different
+paths through the groupoid, all connecting the same pair of models,
+all inducing the same bijection by coherence.
+
+\subsubsection*{Connection to Gaetz-Gao}
+
+The scope of the groupoid extends beyond the classical models.
+Gaetz and Gao~\cite{gaetz-gao-2024} proved that every
+\emph{integrable triangle-accessible} (ITA) lattice model --- a class
+they define by axiomatising the properties needed for a vertex model to
+compute LR-type structure constants --- bijects canonically with a KTW
+puzzle model.  Their result implies that puzzles are, in a precise
+sense, a \emph{universal} object in the groupoid: every ITA model is
+connected to the puzzle model by a groupoid morphism.
+
+This universality is satisfying but also raises a question.  If the
+puzzle model is canonical within the groupoid, what determines which
+R-matrices \emph{define} the groupoid in the first place?  Which
+$4 \times 4$ matrices satisfy the Yang-Baxter equation?  For the
+five-vertex models relevant to LR coefficient theory, this is a finite
+classification problem.  We turn to it now.
+
+
+\subsection{The five-vertex classification and chirality}
+\label{sec:groupoid-classification}
+
+The R-matrices of Section~\ref{sec:lattice-rmatrix} are $4 \times 4$
+matrices acting on $\mathbb{C}^2 \otimes \mathbb{C}^2$, with edge
+spins in $\{0, 1\}$.  The conservation law (total input spin equals
+total output spin) restricts the nonzero entries to the six
+``ice-type'' configurations:
+\[
+  \begin{array}{cccc}
+    (0,0) \to (0,0), &
+    (1,1) \to (1,1), &
+    (0,1) \to (0,1), \\[4pt]
+    (1,0) \to (1,0), &
+    (0,1) \to (1,0), &
+    (1,0) \to (0,1).
+  \end{array}
+\]
+A \emph{six-vertex model} assigns nonzero weights to all six; a
+\emph{five-vertex model} forbids exactly one of the six, setting its
+weight to zero.  The KTW puzzle model is a five-vertex model: it
+forbids the configuration $(1,0) \to (1,0)$, in which a spin-$1$
+entering from the left and a spin-$0$ entering from below pass through
+the vertex unchanged.
+
+\subsubsection*{The classification question}
+
+Among all five-vertex R-matrices with a spectral parameter $u$, which
+ones satisfy the Yang-Baxter equation~\eqref{eq:ybe}?  Since there are
+six choices of which vertex to forbid, and for each choice the
+remaining five weights are functions of $u$ to be determined, this is
+a finite (but nontrivial) classification problem.
+
+The YBE is a system of 64 cubic equations in the vertex weights.
+Most of the 64 equations are trivially satisfied when one of the six
+vertices is forbidden.  The content of the classification is in the
+remaining equations: they impose algebraic relations among the five
+nonzero weights, and these relations either have nontrivial solutions
+(the model is integrable) or they do not (the model is not
+integrable).
+
+\subsubsection*{The classification result}
+
+The outcome of the classification is as follows.
+
+\begin{enumerate}
+\item For each choice of forbidden vertex, the five-vertex YBE system
+  admits a family of solutions parameterised by the spectral parameter
+  $u$ and a finite number of structural constants (the values of the
+  weights at a reference point).
+
+\item Up to the symmetries of the problem (transposition of input and
+  output, reversal of spin labels, rescaling of the R-matrix), the
+  solutions organise into families labelled by which vertex is
+  forbidden.  The puzzle model (forbidding $(1,0) \to (1,0)$) is one
+  such family.
+
+\item There is essentially one nontrivial five-vertex solution
+  satisfying the full spectral-parameter YBE:
+  \begin{equation}
+  \label{eq:five-vertex-unique}
+    R(u) \;=\; c(u)\bigl(P + \alpha u \cdot E_{22}\bigr),
+  \end{equation}
+  where $P$ is the permutation (swap) matrix, $E_{22}$ is the matrix
+  unit with a $1$ in the $(2,2)$ position and zeros elsewhere,
+  $\alpha$ is a structural constant, and $c(u)$ is a scalar
+  normalisation.  This R-matrix computes $\omega$-dual Jacobi-Trudi
+  determinants --- the $t = 0$ specialisation of the
+  Wheeler-Zinn-Justin Hall-Littlewood
+  model~\cite{wheeler-zinn-justin-2016}.
+\end{enumerate}
+
+\subsubsection*{Chirality}
+
+To state the classification precisely, we need the concept of
+\emph{chirality}.  Define the two ``non-crossing'' vertices as those
+where each spin passes straight through: $(0,1) \to (0,1)$ with
+weight $a_1$, and $(1,0) \to (1,0)$ with weight $a_2$.  The two
+``crossing'' vertices are $(0,1) \to (1,0)$ with weight $b_1$ and
+$(1,0) \to (0,1)$ with weight $b_2$.  A vertex model is
+\emph{chiral} if $b_1 \neq b_2$: the weights for left-to-right and
+right-to-left crossings differ.  It is \emph{label-asymmetric} if
+$a_1 \neq a_2$: the two non-crossing vertices have different weights.
+
+In a five-vertex model, one of the six weights is set to zero.
+Forbidding one of the crossing vertices (say $b_2 = 0$, as in the KTW
+puzzle model) automatically introduces chirality: the two crossing
+types are no longer equivalent, since one is allowed and the other is
+forbidden.  This raises the question: does chirality obstruct the
+Yang-Baxter equation?
+
+The answer, perhaps surprisingly, is \emph{no}.  The R-matrix
+\eqref{eq:five-vertex-unique} is chiral (one crossing type is
+suppressed relative to the other, as the permutation matrix $P$ treats
+the two asymmetrically once $E_{22}$ is added) and it satisfies the
+full YBE.  The KTW puzzle model itself is chiral and integrable.
+Chirality alone is not an obstruction to integrability.
+
+What \emph{is} an obstruction is the \emph{combination} of chirality
+with label asymmetry.  The complete five-vertex classification can be
+stated as a dichotomy:
+
+\begin{quote}
+\textbf{Chirality principle.}  A five-vertex model with spectral
+parameter satisfies the Yang-Baxter equation if and only if either
+\begin{enumerate}
+\item[(a)] the non-crossing weights are equal: $a_1 = a_2$; or
+\item[(b)] the model is a degenerate (free-fermionic) specialisation
+  of the six-vertex model.
+\end{enumerate}
+In particular, chirality combined with $a_1 \neq a_2$ is the
+\emph{only} obstruction to the five-vertex YBE.
+\end{quote}
+
+This principle was verified computationally for all six choices of
+forbidden vertex: of the 64 matrix-element equations comprising the
+YBE, exactly 4 produce nonzero residuals in the generic $a_1 \neq a_2$
+case, and the residuals are proportional to $q(p - q)$, where $p$ and
+$q$ are the two non-crossing weights.  The obstruction vanishes if and
+only if $p = q$ (condition (a)) or the model degenerates further
+(condition (b)).
+
+The chirality principle has a clear physical interpretation.  In a
+chiral model, paths through the lattice ``know'' whether they are
+turning left or right --- the model distinguishes orientation.  This
+is compatible with the YBE as long as the ``straight-through'' weights
+treat both spin values equally ($a_1 = a_2$).  But if the straight
+paths \emph{also} distinguish between spin values ($a_1 \neq a_2$),
+then the combination of orientational asymmetry (chirality) and spin
+asymmetry (label asymmetry) produces an overdetermined system with no
+solutions.
+
+\begin{remark}
+The chirality principle explains why the KTW puzzle model is
+integrable: although it is chiral (the forbidden vertex
+$(1,0) \to (1,0)$ breaks the crossing symmetry), its non-crossing
+weights are both equal to~$1$, so $a_1 = a_2$.  Condition (a) is
+satisfied.  The K-theoretic deformation of
+Section~\ref{sec:lattice-extensions} preserves this equality (both
+non-crossing weights deform together), which is why the Grothendieck
+R-matrix also satisfies the YBE.
+\end{remark}
+
+
+\subsection{The three-level hierarchy}
+\label{sec:groupoid-hierarchy}
+
+The five-vertex classification reveals that the space of integrable
+models is not a continuum but a stratified landscape.  The R-matrices
+satisfying the full YBE form one stratum; below them sit R-matrices
+that satisfy a weaker form of the equation; below those, the
+permutation matrix $P$, which satisfies the YBE trivially.  This
+stratification organises into a strict three-level hierarchy that
+connects the classification of this section to the categorical phase
+diagram of Section~\ref{sec:hierarchy}.
+
+\subsubsection*{Level 1: Solvable (full YBE)}
+
+At the top of the hierarchy sit the \emph{solvable} models: those
+whose R-matrix $R(u)$ satisfies the full spectral-parameter
+Yang-Baxter equation~\eqref{eq:ybe}.  The transfer matrices $T(u)$
+form a commuting family, the model can be diagonalised by the Bethe
+ansatz, and R-matrix moves provide local bijections between
+configurations.  The Yang-Baxter groupoid of
+Section~\ref{sec:groupoid-bn} lives at this level.
+
+The characters computed by solvable models are the classical symmetric
+functions and their deformations: Schur polynomials (rational
+five-vertex model), Grothendieck polynomials (trigonometric
+five-vertex), and Hall-Littlewood polynomials (higher-spin models).
+In each case, the structure constants are nonnegative --- a property
+that can be traced to the existence of a partition function with
+positive Boltzmann weights.
+
+\subsubsection*{Level 2: Quasi-solvable (factored YBE)}
+
+The middle level contains the \emph{quasi-solvable} models, a term
+due to Buciumas and Scrimshaw~\cite{buciumas-scrimshaw}.  Here the
+full YBE fails at the vertex level: one cannot freely interchange
+three crossing lines by local moves.  But a weaker form of
+integrability persists.  The row transfer matrices and the column
+transfer matrices each satisfy the YBE \emph{independently} --- the
+R-matrix factors into separate ``row'' and ``column'' components, each
+integrable on its own, but there is no single unified R-matrix
+governing the full model.
+
+The characters at this level are the \emph{key polynomials} (Demazure
+characters).  Algebraically, the quasi-solvable level corresponds to
+the specialisation $q = 0$ of the Hecke algebra parameter, where the
+Hecke relation $(T_i - q)(T_i + 1) = 0$ degenerates to
+$T_i(T_i + 1) = 0$ and the Demazure operators
+$\pi_i = T_i + 1$ become idempotent: $\pi_i^2 = \pi_i$.  The braid
+group symmetry of the solvable level degenerates to the \emph{cactus
+group} $J_n$ --- a group generated by interval reversals
+$s_{[i,j]}$ satisfying the relations of Henriques and
+Kamnitzer~\cite{henriques-kamnitzer-2006} but \emph{not} the braid
+relations.
+
+\subsubsection*{Level 3: Combinatorial (trivial YBE)}
+
+At the base of the hierarchy, the R-matrix is simply the permutation
+matrix~$P$: the swap map on $\mathbb{C}^2 \otimes \mathbb{C}^2$.
+The YBE is satisfied trivially ($P_{12} P_{13} P_{23} =
+P_{23} P_{13} P_{12}$ reduces to the symmetric group relation
+$s_i s_j s_i = s_j s_i s_j$), but there is no spectral parameter and
+no interesting commuting family.  The ``transfer matrices'' are
+combinatorial objects --- crystal operators in the sense of
+Kashiwara~\cite{kashiwara-1990} --- and the characters are monomials,
+the building blocks from which all higher-level characters are
+assembled.
+
+\subsubsection*{The hierarchy is strict}
+
+It is natural to ask whether the intermediate level is genuinely
+intermediate, or merely a degeneration of the solvable level that
+retains all of its structure.  The answer is that the hierarchy is
+\emph{strict}: the quasi-solvable level has less structure than the
+solvable level, and the difference is not an artifact of the
+specialisation $q = 0$.
+
+The sharpest evidence comes from the \emph{Zinn-Justin tetrahedron
+equation} (ZTE), a cubic coherence condition on the R-matrix that
+generalises the YBE from two dimensions to three.  At the solvable
+level, the ZTE holds (it follows from the full parametric YBE by a
+standard argument involving auxiliary spaces).  At the quasi-solvable
+level, the ZTE \emph{fails}: a direct computation at rank~$3$ shows
+that the residual is proportional to $q^2$ and transforms as an
+antisymmetric 2-form on the space of spectral parameters.
+
+This failure has a precise interpretation: it measures the
+\emph{curvature} of a connection on a vector bundle over the higher
+Bruhat order.  At $q = 0$, the curvature is nonzero, meaning that
+parallel transport around a closed loop in the space of row orderings
+does not return to the identity.  The holonomy of this connection is
+the obstruction to promoting column-level integrability to full
+vertex-level integrability.  The quasi-solvable level is a flat
+$q = 0$ limit in one direction (each column is integrable) but
+\emph{curved} in the transverse direction (the columns do not
+interleave coherently).
+
+\subsubsection*{A structural summary}
+
+The three levels, together with their algebraic and categorical
+signatures, are summarised in the following table:
+
+\begin{center}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{llll}
+\toprule
+\textbf{Level} & \textbf{YBE status} & \textbf{Algebra} & \textbf{Characters} \\
+\midrule
+Solvable & Full spectral-parameter YBE &
+  $H_q$ (generic $q$) &
+  Schur, Grothendieck, HL \\
+Quasi-solvable & Factored (column-level) YBE &
+  $H_0$ ($q = 0$ Hecke) &
+  Key / Demazure \\
+Combinatorial & Trivial ($R = P$) &
+  $\mathbb{C}[S_n]$ &
+  Monomials \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent
+The rightmost column reveals a striking alignment: the integrability
+level of the R-matrix controls which characters the model computes.
+Solvable models compute symmetric functions (Schur and their
+deformations); quasi-solvable models compute nonsymmetric but
+``partially symmetric'' characters (key polynomials); combinatorial
+models compute the fully nonsymmetric monomials.  The level of
+integrability is the level of symmetry.
+
+\subsubsection*{Preview of Section~\ref{sec:hierarchy}}
+
+The three levels of the hierarchy correspond to three types of
+monoidal categories:
+\begin{enumerate}
+\item \textbf{Braided monoidal} (solvable): the R-matrix provides a
+  braiding --- a natural isomorphism $V \otimes W \xrightarrow{\sim}
+  W \otimes V$ satisfying the braid relation.  The symmetry group is
+  the braid group $B_n$.
+\item \textbf{Coboundary monoidal} (quasi-solvable): the braiding
+  degenerates to a \emph{commutor} --- a natural isomorphism that
+  satisfies the weaker cactus group relations but not the braid
+  relation.  The symmetry group is the cactus group $J_n$.
+\item \textbf{Symmetric monoidal} (combinatorial): the commutor is
+  the trivial swap $\tau \colon V \otimes W \to W \otimes V$, and
+  $\tau^2 = \mathrm{id}$.  The symmetry group is the symmetric group
+  $S_n$.
+\end{enumerate}
+
+\noindent
+The Hecke algebra $H_q(S_n)$ simultaneously hosts all three
+structures: at generic~$q$, the Hecke generators provide a braiding;
+at $q = 0$, the braiding dies but the coboundary commutor (constructed
+from Drinfeld's unitarised R-matrix) survives; at $q = 1$
+(equivalently, passing to the group algebra $\mathbb{C}[S_n]$), only
+the symmetric swap remains.  The parameter $q$ governs the transition
+between levels, and the Hecke algebra is the \emph{transition algebra}
+of the hierarchy.
+
+Making this precise --- identifying what is forgotten at each
+transition, and proving that the forgetting is irreversible --- is the
+content of Section~\ref{sec:hierarchy}.

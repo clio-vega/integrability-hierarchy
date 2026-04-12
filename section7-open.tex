@@ -1,0 +1,210 @@
+%% Section 7: Open Questions and Future Directions
+%% To be \input{} into the main document.
+
+\section{Open Questions and Future Directions}
+\label{sec:open}
+
+We organise the questions suggested by this paper into three tiers,
+roughly ordered by accessibility: problems that could be attacked with
+existing tools, problems that require new ideas, and problems that
+call for significant new theory.
+
+
+\subsection{Immediately tractable}
+
+\begin{enumerate}[label=\textbf{Q\arabic*.}, ref=Q\arabic*, leftmargin=3em]
+
+\item \label{q:horizontal}
+\textbf{Complete the phase diagram horizontally.}
+The categorical phase diagram of Section~\ref{sec:hierarchy} has
+populated cells in every column of the solvable row (Schur,
+Grothendieck, quantum $K$, Hall-Littlewood) and in the classical
+column of the coboundary row (Demazure crystals).  The remaining
+coboundary cells---K-theoretic, quantum K-theoretic, and spin models
+at the quasi-solvable level---are open.  Yang's Demazure crystal
+model~\cite{yang-2025} covers the classical coboundary column; the
+K-theoretic and spin columns at this level remain to be constructed.
+Concretely: which lattice models compute coboundary-level structure
+constants for Grothendieck polynomials and Hall-Littlewood polynomials?
+Do they exhibit the factored (column-level) YBE characteristic of
+quasi-solvability?
+
+\item \label{q:typeCD}
+\textbf{Type C/D phase diagram.}
+Everything in this paper concerns type~$A$---the general linear group
+and its symmetric functions.  Azenhas, Feller, and
+Torres~\cite{azenhas-feller-torres-2022} construct the symplectic
+cactus group action on type~$C$ crystals, discovering additional
+relations beyond those present in type~$A$.  What does the
+integrability hierarchy look like for $\mathrm{Sp}_{2n}$?  The
+quasi-solvable lattice models of Buciumas and
+Scrimshaw~\cite{buciumas-scrimshaw} for types $B$, $C$, and $D$
+provide the integrable side of the story; the categorical side---what
+replaces the cactus group, whether the Hecke transition algebra
+admits a type $C$ analogue---is largely unexplored.
+
+\item \label{q:cactus-splitting}
+\textbf{$J_n$ non-splitting for all~$n$.}
+The cactus group $J_n$ fits into a short exact sequence
+$1 \to PJ_n \to J_n \to S_n \to 1$,
+where $PJ_n$ is the \emph{pure cactus group}.  For $n = 3$, we proved
+by four independent methods (including the computation
+$H^2(S_3, \mathbb{Z}^{\mathrm{sgn}}) \cong \mathbb{Z}/3\mathbb{Z}$)
+that this sequence does not split.  Non-splitting is the algebraic
+counterpart of the geometric fact that the real moduli space
+$\overline{M}_{0,n+1}(\mathbb{R})$ is not a trivial $S_n$-bundle.
+
+For $n \geq 4$, the pure cactus group is non-abelian, so the
+classical group cohomology approach (which requires abelian
+coefficients) does not directly apply.  The most promising route is
+topological: Devyatov's presentation~\cite{devyatov-2015} of the
+fundamental group of $\overline{M}_{0,n+1}(\mathbb{R})$ expresses the
+pure cactus group in terms of explicit generators and relations.  A
+careful analysis of these relations---perhaps combined with the
+non-abelian cohomology $H^1(S_n, \mathrm{Out}(PJ_n))$---should settle
+the non-splitting question for all~$n$.
+
+\end{enumerate}
+
+
+\subsection{Medium-term}
+
+\begin{enumerate}[label=\textbf{Q\arabic*.}, ref=Q\arabic*, leftmargin=3em]
+\setcounter{enumi}{3}
+
+\item \label{q:spectral-parameter}
+\textbf{$\kappa$ as spectral parameter.}
+Tikhonov~\cite{tikhonov-2026} showed that the limiting permuton of a
+random sorting network is governed by the invariant
+$\kappa = (1 - qp)/(1-p)$, and that the M\"obius transformation
+$p' = p(1-q)/(1-qp)$ relates the braided ($q > 0$) and coboundary
+($q = 0$) regimes.  This transformation is an element of
+$\mathrm{PGL}(2)$, acting on the probability parameter $p$ with the
+Hecke parameter $q$ as coefficient.
+
+The same group $\mathrm{PGL}(2)$ acts on the spectral parameter $u$
+in the Yang-Baxter equation: the R-matrix $R(u)$ of a rational
+model transforms under $u \mapsto (au + b)/(cu + d)$ by
+conjugation.  Is Tikhonov's M\"obius transformation the \emph{same}
+$\mathrm{PGL}(2)$ element that relates the spectral parameters of the
+braided and coboundary R-matrices?  An affirmative answer would give a
+quantitative, parameter-level avatar of the forgetful functor
+$\mathrm{Braided} \to \mathrm{Coboundary}$ from
+Section~\ref{sec:hierarchy}.
+
+\item \label{q:cactus-yang}
+\textbf{Cactus action on Yang's boundary conditions.}
+Yang's Demazure crystal model~\cite{yang-2025} is parameterised by a
+permutation $w \in S_r$, which enters as the boundary condition on the
+right edge of the lattice.  The cactus group $J_r$ acts on Demazure
+crystals via compositions of Sch\"utzenberger
+involutions~\cite{henriques-kamnitzer-2006}.  Does the cactus action
+on the crystal correspond to a permutation of Yang's boundary
+conditions---that is, does the cactus generator $s_{[i,j]}$ send the
+boundary condition $w$ to $w \cdot w_0^{[i,j]}$, where $w_0^{[i,j]}$
+is the longest element of $S_{\{i, \ldots, j\}}$?  If so, the
+coboundary commutor would have an explicit lattice-model
+manifestation: it permutes the boundary data, and the resulting
+bijection on configurations is the lattice-model avatar of the
+Sch\"utzenberger involution.
+
+\item \label{q:specialization-moduli}
+\textbf{Specialization moduli.}
+Fan, Guo, and Xiong~\cite{fan-guo-xiong} proved that KTW puzzles and
+bumpless pipe dreams are not independent models but rather
+\emph{specialisations} of a single lattice model: different choices of
+boundary conditions and spectral parameters in one unified vertex model
+recover both combinatorial objects.  What is the \emph{moduli space} of
+all such specialisations?  Is it related to the space of factored
+integrability conditions (the locus where $R_{\mathrm{row}}$ and
+$R_{\mathrm{col}}$ independently satisfy the YBE)?  A complete
+description of this moduli space would answer, in a precise sense,
+the question ``how many essentially different combinatorial models for
+the LR coefficients exist?''
+
+\end{enumerate}
+
+
+\subsection{Long-term}
+
+\begin{enumerate}[label=\textbf{Q\arabic*.}, ref=Q\arabic*, leftmargin=3em]
+\setcounter{enumi}{6}
+
+\item \label{q:shuffle-full}
+\textbf{Shuffle algebra for the full phase diagram.}
+The Garbali-Negut isomorphism~\cite{garbali-negut-2025} connects
+shuffle algebras to Yangians at the rational level, which governs the
+classical (cohomological) column of the phase diagram.  Does this
+isomorphism extend to the trigonometric level (K-theoretic column,
+where the relevant quantum group is the quantum affine algebra
+$U_q(\widehat{\mathfrak{sl}}_n)$) and the elliptic level (where the
+quantum group is Felder's elliptic quantum
+group~\cite{felder-1995})?  The Shibukawa-Ueno
+hierarchy~\cite{shibukawa-ueno}---elliptic, trigonometric,
+rational---classifies R-matrices by the function field in which they
+live, and is \emph{orthogonal} to the braided/coboundary/symmetric
+hierarchy of Section~\ref{sec:hierarchy}.  The intersection of these
+two hierarchies would give a three-dimensional phase diagram: one axis
+for deformation type, one for integrability level, and one for the
+analytic class of the R-matrix.
+
+\item \label{q:tqft}
+\textbf{TQFT for puzzle bundles.}
+The failure of the Zinn-Justin tetrahedron equation at the
+quasi-solvable level (Section~\ref{sec:groupoid-hierarchy}) defines a
+curvature 2-form on the ``puzzle bundle'' over the higher Bruhat order
+$B(n,2)$.  This curvature measures the obstruction to promoting
+column-level integrability to full vertex-level integrability, and its
+holonomy around closed loops encodes the non-abelian structure of the
+pure cactus group.  Is there a topological quantum field theory whose
+partition function computes LR coefficients, with the curvature
+encoding the quasi-solvable level?  Such a TQFT would provide a
+geometric home for the categorical phase diagram: the braided level
+would correspond to a flat connection (zero curvature, trivial
+holonomy), the coboundary level to a curved connection with discrete
+holonomy, and the symmetric level to the trivial bundle.
+
+\item \label{q:kpz}
+\textbf{KPZ universality for Schubert calculus.}
+Morales, Panova, Petrov, and
+Yeliussizov~\cite{morales-panova-petrov-yeliussizov} connect pipe
+dreams to the totally asymmetric simple exclusion process (TASEP) and
+Tracy-Widom distributions, placing classical Schubert calculus in the
+KPZ universality class.  Does this connection extend to K-theoretic or
+quantum K-theoretic Schubert calculus?  The K-theoretic structure
+constants are \emph{signed}, which complicates the probabilistic
+interpretation, but Tikhonov's permuton results~\cite{tikhonov-2026}
+suggest that the probabilistic side is tractable whenever the Hecke
+parameter $q$ is real.  A KPZ universality theorem for Grothendieck
+polynomials would link the algebraic geometry of flag varieties to the
+statistical mechanics of interface growth---two subjects that have
+developed largely in parallel.
+
+\end{enumerate}
+
+\bigskip
+
+\noindent
+\textbf{Coda.}\enspace
+The central message of this paper is that the multiplicity of
+combinatorial models for LR coefficients is not a historical accident
+but a structural inevitability.  The models proliferate because they
+are representations of a rich algebraic object---the shuffle algebra
+and its quotients---organised by the integrability hierarchy into
+levels of increasing symmetry.  Each level forgets something precise
+(a spectral parameter, a multiplicity bundle), and each forgetting
+produces a simpler but still faithful encoding of the same
+nonnegative integers.  Understanding this structure does more than
+explain existing combinatorics: it predicts where new models should
+live (the open cells of the phase diagram), identifies the invariants
+that distinguish them (the Hecke parameter $q$, the shuffle
+kernel~$\zeta$), and points toward deeper explanations (geometric
+Satake, TQFT, KPZ universality) that may one day subsume the entire
+picture.
+
+The LR coefficients, those modest nonnegative integers governing the
+multiplication of Schur functions, have turned out to be a window onto
+a remarkably deep landscape.  We have tried to draw a map of what we
+can see.  The territory beyond the map---the open cells, the
+conjectural connections, the questions we do not yet know how to
+ask---is, we suspect, richer still.

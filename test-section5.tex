@@ -1,0 +1,46 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{calc,arrows.meta,positioning,decorations.pathreplacing,fit}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+% Fake labels from earlier sections
+\newcommand{\fakeref}[1]{??}
+
+% Stub citations
+\newcommand{\nocitex}[1]{}
+
+% Override \cite to not fail
+\usepackage{cite}
+
+% Fake earlier labels
+\makeatletter
+\newcommand\fakelabel[1]{\@bsphack\protected@write\@auxout{}{\string\newlabel{#1}{{}{}}}\@esphack}
+\makeatother
+
+\begin{document}
+\fakelabel{sec:lattice}
+\fakelabel{sec:lattice-rmatrix}
+\fakelabel{sec:lattice-extensions}
+\fakelabel{sec:groupoid}
+\fakelabel{sec:groupoid-bn}
+\fakelabel{sec:groupoid-hierarchy}
+\fakelabel{eq:ybe}
+\fakelabel{eq:transfer-commute}
+\setcounter{section}{4}
+
+% Suppress citation warnings for test
+\bibliographystyle{plain}
+
+\input{section5-hierarchy}
+
+\end{document}

@@ -1,0 +1,442 @@
+%% Section 2: Classical Littlewood-Richardson Coefficients
+%% To be \input{} into the main document.
+
+\section{Classical Littlewood-Richardson Coefficients}
+\label{sec:classical}
+
+The Littlewood-Richardson coefficients $c^{\nu}_{\lambda,\mu}$ are
+nonnegative integers that appear, independently and without apparent
+conspiracy, in three different branches of mathematics.  That these
+three appearances yield the \emph{same} number is already a theorem
+worth contemplating.  We begin with the three definitions, then survey
+the combinatorial models that make the coefficients computable, and
+finally recast the entire story in the language of Hopf algebras and
+transfer operators --- the doorway to integrability.
+
+Throughout this section, our running example will be the coefficient
+\[
+  c^{(3,2,1)}_{(2,1),\,(2,1)} = 2.
+\]
+This is the smallest instance where the coefficient exceeds~$1$, and it
+will accompany us into the lattice model of Section~3.
+
+\subsection{Definitions and context}
+\label{sec:classical-defn}
+
+A \emph{partition} $\lambda = (\lambda_1 \ge \lambda_2 \ge \cdots \ge
+\lambda_k > 0)$ is a weakly decreasing sequence of positive integers.
+Its \emph{Young diagram} is the array of left-justified boxes with
+$\lambda_i$ boxes in row~$i$; one may picture it as a skyline read
+from left to right, each row a terrace one step narrower than the
+last.  The \emph{size} $|\lambda| = \sum_i \lambda_i$ is the total
+number of boxes.
+
+\begin{definition}[LR coefficients: symmetric functions]
+\label{def:lr-symm}
+Let $\Lambda$ denote the ring of symmetric functions over $\mathbb{Z}$,
+with its basis of Schur functions $\{s_\lambda\}$ indexed by partitions.
+The \emph{Littlewood-Richardson coefficients} $c^{\nu}_{\lambda,\mu}$
+are the structure constants of this basis:
+\[
+  s_\lambda \cdot s_\mu
+  = \sum_{\nu} c^{\nu}_{\lambda,\mu}\, s_\nu.
+\]
+Since the Schur functions form a $\mathbb{Z}$-basis of $\Lambda$, the
+coefficients are uniquely determined.  That they are
+\emph{nonneg\-ative} is a deep fact, not at all obvious from this
+definition.
+\end{definition}
+
+\begin{definition}[LR coefficients: representation theory]
+\label{def:lr-rep}
+Let $V_\lambda$ denote the irreducible polynomial representation of
+$GL_n(\mathbb{C})$ of highest weight $\lambda$ (equivalently, the
+Schur module associated to $\lambda$).  Then
+\[
+  V_\lambda \otimes V_\mu
+  \cong \bigoplus_{\nu} V_\nu^{\oplus\, c^{\nu}_{\lambda,\mu}}
+\]
+as $GL_n$-representations.  Here the nonnegativity of the
+coefficients is manifest: $c^{\nu}_{\lambda,\mu}$ is the multiplicity
+of the irreducible $V_\nu$ in a tensor product, hence a dimension,
+hence a nonneg\-ative integer.
+\end{definition}
+
+\begin{definition}[LR coefficients: Schubert calculus]
+\label{def:lr-schub}
+Let $\mathrm{Gr}(k,n)$ denote the Grassmannian of $k$-planes in
+$\mathbb{C}^n$, and let $\sigma_\lambda \in H^*(\mathrm{Gr}(k,n))$
+denote the Schubert class associated to a partition $\lambda$ fitting
+inside a $k \times (n-k)$ box.  Then
+\[
+  \sigma_\lambda \cdot \sigma_\mu
+  = \sum_\nu c^{\nu}_{\lambda,\mu}\, \sigma_\nu
+  \quad \text{in } H^*(\mathrm{Gr}(k,n)).
+\]
+The geometric content: $c^{\nu}_{\lambda,\mu}$ counts the number of
+points in a triple intersection of Schubert varieties in general
+position.  Nonnegativity is again manifest --- one is counting
+points.
+\end{definition}
+
+\begin{remark}
+The fact that Definitions~\ref{def:lr-symm},~\ref{def:lr-rep},
+and~\ref{def:lr-schub} give the same numbers is a consequence of the
+Borel-Weil theorem and the classical relationship between the
+representation ring of $GL_n$ and the cohomology of Grassmannians
+(see \cite{fulton-1997} for a unified treatment).  But the
+\emph{feeling} of the three definitions is quite different: in
+$\Lambda$ the coefficients are algebraic, in representation theory
+they are multiplicities, and in Schubert calculus they are
+enumerative-geometric.  That a single integer can simultaneously be
+all three things is what makes the LR coefficient a meeting place for
+different parts of mathematics.
+\end{remark}
+
+The coefficients enjoy several structural properties that constrain
+and enrich their study:
+
+\begin{itemize}
+\item \textbf{Symmetry.}
+$c^{\nu}_{\lambda,\mu} = c^{\nu}_{\mu,\lambda}$, since multiplication
+in $\Lambda$ is commutative.
+
+\item \textbf{Vanishing.}
+$c^{\nu}_{\lambda,\mu} = 0$ unless $|\nu| = |\lambda| + |\mu|$ and
+$\nu \supseteq \lambda$, $\nu \supseteq \mu$ (containment of Young
+diagrams).
+
+\item \textbf{Saturation} (Knutson-Tao \cite{knutson-tao-1999}).
+$c^{N\nu}_{N\lambda,\, N\mu} > 0$ if and only if
+$c^{\nu}_{\lambda,\mu} > 0$.  In other words, the \emph{support} of
+the LR coefficients is a saturated cone.  This resolved the
+longstanding saturation conjecture and plays a key role in the Horn
+inequalities characterizing eigenvalues of sums of Hermitian matrices.
+\end{itemize}
+
+
+\subsection{Combinatorial models}
+\label{sec:classical-models}
+
+The nonnegativity of $c^{\nu}_{\lambda,\mu}$ cries out for a
+combinatorial proof: exhibit a set whose cardinality is
+$c^{\nu}_{\lambda,\mu}$.  In fact, several such sets are known, each
+illuminating a different aspect of the coefficient.
+
+\subsubsection*{Skew tableaux and the Littlewood-Richardson rule}
+
+Given partitions $\lambda \subseteq \nu$ (meaning $\lambda_i \le
+\nu_i$ for all $i$), the \emph{skew shape} $\nu/\lambda$ is the set
+of boxes in $\nu$ but not in $\lambda$ --- a diagram with a notch cut
+from its northwest corner.
+
+\begin{definition}[Semistandard Young tableau]
+A \emph{semistandard Young tableau} (SSYT) of shape $\nu/\lambda$ and
+\emph{content} $\mu = (\mu_1, \mu_2, \ldots)$ is a filling of the
+boxes of $\nu/\lambda$ with positive integers such that:
+\begin{enumerate}
+\item[(i)] entries weakly increase along each row (left to right),
+\item[(ii)] entries strictly increase down each column,
+\item[(iii)] the number of entries equal to $i$ is $\mu_i$, for each $i$.
+\end{enumerate}
+\end{definition}
+
+\begin{definition}[Lattice word]
+The \emph{reverse reading word} of a tableau $T$ is obtained by
+reading the entries of $T$ from right to left in each row, starting
+from the top row.  A word $w_1 w_2 \cdots w_N$ is a \emph{lattice
+word} (or \emph{ballot sequence}) if, for every prefix $w_1 \cdots
+w_j$ and every letter $i$, the number of occurrences of $i$ in the
+prefix is at least the number of occurrences of $i+1$.
+\end{definition}
+
+\begin{theorem}[Littlewood-Richardson rule; see {\cite[Ch.~5]{fulton-1997}}, {\cite[Ch.~7]{stanley-1999}}]
+\label{thm:lr-rule}
+The coefficient $c^{\nu}_{\lambda,\mu}$ equals the number of
+semistandard Young tableaux of skew shape $\nu/\lambda$, content
+$\mu$, whose reverse reading word is a lattice word.  Such tableaux
+are called \emph{LR tableaux}.
+\end{theorem}
+
+\begin{example}[The coefficient $c^{(3,2,1)}_{(2,1),\,(2,1)} = 2$]
+\label{ex:lr-tableaux}
+The skew shape $(3,2,1)/(2,1)$ consists of three boxes: position
+$(1,3)$ in the first row, position $(2,2)$ in the second row, and
+position $(3,1)$ in the third row.  We seek fillings with content
+$(2,1)$ --- two $1$s and one $2$ --- satisfying the semistandard and
+lattice word conditions.
+
+The two LR tableaux are:
+\[
+\young(\hfil\hfil1,\hfil1,2)
+\qquad\text{and}\qquad
+\young(\hfil\hfil1,\hfil2,1)
+\]
+where $\hfil$ denotes a box belonging to $\lambda = (2,1)$ (shaded or
+omitted in the skew diagram).  In the first tableau the reverse
+reading word is $1,1,2$ and in the second it is $1,2,1$; both are
+lattice words.  The filling $\young(\hfil\hfil2,\hfil1,1)$ with
+reverse reading word $2,1,1$ is \emph{not} a lattice word (the prefix
+$2$ has more $2$s than $1$s), so it is excluded.  Hence
+$c^{(3,2,1)}_{(2,1),(2,1)} = 2$.
+\end{example}
+
+\subsubsection*{Knutson-Tao-Woodward puzzles}
+
+An entirely different model for the same coefficient was introduced by
+Knutson, Tao, and Woodward \cite{knutson-tao-woodward-2004}.
+
+\begin{definition}[KTW puzzle]
+Fix a positive integer $N$.  An \emph{$N$-puzzle} is a tiling of an
+equilateral triangle of side length $N$ by the following unit pieces,
+each carrying labels $0$ or $1$ on its edges:
+\begin{enumerate}
+\item A triangle of side $1$ with all three edges labeled $0$.
+\item A triangle of side $1$ with all three edges labeled $1$.
+\item A \emph{rhombus} (two unit triangles glued along a shared edge)
+with edges labeled $0$ and $1$ in the pattern: the two edges adjacent
+to one acute angle are labeled $1$, and the two edges adjacent to the
+other acute angle are labeled $0$.
+\end{enumerate}
+The three rhombus orientations (at $0^\circ$, $60^\circ$, and
+$120^\circ$) are all permitted.  In a valid tiling, adjacent pieces
+must agree on shared edges.
+
+The boundary of the triangle consists of $3N$ edges, which we read as
+three binary strings of length~$N$: the \textbf{south} side (left to
+right), the \textbf{northeast} side (bottom to top), and the
+\textbf{northwest} side (top to bottom).  A partition $\lambda$
+fitting inside a $k \times (N-k)$ box is encoded as a binary string
+of length $N$ via the boundary-path encoding described in
+Section~\ref{sec:classical-hopf} below.
+\end{definition}
+
+\begin{theorem}[{\cite{knutson-tao-woodward-2004}}]
+\label{thm:ktw}
+For partitions $\lambda, \mu, \nu$ fitting inside a $k \times (N-k)$
+box, the LR coefficient $c^{\nu}_{\lambda,\mu}$ equals the number of
+$N$-puzzles whose south boundary encodes $\nu$, northwest boundary
+encodes $\lambda$, and northeast boundary encodes $\mu$.
+\end{theorem}
+
+Each valid tiling is a \emph{puzzle witness}: a self-contained
+combinatorial proof that one unit of $c^{\nu}_{\lambda,\mu}$ exists.
+For our running example, the two tableaux of
+Example~\ref{ex:lr-tableaux} correspond to two puzzle tilings of a
+triangle of side $N=5$.  We will see in Section~3 that each tiling is
+a \emph{configuration} of an integrable lattice model --- a
+frozen-in-place snapshot of particle worldlines threading through the
+triangle.
+
+\begin{remark}
+Purbhoo \cite{purbhoo-2007} established a direct bijection between
+KTW puzzles and LR tableaux via an intermediate object called a
+\emph{mosaic}, making the equivalence of Theorems~\ref{thm:lr-rule}
+and~\ref{thm:ktw} constructive rather than merely numerical.
+\end{remark}
+
+The multiplicity of models is the paper's motivating mystery.  Why
+should rhombus tilings (a geometric object), lattice-word conditions
+on skew tableaux (a combinatorial object), and tensor product
+multiplicities (a representation-theoretic object) all count the same
+thing?  One answer --- the one this paper develops --- is that all
+three are shadows of a single algebraic structure: an exactly solvable
+lattice model whose transfer matrices commute by the Yang-Baxter
+equation.
+
+\subsection{The Hopf algebra perspective}
+\label{sec:classical-hopf}
+
+The three definitions of Section~\ref{sec:classical-defn} present LR
+coefficients as \emph{structure constants} of a product.  But the ring
+of symmetric functions carries more structure: it is a
+\emph{self-dual graded connected Hopf algebra}, and the LR
+coefficients appear equally in the coproduct.  This dual perspective
+is less standard in the combinatorics literature, but it is the
+natural home for transfer operators and the gateway to integrability.
+
+\subsubsection*{The coproduct}
+
+The ring $\Lambda$ of symmetric functions carries a coproduct
+\[
+  \Delta \colon \Lambda \to \Lambda \otimes \Lambda
+\]
+defined on the power-sum generators by $\Delta(p_k) = p_k \otimes 1 +
+1 \otimes p_k$ and extended as an algebra homomorphism.  On the Schur
+basis, the coproduct takes the form
+\begin{equation}
+\label{eq:coproduct}
+  \Delta(s_\lambda) = \sum_{\mu,\nu} c^{\lambda}_{\mu,\nu}\, s_\mu
+  \otimes s_\nu,
+\end{equation}
+where the same LR coefficients appear, now with $\lambda$ upstairs
+and the summation over all pairs $(\mu, \nu)$ with $|\mu| + |\nu| =
+|\lambda|$.  The coproduct encodes \emph{all} LR coefficients for a
+given $\lambda$ at once: it ``unfolds'' the partition like a flower
+opening, each summand a valid way to split the whole into two
+interlocking halves.
+
+Self-duality means that the structure constants of the product and
+coproduct coincide: the coefficient of $s_\mu \otimes s_\nu$ in
+$\Delta(s_\lambda)$ equals $c^\lambda_{\mu,\nu}$, the same integer
+that appears as the coefficient of $s_\lambda$ in $s_\mu \cdot s_\nu$.
+This is the Hopf-algebraic shadow of the fact that the LR
+coefficients are ``the same number'' regardless of which definition we
+use.
+
+\subsubsection*{Binary string encoding}
+
+To make the coproduct computable by transfer operators, we need a
+finite-dimensional encoding of partitions.
+
+\begin{definition}[Binary string encoding]
+\label{def:binary-encoding}
+Fix a bounding box of height $k$ (number of parts) and width $m$
+(largest part).  A partition $\lambda$ with at most $k$ parts, each at
+most $m$, is encoded as a binary string $b(\lambda) \in \{0,1\}^{k+m}$
+by tracing the northeast boundary of the Young diagram of $\lambda$
+inside the $k \times m$ box, from the southwest corner to the
+northeast corner:
+\begin{itemize}
+\item a vertical step (north) is recorded as $1$,
+\item a horizontal step (east) is recorded as $0$.
+\end{itemize}
+The string has exactly $k$ ones and $m$ zeros.  For instance, in a
+$3 \times 4$ box, the partition $(3,2,1)$ traces the boundary path
+$\rightarrow \uparrow \rightarrow \uparrow \rightarrow \uparrow
+\rightarrow$, giving $b(3,2,1) = 0101010$.
+\end{definition}
+
+This encoding maps the lattice of partitions inside the $k \times m$
+box to a subset of the Boolean lattice $\{0,1\}^{k+m}$.  It is also
+the encoding used for the boundary conditions of KTW puzzles: the
+binary strings on the three sides of the puzzle triangle are precisely
+these boundary-path encodings of $\lambda$, $\mu$, and $\nu$.
+
+\subsubsection*{Transfer operators}
+
+With partitions encoded as binary strings, we can define operators
+that act on formal linear combinations of partitions by stripping away
+horizontal or vertical strips --- one row of boxes at a time,
+interlocking with the previous state like teeth of a zipper.
+
+\begin{definition}[Free-fermionic transfer operators]
+Let $\lambda$ be a partition inside a $k \times m$ box.
+\begin{enumerate}
+\item $T_{\mathrm{free}}(u)\,|\lambda\rangle = \displaystyle\sum_{\substack{\mu
+\subseteq \lambda \\ \lambda/\mu \text{ h-strip}}} u^{|\lambda/\mu|}
+\,|\mu\rangle$, where the sum is over all $\mu$ such that
+$\lambda/\mu$ is a \emph{horizontal strip} (at most one box per
+column).  In terms of binary strings, $T_{\mathrm{free}}$ slides each
+$0$ (red particle) rightward past one or more $1$s (green particles);
+each crossing contributes a factor of $u$.
+
+\item $\bar{T}_{\mathrm{free}}(u)\,|\lambda\rangle =
+\displaystyle\sum_{\substack{\mu \subseteq \lambda \\ \lambda/\mu
+\text{ v-strip}}} u^{|\lambda/\mu|}\, |\mu\rangle$, where the sum is
+over all $\mu$ such that $\lambda/\mu$ is a \emph{vertical strip} (at
+most one box per row).  In the binary string picture, each $1$ (green
+particle) moves leftward by at most one step past a $0$, each move
+contributing a factor of $u$.
+\end{enumerate}
+\end{definition}
+
+The key identity connecting these operators to symmetric functions is:
+\begin{equation}
+\label{eq:schur-transfer}
+  s_{\lambda/\mu}(u_1, \ldots, u_n)
+  = \langle \mu \,|\, T_{\mathrm{free}}(u_1) \cdots
+    T_{\mathrm{free}}(u_n)\, |\lambda\rangle,
+\end{equation}
+where $\langle\mu|$ denotes the linear functional picking out the
+coefficient of $|\mu\rangle$.  Setting $\mu = \varnothing$ recovers
+the Schur function $s_\lambda(u_1, \ldots, u_n)$.  The analogous
+formula with $\bar{T}_{\mathrm{free}}$ computes the \emph{conjugate}
+skew Schur function $s_{\lambda'/\mu'}$.
+
+The coproduct~\eqref{eq:coproduct} can now be computed by composing
+transfer operators.  Write $T_{\mathrm{free}}$ applied $n$ times (with
+variables $u_1, \ldots, u_n$) to expand
+$\Delta(s_\lambda)$: one obtains $s_{\lambda/\mu}$ as a polynomial in
+the $u_i$, and then decomposes it into Schur functions to read off the
+LR coefficients.
+
+\subsubsection*{A computational subtlety}
+
+In practice, extracting individual LR coefficients from the transfer
+operator output requires care.  The na\"ive approach --- evaluate the
+Schur function $s_\nu(1, \ldots, 1)$ at various numbers of variables
+using the hook-content formula, then solve a linear system --- fails
+because the hook-content values are \emph{linearly dependent} across
+partitions of the same size.  For example,
+\[
+  \dim_n(3,1) - 3\,\dim_n(2,2) + \dim_n(2,1,1) = 0
+  \quad \text{for all } n,
+\]
+where $\dim_n(\nu) = s_\nu(1^n)$ is the dimension of the $GL_n$
+representation $V_\nu$.  So the principal specialization cannot
+separate all Schur functions of a given degree.
+
+The fix, discovered through computational experiment
+\cite{zinn-justin-2008}, is to use the \emph{Kostka matrix}.  Recall
+that the Kostka number $K_{\nu,\rho}$ counts semistandard Young
+tableaux of shape $\nu$ and content $\rho$.  Ordered by dominance, the
+Kostka matrix is \emph{unitriangular}: $K_{\nu,\nu} = 1$ and
+$K_{\nu,\rho} = 0$ unless $\nu \trianglerighteq \rho$ in dominance
+order.  In particular, the Kostka matrix is always invertible, and its
+inverse can be computed by forward substitution.
+
+One computes the \emph{skew Kostka numbers}
+$\widetilde{K}_{\lambda/\mu,\,\rho}$ (counting SSYT of skew shape
+$\lambda/\mu$ and content $\rho$) via chains of $T_{\mathrm{free}}$
+applications --- each chain of strip removals of prescribed sizes
+traces a single SSYT.  Then, inverting the Kostka matrix recovers the
+individual LR coefficients $c^\lambda_{\mu,\nu}$ from the skew Kostka
+numbers via
+\[
+  \widetilde{K}_{\lambda/\mu,\,\rho}
+  = \sum_\nu c^\lambda_{\mu,\nu}\, K_{\nu,\rho}.
+\]
+The unitriangularity of $K$ makes this inversion exact over the
+integers, with no linear dependencies to contend with.
+
+\begin{example}[Coproduct of $s_{(3,2,1)}$]
+\label{ex:coproduct-321}
+Applying the transfer operator machinery to $\lambda = (3,2,1)$
+yields the coproduct
+\[
+  \Delta(s_{(3,2,1)}) = s_{(3,2,1)} \otimes s_\varnothing
+  + s_{(3,1)} \otimes s_{(1,1)}
+  + s_{(2,2)} \otimes s_{(1,1)}
+  + s_{(3,2)} \otimes s_{(1)}
+  + \cdots
+  + 2\, s_{(2,1)} \otimes s_{(2,1)}
+  + \cdots
+  + s_\varnothing \otimes s_{(3,2,1)},
+\]
+with $25$ nonzero terms in total.  The coefficient $2$ at
+$s_{(2,1)} \otimes s_{(2,1)}$ is our running example.
+\end{example}
+
+\subsubsection*{From transfer operators to lattice models}
+
+We close with the observation that motivates the rest of this paper.
+The operators $T_{\mathrm{free}}$ and $\bar{T}_{\mathrm{free}}$ are
+\emph{row transfer matrices} of a lattice model.  Each application of
+$T_{\mathrm{free}}$ processes one row of the lattice: the input state
+(a binary string encoding a partition) enters from below, the operator
+produces all valid output states above, weighted by powers of the
+spectral parameter $u$.  Composing $n$ transfer matrices builds the
+lattice row by row, and the matrix element
+$\langle\varnothing|T_{\mathrm{free}}(u_1) \cdots
+T_{\mathrm{free}}(u_n)|\lambda\rangle$ is a partition function: a sum
+over all configurations of the lattice with the prescribed boundary
+conditions.
+
+In Section~3 we will see that this is not merely an analogy.  The
+puzzle pieces of Knutson-Tao-Woodward are precisely the
+\emph{R-matrix weights} of a free-fermionic vertex model, and the row
+transfer matrices commute because the R-matrix satisfies the
+Yang-Baxter equation.  The multiplicity of combinatorial models ---
+puzzles, tableaux, mosaics --- is then no mystery: they are different
+ways of summing over the configurations of a single integrable system.

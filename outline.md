@@ -144,7 +144,14 @@ All four columns at the solvable row are established. The coboundary and symmetr
 
 Key insight: different combinatorial models (puzzles, BPDs, tableaux) are not separate objects connected by bijections — they are specializations of a single integrable lattice model over a parameter space (Fan-Guo-Xiong 2023). The core question shifts from "why so many models?" to "what is the moduli space of specializations?"
 
-**Type:** New synthesis. The figure is compiled (`phase-diagram.pdf`). The Fan-Guo-Xiong insight is exposition of their result, reinterpreted through the phase diagram lens.
+**New computational result (04-11):** Fan-Guo-Xiong's R_row and R_col BOTH satisfy pure YBE independently. At $\beta = 0$ (Schubert) they coincide; at $\beta \neq 0$ (K-theory) they differ. Neither handles the full multi-color model (asymmetric cross vertex). This gives clean content to the vertical axis in terms of R-matrix structure:
+- **Solvable/braided**: unified integrability (one R-matrix)
+- **Quasi-solvable/coboundary**: factored integrability (two independent R-matrices, no unified one)
+- **Combinatorial/symmetric**: no R-matrix
+
+The obstruction to unification is the asymmetric cross vertex $L(a,b,a,b) = 1$ only for $a < b$ — a chirality/label asymmetry, the same type of obstruction identified in the five-vertex classification (§4.3).
+
+**Type:** New synthesis + new computation. The factored integrability result is Clio's contribution (script: `r_col_ybe_test.py`).
 
 ### 5.3 The Hecke algebra as transition algebra
 
