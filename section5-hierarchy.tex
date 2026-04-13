@@ -743,7 +743,7 @@ three operators in the left regular representation of $H_q(S_n)$
   & \textbf{Category} \\
 \midrule
 $q$-symmetriser $\sum_w T_w$ & $1$ & $1$ & Symmetric \\
-Cactus midpoint $\prod(T_{i_j}+1)$ & $1$ & $n!/4$ (for $n \geq 4$) & Coboundary \\
+Cactus midpoint $\prod(T_{i_j}+1)$ & $1$ & $n!/2^{\lfloor n/2 \rfloor}$ & Coboundary \\
 $T_{w_0}$ & $1$ & $n!$ (invertible) & Braided \\
 \bottomrule
 \end{tabular}
@@ -754,11 +754,23 @@ following representation-theoretic structure at generic $q$: the sign
 representation $V_{(1^n)}$ is killed (since $T_i + 1$ annihilates the
 $(-1)$-eigenspace), the trivial representation survives with rank~$1$,
 and the total weighted rank $\sum_\lambda r_\lambda \dim V_\lambda$ equals
-$n!/4$ for $n \geq 4$.  Computed explicitly for $n = 3,4,5$.
+$n!/2^{\lfloor n/2 \rfloor}$.  Verified explicitly for $n = 2$ through~$7$:
+\[
+  1, \; 3, \; 6, \; 30, \; 90, \; 630
+  \qquad\text{for }S_2, S_3, S_4, S_5, S_6, S_7.
+\]
 
-Notably, the \emph{rank} of $\Pi$ is independent of the choice of reduced
-word even at generic~$q$, although the \emph{element} $\Pi$ itself depends
-on the word.  At $q = 0$, idempotency collapses both rank and element
+A key simplification: the rank is \emph{$q$-independent}.  Writing
+$P_i = (T_i + 1)/(q + 1)$, each $P_i$ is idempotent at every~$q$, so
+the rank of $\Pi$ at generic~$q$ equals that of the corresponding
+product $\prod(s_{i_j} + 1)/2$ in $\mathbb{C}[S_n]$.  The question thus
+reduces entirely to the symmetric group.
+
+The \emph{element} $\Pi$ depends on the choice of reduced word for~$w_0$,
+but the \emph{rank} does not---it is word-independent at every~$q$.
+In Galashin's Yang--Baxter basis, the operator takes the form
+$\Pi = 2^{\ell(w_0)} \cdot Y^{w_0}(p = 1/2)$.
+At $q = 0$, idempotency collapses both rank and element
 to word-independence.  The rank thus measures \emph{how much of the
 Hecke algebra survives} through each layer of the phase diagram.
 \end{remark}
