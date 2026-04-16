@@ -1,0 +1,529 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage[margin=1in]{geometry}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\Sym}{\mathfrak{S}}
+\newcommand{\im}{\operatorname{im}}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\rk}{\operatorname{rank}}
+
+\title{The Rank of the Symmetrizing Product: \\
+Injectivity, Cascade Surjectivity, and the Formula $n!/2^{\lfloor n/2 \rfloor}$}
+\author{Clio}
+\date{April 14, 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We study the staircase symmetrizing product
+$\Pi = \prod(1+s_{i_j})/2$ for the longest element $w_0 \in \Sym_n$,
+acting on the left regular representation. We prove an
+\emph{Injectivity Lemma} showing rank drops occur only at the $P_1$
+steps, a \emph{First Block Surjectivity} theorem identifying the image
+after the first pass as $+1(s_{n-1})$, a \emph{Cascade Surjectivity}
+lemma showing how eigenspace conditions propagate through the cascade,
+and a \emph{Trace Preservation} lemma controlling $s_1$-traces. These
+combine to prove the first two halvings unconditionally and yield the
+rank formula $\rk(\Pi) = n!/2^{\lfloor n/2\rfloor}$ modulo a halving
+lemma verified for $n \le 8$.
+\end{abstract}
+
+
+\section{Setup}
+
+Let $\Sym_n$ act on $\{1, \dots, n\}$ with simple transpositions
+$s_i = (i, i{+}1)$. In the left regular representation, $s_i$ acts by
+$s_i \cdot e_w = e_{s_i w}$. Define projections
+$P_i = (1 + s_i)/2$, which are idempotents projecting onto the
+$+1$ eigenspace of~$s_i$.
+
+\begin{definition}[Staircase product]
+The staircase reduced word for $w_0 \in \Sym_n$ consists of $n{-}1$
+\emph{passes}: pass~$j$ (for $j = 1, \dots, n{-}1$) applies the projections
+$P_1, P_2, \dots, P_{n-j}$ in sequence. The full product is
+\[
+  \Pi = \underbrace{P_1}_{\text{pass }n{-}1}
+  \cdot \underbrace{P_2 P_1}_{\text{pass }n{-}2}
+  \cdots
+  \underbrace{P_{n-1} \cdots P_2 P_1}_{\text{pass }1}.
+\]
+The rightmost pass is applied first.
+\end{definition}
+
+\noindent\textbf{Notation.} Write $+1(s_k)$ for the $+1$ eigenspace
+of~$s_k$ and $-1(s_k)$ for the $-1$ eigenspace. Write $W_j$ for the
+image of $\CC[\Sym_n]$ after the first $j$ passes have been applied.
+
+
+\section{The Injectivity Lemma}
+
+\begin{lemma}[Triple Lemma]
+\label{lem:triple}
+In $\CC[\Sym_n]$ with $n \ge 3$, for any $1 \le k \le n-2$:
+\[
+  \ker(P_{k+1}) \cap \im(P_k) = \{0\}.
+\]
+Equivalently, $+1(s_k) \cap -1(s_{k+1}) = \{0\}$.
+\end{lemma}
+
+\begin{proof}
+By symmetry, it suffices to prove the case $k = 1$. Write
+$v = \sum c_w \, e_w$ and group terms by the triple of values
+$\{a, b, c\}$ occupying positions $1, 2, 3$ and by the tail
+$w|_{\{4,\dots,n\}}$. Within each 6-element group, the condition
+$s_1 v = v$ forces equal coefficients on each $s_1$-orbit, leaving
+three variables $\alpha, \beta, \gamma$. The condition $s_2 v = -v$
+gives $\beta = -\alpha$, $\gamma = -\alpha$, and $\gamma = -\beta$.
+Together: $\gamma = -\gamma$, so $\alpha = \beta = \gamma = 0$.
+\end{proof}
+
+\begin{theorem}[Within-Pass Injectivity]
+\label{thm:injectivity}
+In the sequential application $P_1, P_2, \dots, P_m$ (with $m \le n-1$),
+$P_j$ is injective on $P_{j-1}(\cdots P_1(W)\cdots)$ for all $j \ge 2$
+and any initial subspace~$W$.
+\end{theorem}
+
+\begin{proof}
+At step $j \ge 2$, the image of $P_{j-1}$ lies in $\im(P_{j-1}) = +1(s_{j-1})$.
+The kernel of $P_j$ intersects $+1(s_{j-1})$ trivially by
+Lemma~\ref{lem:triple}.
+\end{proof}
+
+\begin{corollary}
+\label{cor:rank-structure}
+In the staircase product $\Pi$, rank drops occur only at the $P_1$
+steps. The total rank is $n!/2^d$ where $d$ is the number of
+passes whose initial $P_1$ step causes a nontrivial rank reduction.
+\end{corollary}
+
+
+\section{First Block Surjectivity}
+
+\begin{theorem}[First Block Surjectivity]
+\label{thm:first-block}
+After pass~1 (applying $P_1, P_2, \dots, P_{n-1}$ to $\CC[\Sym_n]$),
+the image is exactly $+1(s_{n-1})$:
+\[
+  W_1 = P_{n-1} \cdots P_2 P_1(\CC[\Sym_n]) = +1(s_{n-1}).
+\]
+In particular, $\dim(W_1) = n!/2$.
+\end{theorem}
+
+\begin{proof}
+After $P_1$: the image is $+1(s_1)$, which has dimension $n!/2$.
+After $P_2$: the image lies in $+1(s_2)$. By Theorem~\ref{thm:injectivity},
+$P_2$ is injective on $+1(s_1)$, so $\dim(P_2(+1(s_1))) = n!/2$.
+Since $+1(s_2)$ also has dimension $n!/2$, we conclude
+$P_2(+1(s_1)) = +1(s_2)$.
+
+By induction: after $P_k$ (for $k = 2, \dots, n-1$), the image is all
+of $+1(s_k)$, each of dimension $n!/2$. At the final step,
+$W_1 = +1(s_{n-1})$.
+\end{proof}
+
+
+\section{Cascade Surjectivity}
+
+\begin{lemma}[Cascade Surjectivity]
+\label{lem:cascade}
+If $|k - j| > 1$ (so $s_k$ and $s_j$ commute), then $P_k$ maps
+$+1(s_{k-1}) \cap +1(s_j)$ bijectively onto $+1(s_k) \cap +1(s_j)$.
+\end{lemma}
+
+\begin{proof}
+Since $s_k$ commutes with $s_j$, $P_k$ preserves $+1(s_j)$: if
+$s_j v = v$, then $s_j(P_k v) = P_k(s_j v) = P_k v$.
+
+By the Triple Lemma, $\ker(P_k) \cap +1(s_{k-1}) = \{0\}$, so $P_k$ is
+injective on $+1(s_{k-1}) \cap +1(s_j)$. This space has dimension $n!/4$
+(since $s_{k-1}$ and $s_j$ commute, both conditions independently halve).
+The target $+1(s_k) \cap +1(s_j)$ also has dimension $n!/4$
+(since $|k-j| > 1$ implies $s_k$ and $s_j$ commute). By injectivity plus
+equal dimensions, the map is a bijection.
+\end{proof}
+
+\begin{remark}
+More generally, if $S \subseteq \{1, \dots, n-1\}$ is a set of indices
+with $|k-j| > 1$ for all $j \in S$ and $|k-j| > 1$, $|(k-1) - j| > 1$
+for all $j \in S$, then $P_k$ maps
+$+1(s_{k-1}) \cap \bigcap_{j \in S} +1(s_j)$ bijectively onto
+$+1(s_k) \cap \bigcap_{j \in S} +1(s_j)$.
+\end{remark}
+
+
+\section{Trace Preservation}
+
+\begin{lemma}[Trace Preservation]
+\label{lem:trace}
+Let $V \subseteq \CC[\Sym_n]$ be a subspace that is $s_j$-invariant
+(i.e., $s_j(V) = V$). If $P_k$ commutes with $s_j$ (equivalently,
+$|k-j| > 1$) and $P_k$ is injective on~$V$, then $P_k(V)$ is
+$s_j$-invariant and
+\[
+  \tr(s_j|_{P_k(V)}) = \tr(s_j|_V).
+\]
+\end{lemma}
+
+\begin{proof}
+Since $P_k$ commutes with $s_j$, for $v \in V$:
+$s_j(P_k v) = P_k(s_j v) \in P_k(V)$, so $P_k(V)$ is $s_j$-invariant.
+
+Since $V$ is $s_j$-invariant, it decomposes as $V = V^+ \oplus V^-$
+where $V^\pm = \pm 1(s_j) \cap V$. Then
+$P_k(V) = P_k(V^+) \oplus P_k(V^-)$ (by injectivity of $P_k$ on~$V$
+and the fact that $P_k$ preserves $\pm 1(s_j)$). Since $P_k$ is
+injective, $\dim(P_k(V^\pm)) = \dim(V^\pm)$, so
+\[
+  \tr(s_j|_{P_k(V)}) = \dim(P_k(V^+)) - \dim(P_k(V^-))
+  = \dim(V^+) - \dim(V^-) = \tr(s_j|_V). \qedhere
+\]
+\end{proof}
+
+
+\section{The halving mechanism}
+
+\subsection{Regularity of traces}
+
+\begin{lemma}
+\label{lem:reg-trace}
+In the left regular representation of $\Sym_n$, for any non-identity
+element $g \in \Sym_n$: $\tr(g) = 0$.
+\end{lemma}
+
+\begin{proof}
+$g$ acts by $e_w \mapsto e_{gw}$. The trace is the number of fixed
+points: $|\{w : gw = w\}| = 0$ since $g \ne e$.
+\end{proof}
+
+\begin{corollary}
+\label{cor:trace-eigenspace}
+For any set of pairwise commuting transpositions $\{s_{j_1}, \dots, s_{j_r}\}$
+with $|j_a - j_b| > 1$ for all $a \ne b$, and any $s_i$ with
+$|i - j_a| > 1$ for all $a$:
+\[
+  \tr\!\left(s_i \big|_{\bigcap_{a=1}^r +1(s_{j_a})}\right) = 0.
+\]
+\end{corollary}
+
+\begin{proof}
+The projector onto $\bigcap_a +1(s_{j_a})$ is $\prod_a P_{j_a}$
+(commuting idempotents). The trace is
+\[
+  \tr\!\left(s_i \prod_a P_{j_a}\right)
+  = 2^{-r} \sum_{T \subseteq \{1,\dots,r\}}
+    \tr\!\left(s_i \prod_{a \in T} s_{j_a}\right).
+\]
+Each term $s_i \prod_{a \in T} s_{j_a}$ is a product of disjoint
+transpositions including $s_i$, hence non-identity. By
+Lemma~\ref{lem:reg-trace}, every term vanishes.
+\end{proof}
+
+
+\subsection{The first halving}
+
+\begin{theorem}
+\label{thm:halving-1}
+For $n \ge 4$: $W_1 = +1(s_{n-1})$ is $s_1$-invariant, with
+$\tr(s_1|_{W_1}) = 0$, so $P_1$ halves the image at the start
+of pass~2:
+\[
+  \dim(P_1(W_1)) = \dim(W_1)/2 = n!/4.
+\]
+\end{theorem}
+
+\begin{proof}
+Since $|1 - (n-1)| = n-2 > 1$ for $n \ge 4$, $s_1$ commutes with
+$s_{n-1}$, so $+1(s_{n-1})$ is $s_1$-invariant. By
+Corollary~\ref{cor:trace-eigenspace} with $r = 1$ and $j_1 = n-1$,
+$\tr(s_1|_{+1(s_{n-1})}) = 0$. Hence the $+1$ and $-1$ eigenspaces of
+$s_1$ within $+1(s_{n-1})$ have equal dimension $n!/4$.
+Applying $P_1$ kills the $-1$ eigenspace, giving
+$\dim(P_1(W_1)) = n!/4$.
+\end{proof}
+
+
+\subsection{Image after pass~2}
+
+\begin{theorem}
+\label{thm:pass2}
+For $n \ge 4$, the image after pass~2 is
+\[
+  W_2 = P_{n-2}\!\left(+1(s_{n-3}) \cap +1(s_{n-1})\right),
+  \qquad \dim(W_2) = n!/4.
+\]
+Moreover, $W_2 \subseteq +1(s_{n-2})$.
+\end{theorem}
+
+\begin{proof}
+Pass~2 applies $P_1, P_2, \dots, P_{n-2}$ to $W_1 = +1(s_{n-1})$.
+
+After $P_1$: the image is $+1(s_1) \cap +1(s_{n-1})$, dimension $n!/4$
+(by Theorem~\ref{thm:halving-1}).
+
+For $k = 2, 3, \dots, n-3$: each $s_k$ commutes with $s_{n-1}$
+(since $k \le n-3$ implies $|k - (n-1)| \ge 2$). By
+Lemma~\ref{lem:cascade}, $P_k$ maps
+$+1(s_{k-1}) \cap +1(s_{n-1})$ bijectively to
+$+1(s_k) \cap +1(s_{n-1})$.
+
+After $P_{n-3}$: the image is $+1(s_{n-3}) \cap +1(s_{n-1})$, dimension
+$n!/4$.
+
+Finally, $P_{n-2}$ is injective on this space (since
+$+1(s_{n-3}) \cap +1(s_{n-1}) \subseteq +1(s_{n-3})$ and
+$\ker(P_{n-2}) \cap +1(s_{n-3}) = \{0\}$ by the Triple Lemma).
+So $W_2 = P_{n-2}(+1(s_{n-3}) \cap +1(s_{n-1}))$ has dimension $n!/4$,
+and $W_2 \subseteq +1(s_{n-2})$.
+\end{proof}
+
+
+\subsection{The second halving}
+
+\begin{theorem}
+\label{thm:halving-2}
+For $n \ge 6$: $W_2$ is $s_1$-invariant with $\tr(s_1|_{W_2}) = 0$,
+so $P_1$ halves the image at the start of pass~3:
+\[
+  \dim(P_1(W_2)) = n!/8.
+\]
+\end{theorem}
+
+\begin{proof}
+The inner space $+1(s_{n-3}) \cap +1(s_{n-1})$ is $s_1$-invariant
+(since $|1 - (n-3)| \ge 3$ and $|1 - (n-1)| \ge 5$ for $n \ge 6$),
+and $\tr(s_1|_{+1(s_{n-3}) \cap +1(s_{n-1})}) = 0$ by
+Corollary~\ref{cor:trace-eigenspace}.
+
+The outer projection $P_{n-2}$ commutes with $s_1$ (since
+$|1 - (n-2)| \ge 4$ for $n \ge 6$) and is injective on the inner
+space (by the proof of Theorem~\ref{thm:pass2}). By the Trace
+Preservation Lemma~\ref{lem:trace}:
+\[
+  \tr(s_1|_{W_2}) = \tr(s_1|_{+1(s_{n-3}) \cap +1(s_{n-1})}) = 0.
+\]
+So $W_2$ has $n!/8$ each of $+1$ and $-1$ eigenvectors for $s_1$,
+and $P_1$ halves.
+\end{proof}
+
+
+\subsection{General halving pattern (verified)}
+
+\begin{conjecture}[Halving Lemma]
+\label{conj:halving}
+For $j = 1, \dots, \lfloor n/2 \rfloor$: the $P_1$ step at the
+start of pass~$j$ halves the image dimension. All subsequent $P_1$
+steps (passes $\lfloor n/2 \rfloor + 1, \dots, n-1$) are injective.
+\end{conjecture}
+
+\noindent The above theorems prove this for the first two halvings
+($n \ge 4$ and $n \ge 6$ respectively). The pattern continues:
+
+\begin{remark}[Structure of later halvings]
+Computational analysis (verified $n \le 8$) reveals:
+
+\textbf{Image after pass~$j$:} $W_j \subseteq +1(s_{n-j})$,
+with $\dim(W_j) = n!/2^{\min(j, \lfloor n/2 \rfloor)}$.
+
+\textbf{$V_j$ formula:} Before halving $j{+}2$ (for
+$j = 0, 1, \dots, \lfloor n/2 \rfloor - 2$), the image has the
+form
+\[
+  W_{j+1} = P_{n-j-1}\!\left(
+    +1(s_{n-j-2}) \cap +1(s_{n-j})
+  \right) \cap (\text{$n!/2^{j+1}$-dim subspace}).
+\]
+More precisely, $W_{j+1}$ is obtained by applying $P_{n-j-1}$ to the
+cascade output: the cascade $P_1, P_2, \dots, P_{n-j-2}$ maps
+$+1(s_1) \cap W_j$ (after halving) through successive eigenspace
+intersections, reaching $+1(s_{n-j-2}) \cap +1(s_{n-j})$ before the
+final step $P_{n-j-1}$.
+
+\textbf{$s_1$-invariance:} $W_{j+1}$ is $s_1$-invariant with
+$\tr(s_1|_{W_{j+1}}) = 0$, for $j+1 \le \lfloor n/2 \rfloor - 1$.
+This follows from:
+\begin{enumerate}
+  \item The ``inner'' intersection
+    $+1(s_{n-j-2}) \cap +1(s_{n-j})$ is $s_1$-invariant with
+    vanishing $s_1$-trace (by Corollary~\ref{cor:trace-eigenspace},
+    provided $n - j - 2 \ge 3$, i.e., $j \le n - 5$).
+  \item The ``outer'' projection $P_{n-j-1}$ commutes with $s_1$
+    (provided $n - j - 1 \ge 3$, i.e., $j \le n - 4$).
+  \item $P_{n-j-1}$ is injective on the inner space (by the
+    Triple Lemma).
+  \item Trace Preservation (Lemma~\ref{lem:trace}) propagates the
+    vanishing trace through $P_{n-j-1}$.
+\end{enumerate}
+For $j+1 \le \lfloor n/2 \rfloor - 1$, the conditions
+$j \le n - 5$ and $j \le n - 4$ are satisfied (since
+$\lfloor n/2 \rfloor - 2 \le n - 5$ for $n \ge 6$).
+\end{remark}
+
+\noindent\textbf{Verification.} The halving pattern is confirmed for
+$n = 2, 3, \dots, 8$:
+
+\medskip
+\begin{center}
+\begin{tabular}{c|c|l}
+$n$ & $\lfloor n/2 \rfloor$ & Rank after each $P_1$ step \\
+\hline
+2 & 1 & $2 \to 1$ \\
+3 & 1 & $6 \to 3$ \\
+4 & 2 & $24 \to 12 \to 6$ \\
+5 & 2 & $120 \to 60 \to 30$ \\
+6 & 3 & $720 \to 360 \to 180 \to 90$ \\
+7 & 3 & $5040 \to 2520 \to 1260 \to 630$ \\
+8 & 4 & $40320 \to 20160 \to 10080 \to 5040 \to 2520$
+\end{tabular}
+\end{center}
+
+\medskip
+\noindent Additionally, the cascade surjectivity formula
+$W_2 = P_{n-2}(+1(s_{n-3}) \cap +1(s_{n-1}))$ is verified for
+$n = 4, 5, 6$, with $s_1$-invariance and $\tr(s_1) = 0$ confirmed.
+
+
+\section{The rank formula}
+
+\begin{theorem}[Rank Formula]
+\label{thm:rank}
+Assuming Conjecture~\ref{conj:halving} (proved for the first two
+halvings, verified for $n \le 8$):
+\[
+  \rk(\Pi) = \frac{n!}{2^{\lfloor n/2\rfloor}}.
+\]
+\end{theorem}
+
+\begin{proof}
+By Corollary~\ref{cor:rank-structure}, $\rk(\Pi) = n!/2^d$ where $d$ is
+the number of halving $P_1$ steps. By Conjecture~\ref{conj:halving},
+$d = \lfloor n/2 \rfloor$.
+\end{proof}
+
+\begin{remark}
+The count $n!/2^{\lfloor n/2\rfloor}$ equals the number of
+\emph{descent-paired permutations} of~$[n]$: those $w$ with
+$w(2i{-}1) > w(2i)$ for all $i = 1, \dots, \lfloor n/2 \rfloor$
+(OEIS A090932, Callan's characterization). Computational verification
+($n \le 5$) confirms that $\{\Pi \cdot e_w : w \text{ descent-paired}\}$
+is in fact a \emph{basis} for $\im(\Pi)$.
+\end{remark}
+
+
+\section{Eigenspace cascade tracking}
+
+The cascade pattern through all steps reveals the following structure
+(verified for $n \le 6$):
+
+\begin{proposition}[Eigenspace tracking]
+After step $P_k$ within pass~$j$ (i.e., after applying $P_1, \dots, P_k$
+to $W_{j-1}$), the image is contained in $+1(s_k)$. Moreover, if
+$k \le n - j - 1$, the image is also contained in $+1(s_{n-j+1})$
+(the eigenspace condition ``carried'' from the previous pass).
+At the last step $P_{n-j}$, the carried condition $+1(s_{n-j+1})$
+is lost (since $s_{n-j}$ is adjacent to $s_{n-j+1}$), and the
+image enters $+1(s_{n-j})$.
+\end{proposition}
+
+\noindent For $\Sym_6$, the full tracking is:
+\begin{center}
+\small
+\begin{tabular}{r|l|l}
+Step & Projection & Image fixed by \\
+\hline
+1 & $P_1$ & $s_1$ \\
+2 & $P_2$ & $s_2$ \\
+3 & $P_3$ & $s_3$ \\
+4 & $P_4$ & $s_4$ \\
+5 & $P_5$ & $s_5$ \quad (end of pass 1) \\
+\hline
+6 & $P_1$ & $s_1, s_5$ \quad (\textbf{halving}) \\
+7 & $P_2$ & $s_2, s_5$ \\
+8 & $P_3$ & $s_3, s_5$ \\
+9 & $P_4$ & $s_4$ \quad ($s_5$ lost, end of pass 2) \\
+\hline
+10 & $P_1$ & $s_1, s_4$ \quad (\textbf{halving}) \\
+11 & $P_2$ & $s_2, s_4$ \\
+12 & $P_3$ & $s_3$ \quad ($s_4$ lost, end of pass 3) \\
+\hline
+13 & $P_1$ & $s_1$ \quad (\textbf{halving}) \\
+14 & $P_2$ & $s_2$ \quad (end of pass 4) \\
+\hline
+15 & $P_1$ & $s_1$ \quad (no halving, end of pass 5) \\
+\end{tabular}
+\end{center}
+
+
+\section{Remaining gaps}
+
+\begin{enumerate}
+  \item \textbf{General halving (passes $\ge 4$).} The proof of the
+    first two halvings uses the explicit formula
+    $W_2 = P_{n-2}(+1(s_{n-3}) \cap +1(s_{n-1}))$ to establish
+    $s_1$-invariance and vanishing trace via Trace Preservation.
+    Extending this to the third and higher halvings requires showing
+    that the cascade $P_2, P_3, \dots$ (which includes $P_2$ that
+    does \emph{not} commute with $s_1$) produces an $s_1$-invariant
+    output. The difficulty: $P_2$ temporarily breaks $s_1$-invariance,
+    and while $P_3, P_4, \dots$ (which commute with $s_1$) should
+    ``restore'' it, a clean algebraic proof of this restoration
+    is lacking.
+
+  \item \textbf{Halving cessation.} After $\lfloor n/2 \rfloor$
+    halvings, the image has no $-1(s_1)$ eigenvectors. This is
+    verified computationally but not proved. The mechanism appears
+    related to the ``carried'' eigenspace condition reaching
+    indices too close to~1 for $s_1$-commutativity.
+
+  \item \textbf{Image basis.} The conjecture that descent-paired
+    permutations index an image basis is verified for $n \le 5$.
+\end{enumerate}
+
+
+\section{Proof summary and status}
+
+\begin{center}
+\begin{tabular}{l|l}
+\textbf{Result} & \textbf{Status} \\
+\hline
+Triple Lemma (\ref{lem:triple}) & Proved \\
+Within-Pass Injectivity (\ref{thm:injectivity}) & Proved \\
+First Block Surjectivity (\ref{thm:first-block}) & Proved \\
+Cascade Surjectivity (\ref{lem:cascade}) & Proved \\
+Trace Preservation (\ref{lem:trace}) & Proved \\
+Regularity of traces (\ref{lem:reg-trace}, \ref{cor:trace-eigenspace})
+  & Proved \\
+First halving (\ref{thm:halving-1}) & Proved ($n \ge 4$) \\
+Image after pass~2 (\ref{thm:pass2}) & Proved ($n \ge 4$) \\
+Second halving (\ref{thm:halving-2}) & Proved ($n \ge 6$) \\
+General halving (\ref{conj:halving}) & Verified $n \le 8$ \\
+Rank formula (\ref{thm:rank}) & Conditional on \ref{conj:halving} \\
+Image basis & Verified $n \le 5$ \\
+\end{tabular}
+\end{center}
+
+
+\begin{thebibliography}{9}
+\bibitem{Galashin2020}
+P.~Galashin, \emph{Symmetries of stochastic colored vertex models},
+Ann.\ Probab.\ \textbf{49} (2021), no.~5, 2175--2219.
+
+\bibitem{OEIS-A090932}
+OEIS Foundation, \emph{A090932: $n!/2^{\lfloor n/2\rfloor}$},
+\texttt{https://oeis.org/A090932}.
+\end{thebibliography}
+
+\end{document}

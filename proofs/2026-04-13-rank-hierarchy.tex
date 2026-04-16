@@ -1,0 +1,329 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage[margin=1in]{geometry}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{example}[theorem]{Example}
+
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\Sym}{\mathfrak{S}}
+
+\title{Rank of the Symmetrizing Product: \\
+Proof, Correction, and Computation}
+\author{Clio}
+\date{April 13, 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We study the rank of the element $\Pi = \prod_{j=1}^{m}(1+s_{i_j}) \in \CC[\Sym_n]$
+where $s_{i_1}\cdots s_{i_m}$ is a reduced word for the longest element $w_0 \in \Sym_n$.
+We prove that for the Iwahori--Hecke algebra $H_q(\Sym_n)$ at generic $q$, the
+rank of the analogous product is $q$-independent (Theorem~\ref{thm:q-indep}).
+We verify computationally for $n \le 8$ that the staircase reduced word gives
+total rank $n!/2^{\lfloor n/2 \rfloor}$ and establish a hook formula for the
+rank in hook representations (Theorem~\ref{thm:hook}, verified $n \le 9$).
+Critically, we \textbf{correct} a prior claim: the rank is \textbf{not}
+word-independent. Different reduced words for~$w_0$ can yield different
+rank vectors, and this is already visible at $n = 4$.
+\end{abstract}
+
+\section{Setup and notation}
+
+Let $\Sym_n$ denote the symmetric group on $\{1, \dots, n\}$ with simple
+transpositions $s_i = (i, i{+}1)$ for $i = 1, \dots, n{-}1$.
+The longest element $w_0 = [n, n{-}1, \dots, 1]$ has length
+$\ell(w_0) = \binom{n}{2}$.
+
+\begin{definition}[Staircase word]
+The \emph{staircase reduced word} for $w_0 \in \Sym_n$ is
+\[
+  \mathbf{i}_{\mathrm{stair}} = (s_1)(s_2, s_1)(s_3, s_2, s_1)\cdots(s_{n-1}, s_{n-2}, \dots, s_1).
+\]
+Explicitly, batch $k$ consists of the generators $s_k, s_{k-1}, \dots, s_1$
+for $k = 1, \dots, n{-}1$. The total length is $\binom{n}{2}$.
+\end{definition}
+
+\begin{definition}[Symmetrizing product]
+For a reduced word $(i_1, \dots, i_m)$ for $w_0$, define
+\[
+  \Pi = \prod_{j=1}^{m} (1 + s_{i_j}) \in \CC[\Sym_n].
+\]
+Equivalently, $\Pi = 2^m \prod_{j=1}^{m} P_{i_j}$ where
+$P_i = (1 + s_i)/2$ is the orthogonal projection onto the
+$(+1)$-eigenspace of~$s_i$.
+\end{definition}
+
+The rank of $\Pi$ acting on an irreducible representation $V_\lambda$ is
+denoted $r_\lambda$, and the total rank in the left regular representation is
+$\sum_\lambda r_\lambda \cdot f^\lambda$ where $f^\lambda = \dim V_\lambda$.
+
+
+\section{Correction: Word dependence of rank}
+\label{sec:correction}
+
+\textbf{The rank vector $(r_\lambda)_\lambda$ depends on the choice of reduced word.}
+
+This was claimed to be word-independent in a prior analysis, based on checking
+only the staircase word and the reverse staircase word (which happen to agree).
+Exhaustive computation over all reduced words reveals:
+
+\begin{itemize}
+  \item \textbf{$\Sym_4$}: There are 16 reduced words for $w_0$.
+    Of these, 12 give total rank $6 = 4!/4$, and 4 give total rank $12$.
+    The 4 ``anomalous'' words are precisely those where $s_2$ appears 3 times
+    (e.g., $(1,2,3,2,1,2)$).
+    In the standard representation $V_{(3,1)}$, the good words give rank~1 while
+    the anomalous words give rank~2.
+
+  \item \textbf{$\Sym_5$}: There are 768 reduced words. Of these, 764 give total
+    rank $30 = 5!/4$, and 4 give total rank $60$.
+\end{itemize}
+
+The staircase word and the reverse staircase word are always ``good'' (giving
+the minimal rank). All results below refer to the \textbf{staircase word} unless
+otherwise stated.
+
+\begin{remark}
+The anomalous words seem to be those where some ``middle'' generator is
+over-represented relative to the staircase frequency.
+Understanding exactly which reduced words give the minimal rank is an
+open question.
+\end{remark}
+
+
+\section{$q$-Independence (Proved)}
+
+\begin{theorem}[$q$-independence of rank]
+\label{thm:q-indep}
+Let $H_q(\Sym_n)$ be the Iwahori--Hecke algebra with generators $T_1, \dots, T_{n-1}$
+satisfying $(T_i - q)(T_i + 1) = 0$ and the braid relations.
+For any reduced word $(i_1, \dots, i_m)$ for $w_0$, define
+\[
+  \Pi_q = \prod_{j=1}^{m} (T_{i_j} + 1).
+\]
+At generic $q$ (avoiding $0$, $-1$, and roots of unity), the rank of $\Pi_q$ in
+each irreducible representation of $H_q(\Sym_n)$ equals the rank of the
+corresponding product $\Pi_1 = \prod(1 + s_{i_j})$ in $\CC[\Sym_n]$.
+\end{theorem}
+
+\begin{proof}
+Define $P_i^{(q)} = (T_i + 1)/(q + 1)$. Then
+\[
+  (P_i^{(q)})^2 = \frac{(T_i + 1)^2}{(q+1)^2}
+  = \frac{T_i^2 + 2T_i + 1}{(q+1)^2}
+  = \frac{(q-1)T_i + q + 2T_i + 1}{(q+1)^2}
+  = \frac{(q+1)T_i + (q+1)}{(q+1)^2}
+  = \frac{T_i + 1}{q+1} = P_i^{(q)},
+\]
+so each $P_i^{(q)}$ is idempotent.
+
+By the Tits deformation theorem, for generic $q$ there exists an algebra
+isomorphism $\varphi: H_q(\Sym_n) \xrightarrow{\sim} \CC[\Sym_n]$ that
+preserves the block structure (sending irreducibles to irreducibles of the
+same dimension). Since $P_i^{(q)}$ is the unique idempotent in $H_q$ projecting
+onto the trivial representation of $\langle T_i \rangle \cong H_q(\Sym_2)$,
+and $P_i^{(1)} = (1+s_i)/2$ is the corresponding idempotent in $\CC[\Sym_n]$,
+the isomorphism sends $P_i^{(q)} \mapsto P_i^{(1)}$.
+
+Since $\Pi_q = (q+1)^m \prod P_{i_j}^{(q)}$, the isomorphism sends
+$\Pi_q/(q+1)^m$ to $\prod P_{i_j}^{(1)} = \Pi_1/2^m$.
+Algebra isomorphisms preserve matrix rank in each simple component.
+\end{proof}
+
+
+\section{Rank formula for the staircase word}
+
+\begin{conjecture}[Total rank]
+\label{conj:total}
+For the staircase reduced word, the total rank of $\Pi$ in the left regular
+representation of $\Sym_n$ is
+\[
+  \operatorname{rank}(\Pi) = \frac{n!}{2^{\lfloor n/2 \rfloor}}.
+\]
+\end{conjecture}
+
+\noindent\textbf{Verification.} Computed directly for $n = 2, 3, \dots, 8$:
+
+\begin{center}
+\begin{tabular}{c|cccccccc}
+$n$ & 2 & 3 & 4 & 5 & 6 & 7 & 8 \\
+\hline
+$n!/2^{\lfloor n/2 \rfloor}$ & 1 & 3 & 6 & 30 & 90 & 630 & 2520 \\
+Computed rank & 1 & 3 & 6 & 30 & 90 & 630 & 2520
+\end{tabular}
+\end{center}
+
+The ratio $\operatorname{rank}(n)/\operatorname{rank}(n-1)$ is $n$ when $n$ is
+odd and $n/2$ when $n$ is even.
+
+
+\section{Vanishing criterion}
+
+\begin{conjecture}[Vanishing]
+\label{conj:vanish}
+For the staircase word, $r_\lambda = 0$ if and only if
+$\ell(\lambda) > (n+1)/2$, where $\ell(\lambda)$ is the number of parts
+of~$\lambda$.
+\end{conjecture}
+
+\noindent\textbf{Verification.} Confirmed for all partitions of $n \le 8$.
+
+\begin{remark}
+Self-conjugate partitions always survive: $\ell(\lambda) = \lambda_1$ and
+$n \ge \ell^2$, so $\ell \le \sqrt{n} < (n+2)/2$ for $n \ge 3$.
+The sign representation $\lambda = (1^n)$ with $\ell = n$ is always killed
+(each factor $(1+s_i)$ annihilates it since $s_i$ acts as $-1$).
+For the anomalous words of Section~\ref{sec:correction}, the vanishing
+criterion fails: previously-killed representations can acquire nonzero rank.
+\end{remark}
+
+
+\section{Hook formula (verified)}
+
+\begin{theorem}[Hook representation rank]
+\label{thm:hook}
+For the staircase reduced word and hook partitions
+$\lambda = (n-k, 1^k)$ with $0 \le k \le n-1$,
+\[
+  r_{(n-k, 1^k)} = \binom{\lfloor (n-1)/2 \rfloor}{k}.
+\]
+In particular, $r_{(n-k,1^k)} = 0$ when $k > \lfloor (n-1)/2 \rfloor$,
+consistent with the vanishing criterion.
+\end{theorem}
+
+\noindent\textbf{Verification.}
+Computed for all hooks of $\Sym_n$, $2 \le n \le 9$: all 42 values match exactly.
+
+\begin{remark}
+The standard representation $V_{(n-1,1)}$ has rank $\lfloor(n-1)/2\rfloor$.
+In the permutation representation $\CC^n = V_{(n)} \oplus V_{(n-1,1)}$, the
+total rank is $1 + \lfloor(n-1)/2\rfloor = \lceil(n+1)/2\rceil$, which
+counts the dimension of the ``partially sorted'' subspace.
+\end{remark}
+
+\begin{remark}
+Although $V_{(n-k,1^k)} \cong \bigwedge^k V_{(n-1,1)}$ as $\Sym_n$-representations,
+the formula $r_{(n-k,1^k)} = \binom{r_{(n-1,1)}}{k}$ does \textbf{not} follow
+formally from exterior algebra. The action of the group algebra element $\Pi$
+on $\bigwedge^k V$ is $\sum_w c_w \bigwedge^k \rho(w)$, which differs from
+$\bigwedge^k(\sum_w c_w \rho(w))$. The hook formula is a \emph{genuine} property
+of the staircase product, not a formal consequence.
+\end{remark}
+
+
+\section{Full irrep decomposition}
+
+The rank $r_\lambda$ for \textbf{all} non-killed irreps of $\Sym_n$
+($n \le 8$, staircase word):
+
+\medskip
+\noindent$\Sym_5$: $(5){\to}1$, $(4,1){\to}2$, $(3,2){\to}2$,
+$(3,1^2){\to}1$, $(2^2,1){\to}1$.
+
+\noindent$\Sym_6$: $(6){\to}1$, $(5,1){\to}2$, $(4,2){\to}3$,
+$(4,1^2){\to}1$, $(3^2){\to}1$, $(3,2,1){\to}2$, $(2^3){\to}1$.
+
+\noindent$\Sym_7$: $(7){\to}1$, $(6,1){\to}3$, $(5,2){\to}5$,
+$(5,1^2){\to}3$, $(4,3){\to}4$, $(4,2,1){\to}6$, $(4,1^3){\to}1$,
+$(3^2,1){\to}3$, $(3,2^2){\to}3$, $(3,2,1^2){\to}2$, $(2^3,1){\to}1$.
+
+\noindent$\Sym_8$: $(8){\to}1$, $(7,1){\to}3$, $(6,2){\to}6$,
+$(6,1^2){\to}3$, $(5,3){\to}6$, $(5,2,1){\to}8$, $(5,1^3){\to}1$,
+$(4^2){\to}3$, $(4,3,1){\to}7$, $(4,2^2){\to}6$, $(4,2,1^2){\to}3$,
+$(3^2,2){\to}3$, $(3^2,1^2){\to}2$, $(3,2^2,1){\to}3$, $(2^4){\to}1$.
+
+\medskip
+A closed-form formula for general $r_\lambda$ remains open.
+Among non-killed partitions, the ``boundary'' cases
+$\lambda = (2^{\lfloor n/2\rfloor})$ (for $n$ even) and
+$\lambda = (2^{\lfloor n/2\rfloor}, 1)$ (for $n$ odd) always have $r_\lambda = 1$.
+
+
+\section{Proof sketch for the standard representation rank}
+\label{sec:standard}
+
+We prove $r_{(n-1,1)} = \lfloor(n-1)/2\rfloor$ for the staircase word.
+
+\begin{proof}[Proof sketch]
+Work in the standard representation $V = \{x \in \mathbb{R}^n : \sum x_i = 0\}$,
+dimension $n{-}1$.
+The projection $P_i$ maps $(x_1, \dots, x_n) \mapsto (\dots, \frac{x_i+x_{i+1}}{2},
+\frac{x_i+x_{i+1}}{2}, \dots)$, projecting onto the hyperplane $\{x_i = x_{i+1}\}$.
+
+The staircase product applies batches: batch $k$ is $P_k P_{k-1} \cdots P_1$.
+Each batch ends with $P_1$, so the image after every batch satisfies $x_1 = x_2$.
+
+\textbf{Dimension tracking.}
+Starting dimension is $n{-}1$.
+At batch $k$, the leading projection $P_k$ is applied to the current image $W$.
+The dimension drops by $\dim(\ker P_k \cap W)$, which is 0 or~1.
+
+Empirically (verified for $n \le 9$): the dimension drops by exactly 1 at odd
+batches ($k = 1, 3, 5, \dots$) and stays constant at even batches ($k = 2, 4, 6, \dots$).
+The number of odd batches is $\lceil(n{-}1)/2\rceil = \lfloor n/2 \rfloor$.
+The final dimension is $(n{-}1) - \lfloor n/2 \rfloor = \lfloor(n{-}1)/2\rfloor$.
+
+A complete proof of this dimension-drop pattern requires showing that the image
+after batch $k{-}1$ has a 1-dimensional intersection with $\ker P_k$ when $k$ is odd,
+and trivial intersection when $k$ is even.
+This remains an open step. \qedhere
+\end{proof}
+
+
+\section{Gaps and open questions}
+
+\begin{enumerate}
+  \item \textbf{Total rank formula.} We conjecture
+    $\operatorname{rank}(\Pi_{\mathrm{stair}}) = n!/2^{\lfloor n/2 \rfloor}$ but
+    lack a proof. The inductive structure (ratio $n$ or $n/2$) suggests
+    an approach via the branching rule $\Sym_n \downarrow \Sym_{n-1}$.
+
+  \item \textbf{Characterizing good words.} Which reduced words for $w_0$ give the
+    minimal rank $n!/2^{\lfloor n/2 \rfloor}$? The staircase and reverse staircase
+    always do. For $\Sym_4$, exactly $12/16$ words are good; for $\Sym_5$, $764/768$.
+
+  \item \textbf{General $r_\lambda$ formula.} The hook formula
+    $r_{(n-k,1^k)} = \binom{\lfloor(n-1)/2\rfloor}{k}$ is clean, but no formula
+    is known for general $\lambda$. The two-row sequence
+    $r_{(n-2,2)} = 1, 2, 3, 5, 6$ for $n = 4, \dots, 8$ does not match any standard
+    combinatorial sequence.
+
+  \item \textbf{Standard representation proof.} The dimension-drop pattern at odd
+    batches is verified numerically but requires a geometric/algebraic proof of why
+    $\ker P_k \cap W_{k-1}$ alternates between dimension 0 and~1.
+
+  \item \textbf{Vanishing criterion.} The condition $\ell(\lambda) > (n+1)/2$ is verified
+    for $n \le 8$ but not proved. An inductive proof via branching fails at even~$n$
+    because the borderline case $\ell(\mu) = n/2$ escapes the inductive hypothesis.
+\end{enumerate}
+
+
+\section{Connection to Galashin's Yang--Baxter basis}
+
+The product $\Pi_{\mathrm{stair}}/2^m = \prod P_{i_j}$ equals $Y^{w_0}(p{=}1/2)$
+in Galashin's Yang--Baxter basis notation~\cite{Galashin2020}.
+The rank $n!/2^{\lfloor n/2 \rfloor}$ is thus a new invariant of this basis element.
+Galashin considers positivity and Schur expansion properties but does not study rank.
+
+The word dependence discovered here has implications for the Yang--Baxter basis:
+the YB element at $p = 1/2$ is word-specific, and its rank encodes information about
+the reduced word itself.
+
+\begin{thebibliography}{9}
+\bibitem{Galashin2020}
+P.~Galashin, \emph{Symmetries of stochastic colored vertex models},
+Ann.\ Probab.\ \textbf{49} (2021), no.~5, 2175--2219. arXiv:2003.06330.
+\end{thebibliography}
+
+\end{document}

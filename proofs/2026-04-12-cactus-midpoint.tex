@@ -1,0 +1,358 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage[margin=1in]{geometry}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\DeclareMathOperator{\id}{id}
+
+\title{The Cactus Midpoint Theorem}
+\author{Clio}
+\date{12 April 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We prove that in the 0-Hecke algebra $H_0(S_k)$, the Tikhonov interpolating
+operators $R_i(p) = pT_i + (1-p)$ evaluated at $p = 1/2$ yield a scalar
+multiple of the cactus (Demazure) sorting operator:
+$\prod R_{i_j}(1/2) = (1/2)^m \pi_{w_0^{[a,b]}}$. We show this identity
+is \emph{special to $q = 0$} by proving that the Demazure elements
+$\pi_i = T_i + 1$ in $H_q(S_k)$ satisfy a braid obstruction
+$\pi_i\pi_{i+1}\pi_i - \pi_{i+1}\pi_i\pi_{i+1} = q(T_i - T_{i+1})$,
+which vanishes precisely at $q = 0$. We also identify the Tikhonov spectral
+parameter $\kappa = 2 - q$ at the cactus midpoint.
+\end{abstract}
+
+\section{Setup}
+
+Let $H_q(S_k)$ be the Iwahori--Hecke algebra of type $A_{k-1}$ over
+$\mathbb{Q}(q)$, with generators $T_1, \ldots, T_{k-1}$ satisfying:
+\begin{align}
+T_i^2 &= (q-1)T_i + q, \label{eq:hecke-quadratic} \\
+T_i T_{i+1} T_i &= T_{i+1} T_i T_{i+1}, \label{eq:braid} \\
+T_i T_j &= T_j T_i \quad \text{for } |i-j| \geq 2. \label{eq:commute}
+\end{align}
+
+\begin{definition}
+The \emph{Demazure element} (or $\pi$-operator) is $\pi_i := T_i + 1$.
+\end{definition}
+
+\begin{definition}
+The \emph{Tikhonov interpolating operator} is
+$R_i(p) := p T_i + (1-p) \in H_q(S_k)[p]$.
+\end{definition}
+
+For an interval $[a,b] \subseteq [1,k]$, let $w_0^{[a,b]}$ denote the
+longest element of the parabolic subgroup $S_{[a,b]}$, with
+$m = \ell(w_0^{[a,b]}) = \binom{b-a+1}{2}$.
+
+\section{The Demazure Algebra}
+
+\begin{lemma}[Quasi-idempotency]\label{lem:quasi-idem}
+In $H_q(S_k)$, the Demazure elements satisfy
+\[
+\pi_i^2 = (q+1)\,\pi_i.
+\]
+In particular, $\pi_i$ is idempotent if and only if $q = 0$.
+\end{lemma}
+
+\begin{proof}
+Expanding:
+\begin{align*}
+\pi_i^2 = (T_i + 1)^2 &= T_i^2 + 2T_i + 1 \\
+&= \bigl((q-1)T_i + q\bigr) + 2T_i + 1 \\
+&= (q+1)T_i + (q+1) \\
+&= (q+1)(T_i + 1) = (q+1)\,\pi_i.
+\end{align*}
+At $q = 0$ this gives $\pi_i^2 = \pi_i$.
+\end{proof}
+
+\begin{theorem}[Braid Obstruction]\label{thm:braid-obstruction}
+For adjacent generators $\pi_i, \pi_{i+1}$ in $H_q(S_k)$:
+\begin{equation}\label{eq:braid-obs}
+\pi_i \pi_{i+1} \pi_i - \pi_{i+1} \pi_i \pi_{i+1} = q(T_i - T_{i+1}).
+\end{equation}
+The braid relation for $\pi_i$ holds if and only if $q = 0$.
+\end{theorem}
+
+\begin{proof}
+We expand both sides using the Hecke relations.
+
+\medskip\noindent\textbf{Left side.}
+First compute $(T_{i+1}+1)(T_i+1) = T_{i+1}T_i + T_{i+1} + T_i + 1$.
+Then:
+\begin{align*}
+\pi_i\pi_{i+1}\pi_i
+&= (T_i + 1)\bigl(T_{i+1}T_i + T_{i+1} + T_i + 1\bigr) \\
+&= T_i T_{i+1} T_i + T_i T_{i+1} + T_i^2 + T_i
+   + T_{i+1}T_i + T_{i+1} + T_i + 1 \\
+&= T_i T_{i+1} T_i + T_i T_{i+1} + T_{i+1}T_i + T_{i+1} + (q+1)T_i + (q+1),
+\end{align*}
+where we used $T_i^2 = (q-1)T_i + q$ to get the last line:
+$T_i^2 + T_i = (q-1)T_i + q + T_i = qT_i + q$, and the remaining $T_i$
+gives $(q+1)T_i + (q+1)$ total.
+
+\medskip\noindent\textbf{Right side.}
+By symmetry under $i \leftrightarrow i+1$:
+\[
+\pi_{i+1}\pi_i\pi_{i+1}
+= T_{i+1}T_i T_{i+1} + T_{i+1}T_i + T_i T_{i+1} + T_i + (q+1)T_{i+1} + (q+1).
+\]
+
+\medskip\noindent\textbf{Difference.}
+Using the braid relation $T_iT_{i+1}T_i = T_{i+1}T_iT_{i+1}$, the
+leading terms cancel:
+\begin{align*}
+\pi_i\pi_{i+1}\pi_i - \pi_{i+1}\pi_i\pi_{i+1}
+&= \bigl[T_{i+1} + (q+1)T_i\bigr] - \bigl[T_i + (q+1)T_{i+1}\bigr] \\
+&= qT_i - qT_{i+1} \\
+&= q(T_i - T_{i+1}).
+\end{align*}
+The terms $T_iT_{i+1} + T_{i+1}T_i$ appear identically on both sides.
+\end{proof}
+
+\begin{corollary}[Word-Independence at $q = 0$]\label{cor:word-indep}
+At $q = 0$, for any $w \in S_k$, the product $\pi_w := \prod_{j=1}^m \pi_{i_j}$
+over a reduced word $s_{i_1}\cdots s_{i_m}$ of $w$ is independent of the
+choice of reduced word.
+\end{corollary}
+
+\begin{proof}
+The reduced words for $w$ are connected by braid moves
+($s_i s_{i+1} s_i \leftrightarrow s_{i+1} s_i s_{i+1}$) and commutation
+moves ($s_i s_j \leftrightarrow s_j s_i$ for $|i-j| \geq 2$) by Matsumoto's
+theorem. By Theorem~\ref{thm:braid-obstruction}, the braid relation
+$\pi_i\pi_{i+1}\pi_i = \pi_{i+1}\pi_i\pi_{i+1}$ holds at $q = 0$.
+The commutation relation $\pi_i\pi_j = \pi_j\pi_i$ for $|i-j| \geq 2$
+follows from \eqref{eq:commute}. Hence the product is word-independent.
+\end{proof}
+
+\begin{corollary}[Word-Dependence at Generic $q$]\label{cor:word-dep}
+At generic $q \neq 0$, the product $\prod \pi_{i_j}$ over a reduced word
+for $w_0$ depends on the choice of reduced word. In the regular representation
+of $H_q(S_3)$, the product $(T_1+1)(T_2+1)(T_1+1)$ has rank 3,
+not rank 1. It is not a cactus commutor.
+\end{corollary}
+
+\begin{proof}
+The obstruction $q(T_1 - T_2) \neq 0$ for $q \neq 0$ shows word-dependence.
+For the rank claim, the product acts on the 6-dimensional regular
+representation. At $q = 0$, idempotency forces the image of each $\pi_i$ to
+be a proper subspace, and the composition collapses to rank 1. At $q = 1$
+(the symmetric group), direct computation shows rank 3
+(verified computationally in $H_1(S_3)$). Since the rank is an upper
+semicontinuous function of $q$, the rank is $\geq 3$ at generic $q$.
+\end{proof}
+
+\section{The Cactus Midpoint Theorem}
+
+\begin{lemma}[Factorization of $R_i(p)$]\label{lem:factorization}
+The Tikhonov operator factors as:
+\begin{equation}\label{eq:Rip-factor}
+R_i(p) = p\,\pi_i + (1-2p)\cdot\id.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+$R_i(p) = pT_i + (1-p) = p(T_i + 1) - p + (1-p) = p\,\pi_i + (1-2p)$.
+\end{proof}
+
+\begin{theorem}[Cactus Midpoint]\label{thm:cactus-midpoint}
+At $q = 0$, for any interval $[a,b] \subseteq [1,k]$ and any reduced word
+$s_{i_1}\cdots s_{i_m}$ of $w_0^{[a,b]}$:
+\begin{equation}\label{eq:midpoint}
+\prod_{j=1}^{m} R_{i_j}\!\left(\tfrac{1}{2}\right) = \left(\tfrac{1}{2}\right)^m \pi_{w_0^{[a,b]}}.
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+By Lemma~\ref{lem:factorization}, at $p = 1/2$:
+\[
+R_i\!\left(\tfrac{1}{2}\right) = \tfrac{1}{2}\,\pi_i + 0 = \tfrac{1}{2}\,\pi_i.
+\]
+The identity term $(1-2p)$ vanishes at $p = 1/2$. Therefore:
+\[
+\prod_{j=1}^{m} R_{i_j}\!\left(\tfrac{1}{2}\right)
+= \prod_{j=1}^{m} \tfrac{1}{2}\,\pi_{i_j}
+= \left(\tfrac{1}{2}\right)^m \prod_{j=1}^{m} \pi_{i_j}
+= \left(\tfrac{1}{2}\right)^m \pi_{w_0^{[a,b]}},
+\]
+where the last equality uses word-independence
+(Corollary~\ref{cor:word-indep}) and the definition
+$\pi_{w_0^{[a,b]}} = \prod \pi_{i_j}$.
+\end{proof}
+
+\begin{theorem}[M\"obius Factorization]\label{thm:mobius}
+For the product over a reduced word of $w_0^{[a,b]}$ at $q = 0$:
+\begin{equation}\label{eq:mobius}
+\prod_{j=1}^m R_{i_j}(p) = \sum_{S \subseteq \{1,\ldots,m\}} p^{|S|}(1-2p)^{m-|S|} \cdot \vec{\pi}_S,
+\end{equation}
+where $\vec{\pi}_S = \prod_{j \in S}^{\to} \pi_{i_j}$ is the ordered
+product of $\pi_{i_j}$ for $j \in S$ (in the order inherited from the
+reduced word), and identity operators fill positions $j \notin S$.
+At $p = 1/2$, only the term $S = \{1,\ldots,m\}$ survives, recovering
+Theorem~\ref{thm:cactus-midpoint}.
+\end{theorem}
+
+\begin{proof}
+By Lemma~\ref{lem:factorization}, $R_{i_j}(p) = p\,\pi_{i_j} + (1-2p)\cdot\id$.
+Expanding the product:
+\[
+\prod_{j=1}^m \bigl(p\,\pi_{i_j} + (1-2p)\cdot\id\bigr)
+= \sum_{S \subseteq \{1,\ldots,m\}} \prod_{j=1}^m
+\begin{cases} p\,\pi_{i_j} & j \in S \\ (1-2p)\cdot\id & j \notin S \end{cases}
+= \sum_S p^{|S|}(1-2p)^{m-|S|}\,\vec{\pi}_S.
+\]
+At $p = 1/2$, $(1-2p) = 0$, so only $S = \{1,\ldots,m\}$ contributes:
+$p^m \vec{\pi}_{\{1,\ldots,m\}} = (1/2)^m\,\pi_{w_0^{[a,b]}}$.
+\end{proof}
+
+\section{The Eigenvalue Picture}
+
+\begin{proposition}[Eigenvalues of $R_i(p)$]\label{prop:eigenvalues}
+The generator $T_i$ has eigenvalues $q$ (symmetric eigenspace) and $-1$
+(antisymmetric eigenspace). The operator $R_i(p) = pT_i + (1-p)$ has
+eigenvalues:
+\begin{align}
+\lambda_+ &= 1 - p(1-q) = \frac{1+q}{2}\Big|_{p=1/2}
+  & &\text{on the $q$-eigenspace of $T_i$}, \label{eq:eig-plus}\\
+\lambda_- &= 1 - 2p = 0\Big|_{p=1/2}
+  & &\text{on the $(-1)$-eigenspace of $T_i$}. \label{eq:eig-minus}
+\end{align}
+At $p = 1/2$, $R_i(1/2)$ annihilates the antisymmetric eigenspace for
+\emph{all} values of $q$, and scales the symmetric eigenspace by $(1+q)/2$.
+\end{proposition}
+
+\begin{proof}
+If $T_i v = qv$, then $R_i(p)v = (pq + 1 - p)v = (1 - p(1-q))v$.
+If $T_i v = -v$, then $R_i(p)v = (-p + 1 - p)v = (1-2p)v$.
+Setting $p = 1/2$ gives the stated values.
+\end{proof}
+
+\begin{remark}
+The cactus midpoint $p = 1/2$ is the unique value of $p$ that kills the
+antisymmetric eigenspace of \emph{every} $R_i$, independent of $q$. However,
+the product $\prod R_{i_j}(1/2)$ fails to be word-independent at generic
+$q$ due to the braid obstruction (Theorem~\ref{thm:braid-obstruction}).
+Each individual $R_i(1/2)$ is a scaled projector, but their composition
+does not give a well-defined element of the Hecke algebra when $q \neq 0$.
+\end{remark}
+
+\section{The Spectral Parameter}
+
+\begin{proposition}[Tikhonov's Spectral Parameter]\label{prop:kappa}
+Define $\kappa = \kappa(p,q) := \frac{1-qp}{1-p}$. Then:
+\begin{enumerate}
+\item[(a)] The random sorting permuton $\mu_{p,q}$ depends on $(p,q)$
+  only through $\kappa$ (Tikhonov, Theorem 1.4 of \cite{tikhonov}).
+\item[(b)] The three distinguished loci are:
+\begin{center}
+\begin{tabular}{lccc}
+\hline
+Level & $p$ & $\kappa$ & Operator \\
+\hline
+Identity & $0$ & $1$ & $\id$ \\
+Cactus & $1/2$ & $2 - q$ & $(1/2)^m\,\pi_{w_0}$ \\
+Hecke & $1$ & $\frac{1}{1-q}$ & $T_{w_0}$ \\
+\hline
+\end{tabular}
+\end{center}
+\item[(c)] At $q = 0$, the cactus level is $\kappa = 2$, independent of
+  all other parameters. This is a universal constant: the midpoint between
+  $\kappa = 1$ (identity) and $\kappa = \infty$ (fully sorted), measured
+  on the scale $\kappa/(1+\kappa)$ which maps $[1,\infty] \to [1/2, 1]$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+Part (a) is Tikhonov's theorem. For (b), direct computation:
+at $p = 0$: $\kappa = 1/1 = 1$;
+at $p = 1/2$: $\kappa = (1 - q/2)/(1/2) = 2 - q$;
+at $p = 1$: $\kappa = (1-q)/0$, interpreted as the limit $\lim_{p \to 1} \kappa = +\infty$ when $q \neq 1$, or via $1/(1-q)$ in the algebraic sense.
+
+For (c), at $q = 0$, $\kappa(1/2, 0) = 2$.
+\end{proof}
+
+\section{Why $q = 0$ is Special}
+
+We collect the algebraic reasons why the cactus midpoint theorem is
+special to $q = 0$.
+
+\begin{theorem}\label{thm:why-q0}
+The following properties hold at $q = 0$ and fail at generic $q$:
+\begin{enumerate}
+\item \textbf{Idempotency}: $\pi_i^2 = \pi_i$ (Lemma~\ref{lem:quasi-idem}).
+\item \textbf{Braid relation}: $\pi_i\pi_{i+1}\pi_i = \pi_{i+1}\pi_i\pi_{i+1}$
+  (Theorem~\ref{thm:braid-obstruction}).
+\item \textbf{Word-independence}: $\pi_w$ is well-defined
+  (Corollary~\ref{cor:word-indep}).
+\item \textbf{Rank collapse}: The image of $\pi_{w_0}$ acting on the
+  regular representation has dimension $1$ (all of $H_0(S_k)$ maps onto
+  the span of $\sum_{v \leq w_0} T_v$).
+\end{enumerate}
+The chain of implications is: $(1) + (2) \Rightarrow (3) \Rightarrow (4)$.
+\end{theorem}
+
+\begin{proof}
+Properties (1) and (2) are proved in Lemma~\ref{lem:quasi-idem} and
+Theorem~\ref{thm:braid-obstruction}. Property (3) follows from (1), (2),
+and Matsumoto's theorem as in Corollary~\ref{cor:word-indep}.
+
+For (4): At $q = 0$, $\pi_i$ is an idempotent, hence its image is a proper
+subspace. In the regular representation on basis $\{T_w : w \in S_k\}$, the
+operator $\pi_i = T_i + 1$ maps $T_w$ to $T_{s_iw} + T_w$ if $\ell(s_iw) > \ell(w)$,
+and to $0$ if $\ell(s_iw) < \ell(w)$ (since $T_i T_w = -T_w$ in $H_0$ when
+$\ell(s_iw) < \ell(w)$). The product $\pi_{w_0}$ maps every basis element
+to $\sum_{v \in S_k} T_v$, giving rank 1.
+
+To see this, note that $\pi_{w_0}$ is the unique maximal element in the
+$0$-Hecke monoid: applying all sorting operators in sequence sorts any
+permutation to the identity, and the image of any $T_w$ under $\pi_{w_0}$
+is $\sum_{v} T_v$ (the ``fully sorted'' element).
+
+At generic $q \neq 0$, property (1) fails ($\pi_i^2 = (q+1)\pi_i \neq \pi_i$),
+(2) fails (obstruction $q(T_i - T_{i+1}) \neq 0$), and in $H_q(S_3)$,
+the product $(T_1+1)(T_2+1)(T_1+1)$ has rank 3 in the regular representation
+(verified computationally at $q = 1$).
+\end{proof}
+
+\section{Computational Verification}
+
+All results have been verified computationally:
+
+\begin{enumerate}
+\item \textbf{$H_q(S_3)$ regular representation} (6-dimensional):
+  Hecke relations, quasi-idempotency, braid obstruction $q(T_i - T_{i+1})$,
+  word-dependence at generic $q$, word-independence at $q = 0$.
+
+\item \textbf{$H_0(S_3)$ and $H_0(S_4)$}: Cactus midpoint identity
+  $\prod R_{i_j}(1/2) = (1/2)^m \pi_{w_0}$ verified for all parabolic
+  sub-products.
+
+\item \textbf{Rank analysis}:
+  $\operatorname{rank}(\pi_1\pi_2\pi_1) = 1$ at $q = 0$,
+  $= 3$ at $q = 1$, in $H_q(S_3)$.
+
+\item \textbf{Spectral parameter}: $\kappa(1/2, q) = 2 - q$ confirmed
+  symbolically.
+\end{enumerate}
+
+Scripts: \texttt{braid\_obstruction\_verify.py},
+\texttt{tikhonov\_cactus\_test.py},
+\texttt{cactus\_midpoint\_generic\_q.py}.
+
+\begin{thebibliography}{10}
+\bibitem{tikhonov} K.~Tikhonov, \emph{Random sorting networks and the
+  Hecke algebra}, arXiv:2604.06532, 2026.
+\end{thebibliography}
+
+\end{document}

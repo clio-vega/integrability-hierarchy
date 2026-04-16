@@ -1,0 +1,551 @@
+\documentclass[11pt]{article}
+
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{mathtools}
+\usepackage[margin=1in]{geometry}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{example}[theorem]{Example}
+
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\Rep}{\mathrm{Rep}}
+\newcommand{\Crys}{\mathrm{Crys}}
+\newcommand{\GL}{\mathrm{GL}}
+\newcommand{\End}{\mathrm{End}}
+\newcommand{\Aut}{\mathrm{Aut}}
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\ket}[1]{|#1\rangle}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\SYT}{SYT}
+\DeclareMathOperator{\wt}{wt}
+
+\title{The Multiplicity Bundle Theorem:\\
+  Schur--Weyl Duality, Crystal Invisibility,\\
+  and the Coboundary Hierarchy}
+\author{Clio}
+\date{April 11, 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We prove that the coboundary commutor on tensor powers of the fundamental
+representation $V = \CC^n$ of $\GL_n$, constructed at $q = 0$ from the swap
+operator, factorises through the Schur--Weyl decomposition as
+$\sigma_{[i,j]} = \bigoplus_\lambda (\id_{V_\lambda} \otimes \rho_{S_\lambda}(w_0^{[i,j]}))$.
+The crystal functor sends this commutor to the identity: the multiplicity
+spaces $S_\lambda$ (Specht modules) form a ``multiplicity bundle'' that
+the crystal functor forgets. This explains why the Henriques--Kamnitzer
+crystal commutor is trivial on identical fundamental factors and completes
+the vertical axis of the categorical phase diagram:
+braided monoidal $\to$ coboundary monoidal $\to$ symmetric monoidal
+corresponds to forgetting the spectral parameter, then the multiplicity bundle.
+\end{abstract}
+
+%% -----------------------------------------------------------------------
+\section{Setup and Notation}
+%% -----------------------------------------------------------------------
+
+Throughout, $\mathfrak{g} = \mathfrak{sl}_n$ with $n \geq 2$, $V = \CC^n$
+the fundamental (vector) representation of $\GL_n$, and $k \geq 2$ an integer.
+
+\begin{definition}[Schur--Weyl decomposition]
+The tensor power $V^{\otimes k}$ carries commuting actions of $\GL_n$
+(diagonal action on each factor) and $S_k$ (permutation of tensor
+positions). Schur--Weyl duality gives the isotypic decomposition
+\begin{equation}\label{eq:schur-weyl}
+  V^{\otimes k} \cong \bigoplus_{\substack{\lambda \vdash k \\ \ell(\lambda) \leq n}}
+  V_\lambda \otimes S_\lambda
+\end{equation}
+as a $(\GL_n \times S_k)$-bimodule, where $V_\lambda$ is the irreducible
+$\GL_n$-module of highest weight $\lambda$ and $S_\lambda$ is the Specht
+module (irreducible $S_k$-module) indexed by $\lambda$.
+\end{definition}
+
+\begin{definition}[Coboundary commutor at $q=0$]\label{def:commutor}
+For $1 \leq i < j \leq k$, the \emph{commutor} $\sigma_{[i,j]} \in
+\End(V^{\otimes k})$ is the operator that reverses tensor factors $i$
+through $j$:
+\[
+  \sigma_{[i,j]}(v_1 \otimes \cdots \otimes v_k)
+  = v_1 \otimes \cdots \otimes v_{i-1} \otimes v_j \otimes v_{j-1}
+  \otimes \cdots \otimes v_i \otimes v_{j+1} \otimes \cdots \otimes v_k.
+\]
+Equivalently, $\sigma_{[i,j]}$ is the image of the longest element
+$w_0^{[i,j]} \in S_{\{i,\ldots,j\}} \hookrightarrow S_k$ under the
+permutation representation $S_k \to \GL(V^{\otimes k})$.
+By the Cactus Representation Theorem \cite{clio-cactus}, the map
+$s_{[i,j]} \mapsto \sigma_{[i,j]}$ defines a representation of the
+cactus group $J_k$.
+\end{definition}
+
+\begin{definition}[Crystals]\label{def:crystal}
+The crystal $B(\omega_1)$ of the fundamental representation is the
+set $\{1, 2, \ldots, n\}$ with Kashiwara operators $\tilde{f}_i(j) = j+1$
+if $j = i$, and undefined otherwise (and dually for $\tilde{e}_i$).
+The tensor product crystal $B(\omega_1)^{\otimes k}$ has elements
+$(b_1, \ldots, b_k)$ with $b_\ell \in \{1, \ldots, n\}$ and Kashiwara
+operators defined by the \emph{signature rule}.
+\end{definition}
+
+\begin{definition}[Combinatorial $R$-matrix]\label{def:comb-R}
+For crystals $B_1, B_2$ of integrable modules, the
+\emph{combinatorial $R$-matrix}
+$\sigma^{\mathrm{comb}}_{B_1, B_2}\colon B_1 \otimes B_2 \xrightarrow{\sim}
+B_2 \otimes B_1$ is the unique crystal isomorphism that identifies
+corresponding connected components. Its existence follows from the
+fact that $B_1 \otimes B_2$ and $B_2 \otimes B_1$ have the same
+decomposition into irreducible components with the same multiplicities
+(see~\cite{kashiwara-crystal}).
+When $B_1 = B_2$, both sides are the same crystal, so
+$\sigma^{\mathrm{comb}}$ is a crystal automorphism of $B_1 \otimes B_1$.
+\end{definition}
+
+%% -----------------------------------------------------------------------
+\section{The Multiplicity Bundle Theorem}
+%% -----------------------------------------------------------------------
+
+\begin{theorem}[Multiplicity Bundle]\label{thm:main}
+Let $V = \CC^n$, $k \geq 2$, and $\sigma_{[i,j]}$ the coboundary commutor
+of Definition~\ref{def:commutor}. Then:
+
+\begin{enumerate}
+  \item[\textbf{(1)}] \textbf{Schur--Weyl factorisation.}
+    Under the decomposition~\eqref{eq:schur-weyl},
+    \begin{equation}\label{eq:factorisation}
+      \sigma_{[i,j]} = \bigoplus_{\lambda} \bigl(
+        \id_{V_\lambda} \otimes \rho_{S_\lambda}(w_0^{[i,j]})
+      \bigr),
+    \end{equation}
+    where $\rho_{S_\lambda}\colon S_k \to \GL(S_\lambda)$ is the Specht
+    module representation.
+
+  \item[\textbf{(2)}] \textbf{Crystal invisibility.}
+    The crystal functor $F\colon \Rep(\GL_n) \to \Crys(\mathfrak{sl}_n)$
+    sends $\sigma_{[i,j]}$ to the identity:
+    \[
+      F(\sigma_{[i,j]}) = \id_{B(\omega_1)^{\otimes k}}.
+    \]
+
+  \item[\textbf{(3)}] \textbf{Multiplicity bundle.}
+    The fibre of $F$ over each connected component $B(\lambda) \subset
+    B(\omega_1)^{\otimes k}$ is the Specht module $S_\lambda$. The
+    coboundary commutor acts nontrivially only on these fibres.
+
+  \item[\textbf{(4)}] \textbf{Three-level hierarchy.}
+    The sequence
+    \[
+      \Rep(U_q(\mathfrak{sl}_n))
+      \xrightarrow{q \to 0}
+      \Rep(U_0(\mathfrak{sl}_n))
+      \xrightarrow{F}
+      \Crys(\mathfrak{sl}_n)
+    \]
+    corresponds to
+    \[
+      \textup{braided monoidal}
+      \xrightarrow{\textup{forget spectral parameter}}
+      \textup{coboundary monoidal}
+      \xrightarrow{\textup{forget multiplicity}}
+      \textup{symmetric monoidal}.
+    \]
+\end{enumerate}
+\end{theorem}
+
+%% -----------------------------------------------------------------------
+\section{Proof}
+%% -----------------------------------------------------------------------
+
+\subsection{Part (1): Schur--Weyl factorisation}
+
+\begin{proof}
+The commutor $\sigma_{[i,j]}$ is, by definition, the image of the
+permutation $w_0^{[i,j]} \in S_k$ under the representation
+$\rho\colon S_k \to \GL(V^{\otimes k})$ that permutes tensor positions.
+By Schur--Weyl duality~\eqref{eq:schur-weyl}, this representation
+decomposes as
+\[
+  \rho(w) = \bigoplus_\lambda \bigl(
+    \id_{V_\lambda} \otimes \rho_{S_\lambda}(w)
+  \bigr)
+  \qquad \text{for all } w \in S_k.
+\]
+(The $\GL_n$-factor $V_\lambda$ is inert under $S_k$ because the two
+actions commute, and Schur's lemma forces the $S_k$-action on the
+$V_\lambda$-isotypic component to be $\id_{V_\lambda} \otimes A$ for
+some $A \in \End(S_\lambda)$; the bimodule structure identifies
+$A = \rho_{S_\lambda}(w)$.)
+
+Setting $w = w_0^{[i,j]}$ gives~\eqref{eq:factorisation}.
+\end{proof}
+
+\subsection{Part (2): Crystal invisibility}
+
+The proof proceeds in three steps: we establish a rigidity property
+of crystals, use it to show the combinatorial $R$-matrix on identical
+fundamental crystals is trivial, then extend to general commutors.
+
+\begin{lemma}[Crystal automorphism rigidity]\label{lem:rigidity}
+Let $B(\mu)$ be a connected crystal of highest weight $\mu$.
+Then $\Aut_{\Crys}(B(\mu)) = \{\id\}$.
+\end{lemma}
+
+\begin{proof}
+Let $\varphi\colon B(\mu) \to B(\mu)$ be a crystal automorphism.
+Since $\varphi$ preserves weights, $\varphi$ must fix the unique highest
+weight element $u_\mu$ (the only element of weight $\mu$). Every other
+element $b \in B(\mu)$ is obtained from $u_\mu$ by a sequence of
+Kashiwara lowering operators: $b = \tilde{f}_{i_1} \cdots \tilde{f}_{i_r}(u_\mu)$.
+Since $\varphi$ commutes with Kashiwara operators:
+\[
+  \varphi(b) = \tilde{f}_{i_1} \cdots \tilde{f}_{i_r}(\varphi(u_\mu))
+  = \tilde{f}_{i_1} \cdots \tilde{f}_{i_r}(u_\mu) = b.
+\]
+Therefore $\varphi = \id$.
+\end{proof}
+
+\begin{lemma}[Multiplicity-free tensor product]\label{lem:mult-free}
+For type $A_{n-1}$ ($n \geq 2$), the tensor product of crystals
+$B(\omega_1) \otimes B(\omega_1)$ is multiplicity-free:
+\[
+  B(\omega_1) \otimes B(\omega_1)
+  \cong B(2\omega_1) \sqcup B(\omega_2),
+\]
+where $B(2\omega_1)$ corresponds to the symmetric square and
+$B(\omega_2)$ to the alternating square. (For $n = 2$, $B(\omega_2)
+= B(0)$ is a single point.)
+\end{lemma}
+
+\begin{proof}
+This is the crystal analogue of the classical decomposition
+$\mathrm{Sym}^2(V) \oplus \bigwedge^2(V) = V \otimes V$ for
+$V = \CC^n$. The representation $\mathrm{Sym}^2(V)$ has highest weight
+$2\omega_1$ and $\bigwedge^2(V)$ has highest weight $\omega_2$ (or $0$
+when $n = 2$). Both appear with multiplicity one, so the crystal
+decomposition is multiplicity-free.
+\end{proof}
+
+\begin{proposition}[Trivial combinatorial $R$-matrix on identical fundamentals]
+\label{prop:trivial-R}
+The combinatorial $R$-matrix
+$\sigma^{\mathrm{comb}}\colon B(\omega_1) \otimes B(\omega_1) \to
+B(\omega_1) \otimes B(\omega_1)$
+is the identity map.
+\end{proposition}
+
+\begin{proof}
+Since source and target are the same crystal $B = B(\omega_1)^{\otimes 2}$,
+the combinatorial $R$-matrix is a crystal automorphism of $B$.
+
+By Lemma~\ref{lem:mult-free}, $B \cong B(2\omega_1) \sqcup B(\omega_2)$,
+with each irreducible appearing exactly once. Any crystal automorphism
+of $B$ must preserve connected components (since it preserves weights
+and Kashiwara operators). With multiplicity one for each component,
+the automorphism restricted to each component $B(\mu)$ is a crystal
+automorphism of $B(\mu)$, which is the identity by
+Lemma~\ref{lem:rigidity}. Therefore $\sigma^{\mathrm{comb}} = \id$.
+\end{proof}
+
+\begin{proof}[Proof of Part (2)]
+We prove a stronger statement: the \emph{crystal commutor}
+$\sigma^{\mathrm{crys}}_{[i,j]}$ on $B(\omega_1)^{\otimes k}$,
+defined intrinsically in the crystal category, is the identity for
+all $1 \leq i < j \leq k$.
+
+\medskip
+\textbf{Step 1: Pairwise crystal commutor.}
+The crystal commutor on $B(\omega_1)^{\otimes k}$ is determined by
+the pairwise combinatorial $R$-matrices on adjacent factors.
+The commutor $\sigma^{\mathrm{crys}}_{[i,i+1]}$ acts by the
+combinatorial $R$-matrix on factors $i$ and $i+1$ (both copies of
+$B(\omega_1)$), leaving other factors unchanged.
+By Proposition~\ref{prop:trivial-R},
+$\sigma^{\mathrm{crys}}_{[i,i+1]} = \id$ for each~$i$.
+
+\medskip
+\textbf{Step 2: General intervals.}
+The crystal commutor $\sigma^{\mathrm{crys}}_{[i,j]}$ (reversal of
+positions $i$ through $j$) is built from pairwise commutors: the
+reversal permutation $w_0^{[i,j]}$ factors as a product of adjacent
+transpositions, and the cactus group action on crystals is constructed
+from pairwise combinatorial $R$-matrices. Since each pairwise
+commutor on identical $B(\omega_1)$ factors is the identity
+(Step~1), any composition of them is also the identity.
+Therefore $\sigma^{\mathrm{crys}}_{[i,j]} = \id$.
+
+\medskip
+\textbf{Step 3: Connection to representations.}
+At the representation level, the coboundary commutor $\sigma_{[i,j]}$
+acts nontrivially (Part~(1): it acts by $\rho_{S_\lambda}(w_0^{[i,j]})$
+on multiplicity spaces). The passage to crystals forgets this action:
+the crystal ``sees'' only the $V_\lambda$-component (the connected
+component type $B(\lambda)$), not the $S_\lambda$-component
+(the multiplicity label). Since $\sigma_{[i,j]}$ acts as $\id$ on each
+$V_\lambda$, its crystal shadow is trivial.
+
+More precisely: the Henriques--Kamnitzer crystal commutor
+\cite{henriques-kamnitzer} coincides with the $q \to 0$ limit of the
+Kamnitzer--Tingley unitarised $R$-matrix commutor
+\cite{kamnitzer-tingley}. At $q = 0$, the unitarised commutor becomes
+the swap $P$ (the cactus representation of~\cite{clio-cactus}), whose
+crystal shadow is $\sigma^{\mathrm{crys}} = \id$ by Steps~1--2. \qedhere
+\end{proof}
+
+\begin{remark}\label{rmk:non-identical}
+The triviality of $F(\sigma)$ depends crucially on the tensor factors
+being \emph{identical} copies of $B(\omega_1)$. For non-identical
+representations $B(\lambda) \otimes B(\mu)$ with $\lambda \neq \mu$,
+the combinatorial $R$-matrix is generally nontrivial (it is the crystal
+analogue of the braiding/commutor). Our theorem applies specifically
+to $V^{\otimes k} = V^{\otimes k}$, the setting of Schur--Weyl duality.
+\end{remark}
+
+\subsection{Part (3): Multiplicity bundle}
+
+\begin{proof}
+The crystal $B(\omega_1)^{\otimes k}$ decomposes into connected
+components:
+\[
+  B(\omega_1)^{\otimes k} = \bigsqcup_{\substack{\lambda \vdash k \\
+  \ell(\lambda) \leq n}} \bigsqcup_{t=1}^{f^\lambda} B_t(\lambda),
+\]
+where $f^\lambda = \dim S_\lambda = |\SYT(\lambda)|$ is the number of
+standard Young tableaux of shape $\lambda$, and each $B_t(\lambda)$
+is a connected component isomorphic to $B(\lambda)$.
+
+In the Schur--Weyl decomposition~\eqref{eq:schur-weyl}, the crystal
+basis of $V^{\otimes k}$ is a set $\{G(b) : b \in B(\omega_1)^{\otimes k}\}$
+where $G(b)$ is Kashiwara's global (canonical) basis element indexed
+by $b$. For $b \in B_t(\lambda)$, the element $G(b)$ lies in the
+isotypic component $V_\lambda \otimes S_\lambda$. Specifically:
+\begin{itemize}
+  \item The crystal position within $B(\lambda)$ (i.e., which element
+    of $B_t(\lambda)$ we have) determines the $V_\lambda$-component.
+  \item The copy index $t \in \{1, \ldots, f^\lambda\}$ determines the
+    $S_\lambda$-component.
+\end{itemize}
+
+This gives a \emph{multiplicity bundle} structure:
+\begin{center}
+\begin{tabular}{ll}
+  \textbf{Base space:} & $B(\omega_1)^{\otimes k}$ (the crystal, a discrete set) \\
+  \textbf{Fibre over $B(\lambda)$:} & $S_\lambda$ (the Specht module, dim $f^\lambda$) \\
+  \textbf{Structure group:} & $S_k$ acting on $S_\lambda$ \\
+  \textbf{Connection:} & Crystal operators $\tilde{e}_i, \tilde{f}_i$ (act on base, trivially on fibre) \\
+  \textbf{Commutor:} & $\sigma_{[i,j]}$ acts as $\rho_{S_\lambda}(w_0^{[i,j]})$ on the fibre
+\end{tabular}
+\end{center}
+
+By Part~(1), $\sigma_{[i,j]}$ acts as $\id_{V_\lambda}$ on the base
+direction (within each $B(\lambda)$) and as
+$\rho_{S_\lambda}(w_0^{[i,j]})$ on the fibre $S_\lambda$.
+By Part~(2), the crystal functor $F$ projects to the base, discarding
+the fibre. Therefore $F(\sigma_{[i,j]}) = \id$: the commutor is
+invisible to crystals because it lives entirely in the fibre.
+\end{proof}
+
+\subsection{Part (4): Three-level hierarchy}
+
+\begin{proof}
+We describe the three levels and what is forgotten at each transition.
+
+\medskip
+\textbf{Level 1: Braided monoidal} ($q$ generic).
+At generic $q$, the quantum group $U_q(\mathfrak{sl}_n)$ provides a
+braiding on $\Rep(U_q(\mathfrak{sl}_n))$ via the universal $R$-matrix.
+For the fundamental representation, the $R$-matrix $R(u, q)$ depends on
+a spectral parameter $u$ and deformation parameter $q$, and satisfies
+the Yang--Baxter equation. The braiding is nontrivial:
+$\beta_{V,V} \neq \beta_{V,V}^{-1}$ in general. This structure supports
+\emph{solvable} lattice models (row-to-row transfer matrices commute).
+
+\medskip
+\textbf{Transition $q \to 0$: forget spectral parameter.}
+At $q = 0$, the $R$-matrix degenerates to the swap $P$, losing its
+dependence on the spectral parameter. The Yang--Baxter equation
+degenerates: the braid group representation collapses to a symmetric
+group representation. The residual algebraic structure is the
+coboundary (cactus group) structure established in \cite{clio-cactus}.
+
+\medskip
+\textbf{Level 2: Coboundary monoidal} ($q = 0$).
+The commutors $\sigma_{[i,j]}$ generate a $J_k$-action on $V^{\otimes k}$,
+factoring through the Specht module representations
+(Part~(1)). The commutor is nontrivial---it acts on the multiplicity
+bundle $\{S_\lambda\}$---but involutive ($\sigma^2 = \id$, unlike the
+braiding at generic~$q$).
+
+\medskip
+\textbf{Transition $F$: forget multiplicity bundle.}
+The crystal functor $F$ discards the fibre $S_\lambda$, retaining only
+the crystal $B(\lambda)$. By Part~(2), $F(\sigma_{[i,j]}) = \id$,
+so the commutor becomes trivial.
+
+\medskip
+\textbf{Level 3: Symmetric monoidal} (crystals).
+The category $\Crys(\mathfrak{sl}_n)$ with the trivial commutor
+(identity on $B \otimes B$ for identical crystals) is symmetric
+monoidal. The tensor product of identical fundamental crystals
+has a trivial braiding: $\sigma^{\mathrm{crys}}_{B,B} = \id$.
+
+\medskip
+\noindent In summary:
+
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{lccc}
+& \textbf{Category} & \textbf{Structure} & \textbf{Commutor} \\
+\hline
+$q$ generic & $\Rep(U_q)$ & braided & $R$-matrix \\
+$q = 0$ & $\Rep(\GL_n)$ & coboundary & $\id \otimes \rho_{S_\lambda}(w_0)$ \\
+Crystal & $\Crys$ & symmetric & $\id$ \\
+\hline
+\multicolumn{2}{l}{\textbf{Forgotten at each step:}} & spectral param. & multiplicity bundle
+\end{tabular}
+\end{center}
+
+Each row retains strictly less structure than the one above.
+\end{proof}
+
+%% -----------------------------------------------------------------------
+\section{Computational Verification}
+%% -----------------------------------------------------------------------
+
+\begin{example}[$\mathfrak{sl}_2$, $k = 3$]\label{ex:sl2k3}
+Take $V = \CC^2$, so $V^{\otimes 3} \cong \CC^8$. The Schur--Weyl
+decomposition (with $\ell(\lambda) \leq 2$) gives:
+\[
+  V^{\otimes 3} \cong V_{(3)} \otimes S_{(3)}
+  \oplus V_{(2,1)} \otimes S_{(2,1)}.
+\]
+Here $\dim V_{(3)} = 4$ (the spin-$3/2$ representation),
+$\dim S_{(3)} = 1$, $\dim V_{(2,1)} = 2$ (the fundamental),
+$\dim S_{(2,1)} = 2$.
+
+The commutor $\sigma_{[1,3]}$ (full reversal) acts as:
+\begin{itemize}
+  \item On $V_{(3)} \otimes S_{(3)}$ (dim $4 \times 1 = 4$):
+    $\id \otimes \rho_{S_{(3)}}(w_0) = \id \otimes (+1) = \id$.
+    Contributes $4$ eigenvalues of $+1$.
+  \item On $V_{(2,1)} \otimes S_{(2,1)}$ (dim $2 \times 2 = 4$):
+    $\id_2 \otimes M$ where $M = \rho_{S_{(2,1)}}((1\,3))$ has eigenvalues
+    $+1, -1$. Contributes $2$ eigenvalues of $+1$ and $2$ of $-1$.
+\end{itemize}
+
+Total eigenvalues of $\sigma_{[1,3]}$: $+1$ with multiplicity $4 + 2 = 6$,
+$-1$ with multiplicity $2$. This is confirmed computationally.
+
+The crystal $B(\omega_1)^{\otimes 3}$ decomposes as
+$B(3\omega_1) \sqcup B(\omega_1) \sqcup B(\omega_1)$
+(one copy of $B(3\omega_1)$ with 4 elements, two copies of $B(\omega_1)$
+with 2 elements each, total $4 + 2 + 2 = 8$). The multiplicity of
+$B(\omega_1)$ is $2 = f^{(2,1)} = |\SYT(2,1)|$, matching the Specht
+module dimension.
+\end{example}
+
+\begin{example}[$\mathfrak{sl}_3$, $k = 3$]\label{ex:sl3k3}
+Take $V = \CC^3$, so $V^{\otimes 3} \cong \CC^{27}$. Partitions of~$3$
+with $\ell(\lambda) \leq 3$: $(3)$, $(2,1)$, $(1,1,1)$. The decomposition:
+\[
+  V^{\otimes 3} \cong V_{(3)} \otimes S_{(3)}
+  \oplus V_{(2,1)} \otimes S_{(2,1)}
+  \oplus V_{(1,1,1)} \otimes S_{(1,1,1)}.
+\]
+Dimensions: $\dim V_{(3)} = 10$, $\dim V_{(2,1)} = 8$,
+$\dim V_{(1,1,1)} = 1$. Specht dimensions:
+$f^{(3)} = 1$, $f^{(2,1)} = 2$, $f^{(1,1,1)} = 1$.
+Total: $10 \cdot 1 + 8 \cdot 2 + 1 \cdot 1 = 27$. \checkmark
+
+The crystal $B(\omega_1)^{\otimes 3}$ has $3^3 = 27$ elements, decomposing
+as $B(3\omega_1) \sqcup B(\omega_1 + \omega_2)^{\sqcup 2} \sqcup B(0)$
+(using that $V_{(2,1)}$ for $\GL_3$ has highest weight $\omega_1 + \omega_2$
+and $V_{(1,1,1)} \cong \det$ has highest weight $\omega_1 + \omega_2 +
+\omega_3 = 0$ as an $\mathfrak{sl}_3$-weight). Crystal multiplicities:
+$1, 2, 1$, matching Specht dimensions.
+\end{example}
+
+%% -----------------------------------------------------------------------
+\section{Discussion}
+%% -----------------------------------------------------------------------
+
+\begin{remark}[What each level sees]
+The three levels of the hierarchy can be understood through the lens
+of the Schur--Weyl decomposition $V^{\otimes k} \cong \bigoplus_\lambda
+V_\lambda \otimes S_\lambda$:
+\begin{itemize}
+  \item \textbf{Braided} (generic $q$): sees the full tensor product
+    $V_\lambda \otimes S_\lambda$, with the $R$-matrix mixing both factors.
+  \item \textbf{Coboundary} ($q = 0$): sees both factors, but the
+    commutor acts only on $S_\lambda$ (Part~(1)).
+  \item \textbf{Symmetric} (crystal): sees only $B(\lambda)$, the shadow
+    of $V_\lambda$. The multiplicity $S_\lambda$ is invisible (Part~(2)).
+\end{itemize}
+\end{remark}
+
+\begin{remark}[Relation to Henriques--Kamnitzer]
+Henriques and Kamnitzer~\cite{henriques-kamnitzer} defined the crystal
+commutor using the Sch\"utzenberger involution and showed it gives a
+coboundary structure on $\Crys(\mathfrak{g})$. For identical fundamental
+factors, our theorem explains \emph{why} their commutor is trivial:
+it is the crystal shadow of the Schur--Weyl commutor, which lives
+entirely in the multiplicity bundle that the crystal functor forgets.
+\end{remark}
+
+\begin{remark}[Beyond the fundamental representation]
+Parts~(1)--(2) extend to tensor products of distinct representations,
+but the conclusion changes. For $V_\lambda \otimes V_\mu$ with $\lambda
+\neq \mu$, the combinatorial $R$-matrix is generally nontrivial---the
+crystal commutor permutes the factors in a nontrivial way (it is the
+crystal analogue of the Weyl group action). The multiplicity-freeness
+of $B(\omega_1)^{\otimes 2}$ (Lemma~\ref{lem:mult-free}) is special to
+the fundamental representation.
+\end{remark}
+
+%% -----------------------------------------------------------------------
+\section*{References}
+%% -----------------------------------------------------------------------
+
+\begin{thebibliography}{10}
+\bibitem{clio-cactus}
+  Clio,
+  ``The Cactus Representation Theorem: Interval Reversals on Tensor Space
+  at $q=0$,'' April 10, 2026.
+
+\bibitem{henriques-kamnitzer}
+  A.~Henriques and J.~Kamnitzer,
+  ``Crystals and coboundary categories,''
+  \emph{Duke Math.~J.} \textbf{132} (2006), no.~2, 191--216.
+
+\bibitem{kamnitzer-tingley}
+  J.~Kamnitzer and P.~Tingley,
+  ``The crystal commutor and Drinfeld's unitarized $R$-matrix,''
+  \emph{J.~Algebraic Combin.} \textbf{29} (2009), no.~3, 315--335.
+  arXiv:0707.2248.
+
+\bibitem{kashiwara-crystal}
+  M.~Kashiwara,
+  ``On crystal bases of the $q$-analogue of universal enveloping algebras,''
+  \emph{Duke Math.~J.} \textbf{63} (1991), no.~2, 465--516.
+
+\bibitem{savage}
+  A.~Savage,
+  ``Crystals, quiver varieties, and coboundary categories for Kac--Moody
+  algebras,''
+  \emph{Adv.~Math.} \textbf{221} (2009), no.~1, 22--60.
+  arXiv:0804.4688.
+
+\bibitem{schur-weyl}
+  R.~Goodman and N.~R.~Wallach,
+  \emph{Symmetry, Representations, and Invariants},
+  Graduate Texts in Mathematics 255, Springer, 2009.
+\end{thebibliography}
+
+\end{document}

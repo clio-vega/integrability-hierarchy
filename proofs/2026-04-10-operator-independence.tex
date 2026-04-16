@@ -1,0 +1,473 @@
+\documentclass[11pt]{article}
+
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{mathtools}
+\usepackage{booktabs}
+\usepackage[margin=1in]{geometry}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\ket}[1]{|#1\rangle}
+\newcommand{\pisort}{\pi_{\mathrm{sort}}}
+
+\title{The Operator Independence Theorem:\\
+  $\pisort$ is not a function of $R(u)$}
+\author{Clio}
+\date{April 10, 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We prove that the 0-Hecke sorting operator $\pisort$ and the five-vertex
+Demazure $R$-matrix $R(u)$ are algebraically independent: no specialization,
+limit, or conjugation relates them. The proof rests on a minimal polynomial
+argument---$\pisort$ satisfies a degree-2 relation while $R(u)$ has minimal
+polynomial of degree~4 for all $u \neq 0$. As a corollary, the three-level
+integrability hierarchy (solvable $\supset$ quasi-solvable $\supset$ combinatorial)
+consists of genuinely distinct algebraic levels, not degenerations of one another.
+\end{abstract}
+
+%% -----------------------------------------------------------------------
+\section{Definitions}
+%% -----------------------------------------------------------------------
+
+\begin{definition}[Ice-rule $R$-matrix]
+We work over $\CC$. Let $V = \CC^2$ with basis $\{\ket{0}, \ket{1}\}$,
+and identify $V \otimes V \cong \CC^4$ with ordered basis
+$\{\ket{00}, \ket{01}, \ket{10}, \ket{11}\}$.
+A \emph{six-vertex} or \emph{ice-rule} $R$-matrix is a linear map
+$R\colon V \otimes V \to V \otimes V$ preserving the total spin $i+j$ of
+each basis vector $\ket{ij}$. In the standard basis it has the form
+\[
+  R = \begin{pmatrix}
+    a_1 & 0   & 0   & 0   \\
+    0   & b_1 & c_1 & 0   \\
+    0   & c_2 & b_2 & 0   \\
+    0   & 0   & 0   & a_2
+  \end{pmatrix}.
+\]
+\end{definition}
+
+\begin{definition}[Demazure five-vertex $R$-matrix]\label{def:Ru}
+Set $b_2 = 0$ (five-vertex condition) and
+\[
+  a_1(u) = 1+u,\quad a_2 = 1,\quad b_1(u) = u,\quad
+  b_2 = 0,\quad c_1 = 1,\quad c_2 = 1,
+\]
+giving the one-parameter family
+\begin{equation}\label{eq:Ru}
+  R(u) = \begin{pmatrix}
+    1+u & 0 & 0 & 0 \\
+    0   & u & 1 & 0 \\
+    0   & 1 & 0 & 0 \\
+    0   & 0 & 0 & 1
+  \end{pmatrix}.
+\end{equation}
+\end{definition}
+
+\begin{definition}[0-Hecke sorting operator]\label{def:pisort}
+The \emph{sorting operator} $\pisort\colon V \otimes V \to V \otimes V$
+is defined by
+\[
+  \pisort \ket{ij} =
+  \begin{cases}
+    \ket{01} & \text{if } (i,j) = (1,0), \\
+    \ket{ij} & \text{otherwise},
+  \end{cases}
+\]
+with matrix form
+\begin{equation}\label{eq:pisort}
+  \pisort = \begin{pmatrix}
+    1 & 0 & 0 & 0 \\
+    0 & 1 & 1 & 0 \\
+    0 & 0 & 0 & 0 \\
+    0 & 0 & 0 & 1
+  \end{pmatrix}.
+\end{equation}
+\end{definition}
+
+\begin{definition}[Braid relation]
+A matrix $R \in \mathrm{End}(V \otimes V)$ satisfies the
+\emph{constant braid relation} if
+\begin{equation}\label{eq:braid}
+  R_{12}\, R_{23}\, R_{12} = R_{23}\, R_{12}\, R_{23}
+\end{equation}
+in $\mathrm{End}(V^{\otimes 3})$, where $R_{12} = R \otimes I$ and
+$R_{23} = I \otimes R$.
+\end{definition}
+
+%% -----------------------------------------------------------------------
+\section{The Operator Independence Theorem}
+%% -----------------------------------------------------------------------
+
+\begin{theorem}[Operator Independence]\label{thm:main}
+Let $R(u)$ and $\pisort$ be as in \eqref{eq:Ru} and \eqref{eq:pisort}. Then:
+\begin{enumerate}
+  \item \textbf{$\pisort$ is a 0-Hecke generator:}
+    $\pisort^2 = \pisort$ and $\pisort$ satisfies~\eqref{eq:braid}.
+  \item \textbf{$R(u)$ is not a Hecke generator:}
+    For all $u \neq 0$, $R(u)$ has at least three distinct eigenvalues
+    and satisfies no quadratic relation $(R - \alpha I)(R - \beta I) = 0$.
+  \item \textbf{No specialization:}
+    There is no $u_0 \in \CC$ and $c \in \CC^*$ such that
+    $R(u_0) = c \cdot \pisort$.
+  \item \textbf{No limit:}
+    There is no function $f\colon \CC \to \CC^*$ and no
+    $u_0 \in \CC \cup \{\infty\}$ such that
+    $\lim_{u \to u_0} R(u)/f(u) = \pisort$.
+  \item \textbf{No conjugation:}
+    There is no $M \in \mathrm{GL}_4(\CC)$, $u_0 \in \CC$, and
+    $c \in \CC^*$ such that $M\, R(u_0)\, M^{-1} = c \cdot \pisort$.
+\end{enumerate}
+\end{theorem}
+
+\begin{corollary}[Integrability Hierarchy]\label{cor:hierarchy}
+The three-level hierarchy
+\[
+  \textit{Solvable} \;\supset\; \textit{Quasi-solvable}
+  \;\supset\; \textit{Combinatorial}
+\]
+consists of genuinely distinct algebraic objects. The quasi-solvable level
+($\pisort$ satisfying 0-Hecke relations in $H_n(0)$) is not an intermediate
+degeneration of the solvable level ($R(u)$ satisfying the parametric
+Yang--Baxter equation).
+\end{corollary}
+
+%% -----------------------------------------------------------------------
+\section{Proof}
+%% -----------------------------------------------------------------------
+
+\subsection{Spectral data of $R(u)$}
+
+\begin{lemma}\label{lem:block}
+$R(u)$ is block-diagonal with respect to the spin decomposition
+$V \otimes V = V_0 \oplus V_1 \oplus V_2$, where
+$V_0 = \mathrm{span}\{\ket{00}\}$,
+$V_1 = \mathrm{span}\{\ket{01}, \ket{10}\}$,
+$V_2 = \mathrm{span}\{\ket{11}\}$.
+\begin{itemize}
+  \item On $V_0$: eigenvalue $\lambda_1 = 1+u$.
+  \item On $V_2$: eigenvalue $\lambda_2 = 1$.
+  \item On $V_1$: the restricted matrix is
+    $\bigl(\begin{smallmatrix} u & 1 \\ 1 & 0 \end{smallmatrix}\bigr)$
+    with characteristic polynomial $\lambda^2 - u\lambda - 1$, giving
+    eigenvalues
+    \begin{equation}\label{eq:lambdapm}
+      \lambda_\pm = \frac{u \pm \sqrt{u^2 + 4}}{2}.
+    \end{equation}
+\end{itemize}
+The four eigenvalues of $R(u)$ are therefore
+$\{1+u,\; 1,\; \lambda_+,\; \lambda_-\}$.
+\end{lemma}
+
+\begin{proof}
+The block structure follows from the ice rule (spin conservation).
+The characteristic polynomial of the $V_1$ block is
+$\det\bigl(\begin{smallmatrix} u-\lambda & 1 \\ 1 & -\lambda
+\end{smallmatrix}\bigr) = \lambda^2 - u\lambda - 1$.
+\end{proof}
+
+\begin{lemma}\label{lem:det}
+$\det R(u) = -(1+u)$.
+\end{lemma}
+
+\begin{proof}
+$\det R(u) = (1+u) \cdot 1 \cdot
+\det\bigl(\begin{smallmatrix} u & 1 \\ 1 & 0 \end{smallmatrix}\bigr)
+= (1+u)(0-1) = -(1+u)$.
+\end{proof}
+
+\begin{lemma}\label{lem:ev1}
+For $u \neq 0$, the eigenvalue $1$ is not a root of
+$\lambda^2 - u\lambda - 1$.
+\end{lemma}
+
+\begin{proof}
+Substituting $\lambda = 1$: $1 - u - 1 = -u \neq 0$.
+\end{proof}
+
+\begin{lemma}\label{lem:ev1pu}
+For $u \neq 0$, the eigenvalue $1+u$ is not a root of
+$\lambda^2 - u\lambda - 1$.
+\end{lemma}
+
+\begin{proof}
+Substituting $\lambda = 1+u$:
+$(1+u)^2 - u(1+u) - 1 = 1 + 2u + u^2 - u - u^2 - 1 = u \neq 0$.
+\end{proof}
+
+\begin{proposition}\label{prop:minpoly}
+For $u \neq 0$, the minimal polynomial of $R(u)$ is
+\begin{equation}\label{eq:minpoly}
+  m_{R(u)}(\lambda) = (\lambda - (1+u))(\lambda^2 - u\lambda - 1)(\lambda - 1),
+\end{equation}
+which has degree~$4$.
+\end{proposition}
+
+\begin{proof}
+The minimal polynomial is the least common multiple of the minimal
+polynomials on each invariant subspace:
+$(\lambda-(1+u))$ on $V_0$,
+$(\lambda^2 - u\lambda - 1)$ on $V_1$ (the full characteristic polynomial,
+since the $2 \times 2$ block is not scalar for $u \neq 0$),
+and $(\lambda - 1)$ on $V_2$.
+By Lemmas~\ref{lem:ev1} and~\ref{lem:ev1pu}, no pair shares a common
+root for $u \neq 0$, so their product is their least common multiple,
+giving degree $1 + 2 + 1 = 4$.
+\end{proof}
+
+%% -----------------------------------------------------------------------
+\subsection{Part (1): $\pisort$ is a 0-Hecke generator}
+
+\textbf{Idempotency.}
+Direct computation shows $\pisort^2 = \pisort$. Row~3 of $\pisort$ is
+identically zero, so the only nontrivial entry to check is
+$(\pisort^2)_{23} = (\pisort)_{22} \cdot (\pisort)_{23} = 1 \cdot 1 = 1$.
+All entries match. (Verified symbolically.)
+
+\textbf{Braid relation.}
+On $V^{\otimes 3}$ with basis $\{\ket{abc} : a,b,c \in \{0,1\}\}$,
+the operators $(\pisort)_{12}$ and $(\pisort)_{23}$ sort adjacent pairs
+of bits. Both compositions $\pi_{12}\pi_{23}\pi_{12}$ and
+$\pi_{23}\pi_{12}\pi_{23}$ implement the full \emph{bubble sort} on
+three bits, sending any triple to its nondecreasing rearrangement.
+The nontrivial cases are:
+\begin{center}
+\begin{tabular}{@{}cccc@{}}
+  \toprule
+  Input & $\pi_{12}\pi_{23}\pi_{12}$ & $\pi_{23}\pi_{12}\pi_{23}$ & Output \\
+  \midrule
+  $\ket{100}$ &
+    $\to\ket{010}\to\ket{001}\to\ket{001}$ &
+    $\to\ket{100}\to\ket{010}\to\ket{001}$ &
+    $\ket{001}$ \\
+  $\ket{110}$ &
+    $\to\ket{110}\to\ket{101}\to\ket{011}$ &
+    $\to\ket{101}\to\ket{011}\to\ket{011}$ &
+    $\ket{011}$ \\
+  $\ket{101}$ &
+    $\to\ket{011}\to\ket{011}\to\ket{011}$ &
+    $\to\ket{101}\to\ket{011}\to\ket{011}$ &
+    $\ket{011}$ \\
+  \bottomrule
+\end{tabular}
+\end{center}
+The remaining five inputs are already sorted and fixed by both sides.
+(Verified by $8 \times 8$ matrix computation.) \qed
+
+%% -----------------------------------------------------------------------
+\subsection{Part (2): $R(u)$ is not a Hecke generator for $u \neq 0$}
+
+A matrix satisfies a quadratic relation $(R - \alpha I)(R - \beta I) = 0$
+if and only if its minimal polynomial has degree at most~2. By
+Proposition~\ref{prop:minpoly}, for $u \neq 0$ the minimal polynomial of
+$R(u)$ has degree~4. Therefore no quadratic relation holds. \qed
+
+\begin{remark}
+At $u = 0$, the $R$-matrix is the permutation (swap) $P$ with $P^2 = I$
+and eigenvalues $\{1,1,1,-1\}$. This satisfies the quadratic
+$(R-I)(R+I) = 0$, making it a generator of the symmetric group algebra
+$\CC[S_n]$---the \emph{combinatorial} level of the hierarchy.
+\end{remark}
+
+%% -----------------------------------------------------------------------
+\subsection{Part (3): No specialization}
+
+Suppose $R(u_0) = c \cdot \pisort$ for some $u_0 \in \CC$, $c \in \CC^*$.
+Comparing the $(1,1)$ and $(2,2)$ entries:
+\[
+  R(u_0)_{11} = 1 + u_0 = c, \qquad R(u_0)_{22} = u_0 = c.
+\]
+Subtracting: $(1+u_0) - u_0 = 1 = 0$, a contradiction.
+
+\begin{remark}
+The obstruction is structural: the diagonal entries of $R(u)$ are $1+u$
+and $u$, which differ by a constant additive shift of~$1$. Those of
+$\pisort$ are both~$1$. No scalar rescaling can absorb an additive
+discrepancy.
+\end{remark}
+\qed
+
+%% -----------------------------------------------------------------------
+\subsection{Part (4): No limit}
+
+We show that for no $u_0 \in \CC \cup \{\infty\}$ and no function $f(u)$
+does $R(u)/f(u) \to \pisort$ as $u \to u_0$.
+
+The key observation: $R(u)$ has entries depending on $u$ (namely
+$R_{11} = 1+u$ and $R_{22} = u$) and constant entries ($R_{23} = R_{32} = 1$,
+$R_{44} = 1$, $R_{33} = 0$). All nonzero entries of $\pisort$ equal~$1$.
+
+\textbf{Case 1:} Finite $u_0$, $f(u) \to f_0 \neq 0$. Then
+$R(u)/f(u) \to R(u_0)/f_0$, reducing to Part~(3). No solution.
+
+\textbf{Case 2:} Finite $u_0$, $f(u) \to 0$. The constant entry
+$R_{23} = 1$ gives $1/f(u) \to \infty$. Diverges.
+
+\textbf{Case 3:} Finite $u_0$, $f(u) \to \infty$. Then
+$R_{23}/f(u) \to 0$, but $(\pisort)_{23} = 1 \neq 0$. Mismatch.
+
+\textbf{Case 4:} $u_0 = \infty$. As $u \to \infty$, the entries
+$R_{11} = 1+u$ and $R_{22} = u$ grow without bound while
+$R_{23} = R_{32} = 1$, $R_{44} = 1$, $R_{33} = 0$ stay bounded.
+If $f(u) \sim \alpha u^\gamma$ as $u \to \infty$ for $\gamma > 0$:
+\[
+  \lim_{u \to \infty} \frac{R(u)}{\alpha u^\gamma} =
+  \begin{cases}
+    \frac{1}{\alpha}\operatorname{diag}(1,1,0,0) & \text{if } \gamma = 1, \\
+    0 & \text{if } \gamma > 1, \\
+    \text{diverges} & \text{if } \gamma < 1.
+  \end{cases}
+\]
+For $\gamma = 1$, the limit has rank~2; $\pisort$ has rank~3. No match.
+\qed
+
+%% -----------------------------------------------------------------------
+\subsection{Part (5): No conjugation}
+
+This is the strongest statement. We use two conjugation invariants: the
+eigenvalue multiset and the minimal polynomial.
+
+\textbf{Step 1 (Eigenvalue constraint).}
+If $M R(u_0) M^{-1} = c \cdot \pisort$, then $R(u_0)$ and
+$c \cdot \pisort$ share the same eigenvalue multiset. Since $\pisort$
+has eigenvalues $\{1,1,1,0\}$, the matrix $c \cdot \pisort$ has
+eigenvalues $\{c,c,c,0\}$: a triple eigenvalue $c$ and a simple
+eigenvalue~$0$.
+
+\textbf{Step 2 (Where is the zero eigenvalue?)}
+From the eigenvalues $\{1+u, 1, \lambda_+, \lambda_-\}$ of $R(u)$:
+\begin{itemize}
+  \item $1+u = 0$: $u = -1$. (Candidate.)
+  \item $1 = 0$: Impossible.
+  \item $\lambda_\pm = 0$: From~\eqref{eq:lambdapm},
+    $\frac{u \pm \sqrt{u^2+4}}{2} = 0$ requires
+    $u = \mp\sqrt{u^2+4}$, hence $u^2 = u^2+4$. Impossible.
+\end{itemize}
+So $u_0 = -1$ is the unique candidate.
+
+\textbf{Step 3 (Eliminate $u_0 = -1$).}
+At $u = -1$, the eigenvalues are
+\begin{equation}\label{eq:evu-1}
+  \Bigl\{0,\; 1,\; \frac{-1+\sqrt{5}}{2},\;
+  \frac{-1-\sqrt{5}}{2}\Bigr\}.
+\end{equation}
+The three nonzero eigenvalues are $1$,
+$\frac{-1+\sqrt{5}}{2} \approx 0.618$, and
+$\frac{-1-\sqrt{5}}{2} \approx -1.618$. These are three distinct
+values. For conjugacy to $c \cdot \pisort$, we need all three nonzero
+eigenvalues to equal~$c$. Since they are distinct, this is impossible.
+
+\textbf{Step 4 (Alternative: minimal polynomial argument).}
+We give a second proof that works uniformly for all $u \neq 0$.
+The minimal polynomial of $c \cdot \pisort$ is $\lambda(\lambda - c)$
+(degree~2), since $(c\pi)^2 = c^2\pi = c(c\pi)$ and $c\pi \neq 0$,
+$c\pi \neq cI$.
+By Proposition~\ref{prop:minpoly}, for all $u \neq 0$ the minimal
+polynomial of $R(u)$ has degree~4. The minimal polynomial is a
+conjugation invariant. A matrix with minimal polynomial of degree~4
+cannot be conjugate to a scalar multiple of an idempotent (minimal
+polynomial degree~2).
+
+\textbf{Step 5 (Eliminate $u_0 = 0$).}
+$R(0) = P$ (the permutation matrix) with eigenvalues $\{1,1,1,-1\}$.
+For conjugacy to $c \cdot \pisort$ with eigenvalues $\{c,c,c,0\}$, we
+need $-1 = 0$. Impossible.
+
+\medskip
+
+Combining Steps 2--5: no value of $u_0 \in \CC$ admits a conjugacy
+$M R(u_0) M^{-1} = c \cdot \pisort$. \qed
+
+%% -----------------------------------------------------------------------
+\section{The Conceptual Picture}
+%% -----------------------------------------------------------------------
+
+The proof reveals why the three levels of the integrability hierarchy are
+algebraically incommensurable. Two independent deformation parameters
+are at play:
+\begin{itemize}
+  \item The \textbf{spectral parameter} $u$, which parametrizes the
+    $R$-matrix family $R(u)$.
+  \item The \textbf{Hecke parameter} $q$, which controls the quotient
+    from the braid algebra to the Hecke algebra via
+    $(T_i - q)(T_i + 1) = 0$.
+\end{itemize}
+
+Setting different parameters to zero gives:
+
+\begin{center}
+\begin{tabular}{@{}llll@{}}
+  \toprule
+  Limit & Result & Algebra & Relation \\
+  \midrule
+  $u = 0$ in $R(u)$ & Permutation $P$ & $\CC[S_n]$ &
+    $P^2 = I$ (involution) \\
+  $q = 0$ in $H_n(q)$ & Sorting $\pisort$ & $H_n(0)$ &
+    $\pi^2 = \pi$ (idempotent) \\
+  \bottomrule
+\end{tabular}
+\end{center}
+
+These two limits are algebraically incomparable: $P = R(0)$ is an
+involution with eigenvalues $\{1,1,1,-1\}$, while $\pisort$ is an
+idempotent with eigenvalues $\{1,1,1,0\}$. The sign $-1$ versus $0$
+is the spectral signature of their algebraic independence.
+
+The ``Hecke $q$'' and the ``spectral $u$'' control different aspects of
+the algebraic structure. The sorting operator $\pisort$ is the $q = 0$
+limit of the Hecke generator---not the $u = 0$ limit of the $R$-matrix.
+These are genuinely different operations on genuinely different objects,
+connected only through the braid group that is a common ancestor of both.
+
+This connects directly to the categorical phase diagram:
+\begin{itemize}
+  \item \textbf{Braided monoidal} (generic $q$, generic $u$): the full
+    Yang--Baxter equation holds; $R(u)$ generates a braid group action.
+  \item \textbf{Coboundary monoidal} ($q = 0$): the cactus group
+    replaces the braid group; $\pisort$ generates $H_n(0)$ with
+    idempotent relations.
+  \item \textbf{Symmetric monoidal} ($u = 0$): the permutation $P$
+    generates $\CC[S_n]$ with involutive relations.
+\end{itemize}
+The Operator Independence Theorem says these categorical phases are
+separated by algebraic walls that no continuous deformation can cross.
+
+%% -----------------------------------------------------------------------
+\section{Computational Verification}
+%% -----------------------------------------------------------------------
+
+All matrix computations were independently verified using SymPy
+(symbolic) and NumPy (numerical):
+
+\begin{itemize}
+  \item \textbf{Part (1):} Idempotency $\pisort^2 = \pisort$ and braid
+    relation verified by direct $4 \times 4$ and $8 \times 8$ matrix
+    multiplication (\texttt{hecke\_integrability\_test.py}).
+  \item \textbf{Part (2):} Eigenvalues of $R(u)$ computed symbolically;
+    quadratic relation $(R-\alpha I)(R-\beta I) = 0$ tested at
+    $u = 1, 2, \frac{1}{2}, 3$ with no annihilator found
+    (\texttt{pi\_sort\_independence.py}).
+  \item \textbf{Part (3):} Entrywise system $R(u_0) = c \cdot \pisort$
+    solved symbolically---empty solution set.
+  \item \textbf{Part (4):} Limits computed symbolically for
+    $u \to 0, \pm 1, \infty$ with normalizations
+    $f(u) = 1, u, 1+u, au+b$.
+  \item \textbf{Part (5):} Jordan forms and eigenvalue multisets compared
+    at all candidate points $u = 0, -1$.
+\end{itemize}
+
+\noindent
+Scripts: \texttt{hecke\_integrability\_test.py},
+\texttt{pi\_sort\_independence.py}.
+
+\end{document}

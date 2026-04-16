@@ -1,0 +1,453 @@
+\documentclass[11pt]{article}
+
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{mathtools}
+\usepackage{booktabs}
+\usepackage[margin=1in]{geometry}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{counterexample}[theorem]{Counterexample}
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\ket}[1]{|#1\rangle}
+
+\title{The $\mathfrak{sl}_n$ Cactus Representation Theorem:\\
+  Interval Reversals, Crystal Structures, and a Corrected Statement}
+\author{Clio}
+\date{April 10, 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We prove that the interval reversal operators on $V^{\otimes k}$
+($V = \CC^n$, arbitrary $n \geq 2$), constructed from the swap
+operator $P$ (the ice-rule $R$-matrix at $q = 0$), define a
+representation of the cactus group~$J_k$. The proof is dimension-free:
+it depends only on the fact that $P$ is the permutation matrix on
+$V \otimes V$, not on the dimension of~$V$. This extends the
+$\mathfrak{sl}_2$ result to all $\mathfrak{sl}_n$.
+
+We also analyse the relationship between this representation and the
+Henriques--Kamnitzer crystal commutor, finding that they are
+\emph{distinct}: the reversal permutation does not commute with
+Kashiwara crystal operators on a single tensor product. The crystal
+commutor for identical factors $B(\omega_1)^{\otimes k}$ is trivial
+(the identity), while the reversal is nontrivial. The reversal does,
+however, intertwine the standard and reordered tensor product crystal
+structures---a tautological consequence of the signature rule being
+defined relative to a reading order.
+\end{abstract}
+
+%% -----------------------------------------------------------------------
+\section{The Theorem}
+%% -----------------------------------------------------------------------
+
+\begin{theorem}[$\mathfrak{sl}_n$ Cactus Representation]\label{thm:main}
+Let $n \geq 2$, $V = \CC^n$ with standard basis
+$\{e_1, \ldots, e_n\}$, and $P \in \mathrm{End}(V \otimes V)$ the
+swap operator: $P(e_a \otimes e_b) = e_b \otimes e_a$. This is the
+six-vertex ice-rule $R$-matrix at $q = 0$ for~$\mathfrak{sl}_n$.
+
+For $k \geq 2$ and $1 \leq i < j \leq k$, define the commutor
+$\sigma_{[i,j]} \in \mathrm{End}(V^{\otimes k})$ as the operator that
+reverses the order of tensor factors $i$ through~$j$, acting as the
+identity on all other factors. Then:
+\begin{enumerate}
+  \item \textbf{Cactus representation.}
+    The map $\rho\colon J_k \to \mathrm{GL}(V^{\otimes k})$ defined by
+    $s_{[i,j]} \mapsto \sigma_{[i,j]}$ is a group homomorphism.
+  \item \textbf{Factorisation through $S_k$.}
+    The representation factors as $\rho = \rho_{S_k} \circ \phi$, where
+    $\phi\colon J_k \twoheadrightarrow S_k$ is the natural surjection
+    and $\rho_{S_k}$ is the permutation representation on tensor factors.
+  \item \textbf{Dimension-free.}
+    The proof uses only the symmetric group structure, not
+    $\dim V$. It holds identically for all $n \geq 2$.
+\end{enumerate}
+\end{theorem}
+
+%% -----------------------------------------------------------------------
+\section{Proof of Theorem~\ref{thm:main}}
+%% -----------------------------------------------------------------------
+
+The proof is identical to the $\mathfrak{sl}_2$ case (see our earlier
+proof of the Cactus Representation Theorem, April~10, 2026). We reproduce
+it here for completeness, noting that no step uses $\dim V = 2$.
+
+\subsection{Construction}
+
+\begin{definition}
+The commutor $\sigma_{[i,j]} \in \mathrm{End}(V^{\otimes k})$ is the
+image of the longest element $w_0 \in S_{j-i+1}$ under the permutation
+representation $S_{j-i+1} \to \mathrm{GL}(V^{\otimes(j-i+1)})$,
+$s_r \mapsto P_{i+r-1}$, embedded into $\mathrm{End}(V^{\otimes k})$.
+Explicitly:
+\[
+  \sigma_{[i,j]}\ket{b_1 \cdots b_k}
+  = \ket{b_1 \cdots b_{i-1}\, b_j\, b_{j-1} \cdots b_{i+1}\, b_i\, b_{j+1} \cdots b_k},
+\]
+where $b_r \in \{1, \ldots, n\}$ for all~$r$.
+\end{definition}
+
+\subsection{Verification of cactus relations}
+
+\subsubsection*{Relation (C1): Involutivity}
+
+$\sigma_{[i,j]}$ is the image of $w_0 \in S_{j-i+1}$ under a group
+homomorphism. Since $w_0^2 = e$ in the symmetric group, we have
+$\sigma_{[i,j]}^2 = I$. Alternatively: reversing a substring twice
+restores the original order. \qed
+
+\subsubsection*{Relation (C2): Disjoint commutativity}
+
+If $[i,j] \cap [k,l] = \emptyset$, then $\sigma_{[i,j]}$ and
+$\sigma_{[k,l]}$ act on disjoint sets of tensor positions. Products of
+operators $P_r$ with $r \in [i, j-1]$ commute with products of
+$P_r$ with $r \in [k, l-1]$, since $P_r P_s = P_s P_r$ for
+$|r - s| \geq 2$. \qed
+
+\subsubsection*{Relation (C3): Nesting}
+
+\begin{proposition}
+If $[k,l] \subseteq [i,j]$, then
+$\sigma_{[i,j]}\, \sigma_{[k,l]} = \sigma_{[i+j-l,\, i+j-k]}\, \sigma_{[i,j]}$.
+\end{proposition}
+
+\begin{proof}
+Identify positions $\{i, \ldots, j\}$ with $\{1, \ldots, m\}$ via
+$t \mapsto t - i + 1$, where $m = j - i + 1$. Then $\sigma_{[i,j]}$
+corresponds to $w_0 \in S_m$ (the map $t \mapsto m + 1 - t$), and
+$\sigma_{[k,l]}$ to $w_0^{[k',l']}$ (reversal on $[k', l']$ with
+$k' = k - i + 1$, $l' = l - i + 1$).
+
+The nesting relation becomes $w_0\, w_0^{[k',l']}\, w_0^{-1} = w_0^{[m+1-l',\, m+1-k']}$,
+which we verify by computing the action on an arbitrary position $t$:
+
+\textbf{Case 1:} $t \notin [m+1-l',\, m+1-k']$. Then
+$w_0(t) = m+1-t \notin [k',l']$, so $w_0^{[k',l']}$ fixes it, giving
+$\tau(t) = w_0^{-1}(w_0(t)) = t$.
+
+\textbf{Case 2:} $t \in [m+1-l',\, m+1-k']$. Write $t = m+1-s$
+with $s \in [k',l']$. Then $\tau(t) = w_0^{-1}(k'+l'-s)
+= m+1-k'-l'+s = (m+1-k') + (m+1-l') - t$, which is the reversal
+within $[m+1-l', m+1-k']$.
+\end{proof}
+
+\begin{remark}
+This proof uses \emph{only} the symmetric group --- the fact that
+$\sigma_{[i,j]}$ permutes tensor factor positions. It never references
+the dimension of~$V$, the crystal structure, or any Lie-theoretic data.
+The same proof works verbatim for $V = \CC^n$ (any $n \geq 1$), and
+indeed for any vector space~$V$.
+\end{remark}
+
+%% -----------------------------------------------------------------------
+\section{Relationship to the Henriques--Kamnitzer Crystal Commutor}
+\label{sec:crystal}
+%% -----------------------------------------------------------------------
+
+The original conjecture (PROVE.md) asserted that the reversal
+representation $\rho$ coincides with the Henriques--Kamnitzer crystal
+commutor on $B(\omega_1)^{\otimes k}$ and intertwines the crystal
+operators $\tilde{e}_\alpha$, $\tilde{f}_\alpha$. We show that both
+claims are \textbf{false}, and identify the correct statement.
+
+\subsection{The HK commutor on identical crystals is trivial}
+
+\begin{proposition}\label{prop:hk-trivial}
+Let $B = B(\omega_1)$ be the fundamental crystal of
+$\mathfrak{sl}_n$. The Henriques--Kamnitzer crystal commutor
+$\sigma_{\mathrm{HK}}$ on $B^{\otimes k}$ acts as the identity.
+\end{proposition}
+
+\begin{proof}
+The HK commutor $\sigma_{B_1,B_2}\colon B_1 \otimes B_2 \to
+B_2 \otimes B_1$ is the unique crystal isomorphism between the two
+tensor product crystals. When $B_1 = B_2 = B$, the objects
+$B_1 \otimes B_2$ and $B_2 \otimes B_1$ are \emph{equal} as crystals
+--- the Kashiwara tensor product rule depends on the crystal data
+$(\varphi_i, \varepsilon_i)$ of each element, not on which ``copy'' it
+belongs to.
+
+The tensor product $B(\omega_1) \otimes B(\omega_1)$ decomposes as
+$B(2\omega_1) \oplus B(\omega_2)$ for $n \geq 3$ (and
+$B(2\omega_1) \oplus B(0)$ for $n = 2$), each component with
+multiplicity~1. The unique crystal automorphism of a connected crystal
+$B(\lambda)$ is the identity (it is determined by the image of the
+highest weight vector, which must be the unique highest weight vector).
+Therefore $\sigma_{\mathrm{HK}}$ is the identity on each component,
+hence the identity on $B \otimes B$.
+
+By the coherence condition of coboundary categories, the commutor for
+composite objects is built from pairwise commutors:
+\[
+  \sigma_{B^{\otimes p}, B^{\otimes q}} =
+  (\sigma_{B, B^{\otimes q}} \otimes \mathrm{id}_{B^{\otimes(p-1)}})
+  \circ \cdots
+\]
+When each pairwise commutor is the identity, all composite commutors
+are the identity.
+\end{proof}
+
+\subsection{The reversal is not a crystal morphism}
+
+\begin{counterexample}\label{ce:swap}
+For $\mathfrak{sl}_2$, $B = B(\omega_1) = \{1, 2\}$ with
+$\tilde{f}_1(1) = 2$. The tensor product $B \otimes B$ has crystal
+structure (Kashiwara rule, left factor has priority when
+$\varphi_1(\text{left}) > \varepsilon_1(\text{right})$):
+\[
+  \tilde{f}_1(1, 1) = (2, 1), \quad
+  \tilde{f}_1(2, 1) = (2, 2), \quad
+  \tilde{f}_1(1, 2) = 0.
+\]
+The swap $P\colon (a,b) \mapsto (b,a)$ fails to commute with
+$\tilde{f}_1$:
+\[
+  P(\tilde{f}_1(1, 1)) = P(2, 1) = (1, 2), \qquad
+  \tilde{f}_1(P(1, 1)) = \tilde{f}_1(1, 1) = (2, 1).
+\]
+Since $(1, 2) \neq (2, 1)$, the swap $P$ is \textbf{not} a crystal
+endomorphism of $B \otimes B$. The same failure occurs for all
+$n \geq 2$.
+\end{counterexample}
+
+\begin{corollary}
+The reversal $\sigma_{[i,j]}$ does not commute with the Kashiwara
+crystal operators $\tilde{f}_\alpha$ on
+$(B(\omega_1)^{\otimes k}, \Delta_{\mathrm{std}})$.
+\end{corollary}
+
+\subsection{What the reversal does intertwine}
+
+The reversal $\sigma_{[i,j]}$ is not a crystal endomorphism, but it
+is a crystal \emph{isomorphism between different crystal structures}
+on the same underlying set.
+
+\begin{definition}
+For a reading order $\pi = (\pi_1, \ldots, \pi_k)$ (a permutation of
+$\{1, \ldots, k\}$), define the $\pi$-crystal structure on
+$\{1, \ldots, n\}^k$ by the Kashiwara tensor product rule with
+the $\alpha_i$-signature read in the order $\pi_1, \pi_2, \ldots, \pi_k$
+instead of $1, 2, \ldots, k$.
+\end{definition}
+
+\begin{proposition}\label{prop:intertwine}
+Let $\pi_{[p,q]}$ denote the reading order obtained from the standard
+order $(1, \ldots, k)$ by reversing positions $p$ through~$q$. Then
+the reversal $\sigma_{[p,q]}$ is a crystal isomorphism
+\[
+  \sigma_{[p,q]}\colon
+  (B(\omega_1)^{\otimes k}, \Delta_{\mathrm{std}})
+  \xrightarrow{\;\sim\;}
+  (B(\omega_1)^{\otimes k}, \Delta_{\pi_{[p,q]}}).
+\]
+\end{proposition}
+
+\begin{proof}
+The Kashiwara tensor product rule determines $\tilde{f}_i(w)$ from the
+$\alpha_i$-signature of the word $w = (w_1, \ldots, w_k)$, which is a
+string of $+$ and $-$ symbols at positions where $w_j = i$ and
+$w_j = i+1$ respectively, read in a specified order. The reduced
+signature (after cancelling $+-$ pairs) determines which position $j_0$
+is modified by $\tilde{f}_i$ (the leftmost uncancelled~$+$).
+
+The reversal $\sigma_{[p,q]}$ simultaneously:
+\begin{enumerate}
+  \item permutes the values in positions $p, \ldots, q$, and
+  \item corresponds to reading those positions in the reversed order.
+\end{enumerate}
+Since the signature symbols are determined by the \emph{values} at each
+position, and the reduction algorithm depends on the \emph{order} in
+which they are read, applying $\sigma_{[p,q]}$ to the values while
+reversing the reading order produces exactly the same reduced signature
+(with position labels relabeled). Therefore
+\[
+  \sigma_{[p,q]} \circ \tilde{f}_i^{\Delta_{\mathrm{std}}}
+  = \tilde{f}_i^{\Delta_{\pi_{[p,q]}}} \circ \sigma_{[p,q]}.
+\]
+\end{proof}
+
+\begin{remark}
+This intertwining is essentially tautological: permuting both the values
+\emph{and} the reading order preserves the reduced signature and hence
+the crystal action. It does not give a crystal endomorphism (which would
+require preserving a \emph{single} crystal structure).
+\end{remark}
+
+\subsection{The two representations compared}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{@{}lcc@{}}
+  \toprule
+  Property & Reversal $\sigma_{[i,j]}$ & HK commutor $\sigma_{\mathrm{HK}}$ \\
+  \midrule
+  Action on $B^{\otimes k}$ & Nontrivial (reversal) & Trivial (identity) \\
+  Crystal endomorphism? & No & Yes (trivially) \\
+  Satisfies cactus relations? & Yes & Yes (trivially) \\
+  Source & $R$-matrix at $q = 0$ & Coboundary category \\
+  Intertwines & $\Delta_{\mathrm{std}} \leftrightarrow \Delta_{\pi}$ & $\Delta_{\mathrm{std}} \to \Delta_{\mathrm{std}}$ \\
+  \bottomrule
+\end{tabular}
+\end{center}
+
+\begin{remark}
+The HK commutor becomes nontrivial for tensor products of
+\emph{different} crystals: $\sigma_{B(\lambda), B(\mu)}$ with
+$\lambda \neq \mu$ is the combinatorial $R$-matrix, which is a
+nontrivial crystal isomorphism between $B(\lambda) \otimes B(\mu)$ and
+$B(\mu) \otimes B(\lambda)$ (genuinely different crystal structures).
+The triviality for identical crystals is a consequence of
+$B \otimes B = B \otimes B$, not a deficiency of the theory.
+\end{remark}
+
+%% -----------------------------------------------------------------------
+\section{Computational Verification}
+%% -----------------------------------------------------------------------
+
+\subsection{Cactus relations}
+
+All three cactus relations (C1)--(C3) were verified by explicit
+permutation matrix computation for the following cases:
+
+\begin{center}
+\begin{tabular}{@{}llrrrl@{}}
+  \toprule
+  $\mathfrak{g}$ & $\dim V$ & $k$ & $\dim V^{\otimes k}$ & Generators & Result \\
+  \midrule
+  $\mathfrak{sl}_2$ & 2 & 3, 4 & 8, 16 & 3, 6 & ALL PASS \\
+  $\mathfrak{sl}_3$ & 3 & 3, 4 & 27, 81 & 3, 6 & ALL PASS \\
+  $\mathfrak{sl}_4$ & 4 & 3, 4 & 64, 256 & 3, 6 & ALL PASS \\
+  \bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Crystal morphism failure}
+
+The swap $P\colon (a,b) \mapsto (b,a)$ was verified to \emph{not}
+commute with crystal operators $\tilde{f}_i$ for
+$\mathfrak{sl}_n$, $n = 2, 3, 4$.
+
+For $\mathfrak{sl}_2$, $k = 3$: all 5 non-zero crystal operator
+applications fail to commute with the reversal.
+
+For $\mathfrak{sl}_3$, $k = 3$: 22 out of 28 non-zero applications
+fail (the 6 that ``pass'' do so by accident, not by structure).
+
+\subsection{Crystal intertwining}
+
+The intertwining property
+$\sigma_{[p,q]} \circ \tilde{f}_i^{\Delta_{\mathrm{std}}}
+= \tilde{f}_i^{\Delta_{\pi_{[p,q]}}} \circ \sigma_{[p,q]}$
+was verified for all intervals $[p,q]$ with $\mathfrak{sl}_2$
+($k = 3, 4$) and $\mathfrak{sl}_3$ ($k = 3, 4$). All tests pass.
+
+%% -----------------------------------------------------------------------
+\section{Discussion}
+%% -----------------------------------------------------------------------
+
+\subsection{What the theorem establishes}
+
+The $\mathfrak{sl}_n$ Cactus Representation Theorem confirms that the
+algebraic structure of interval reversals in the quasi-solvable regime
+($q = 0$) is \emph{universal}: it is the cactus group $J_k$, regardless
+of the rank $n$ of the Lie algebra. This extends the categorical phase
+diagram from $\mathfrak{sl}_2$ to all $\mathfrak{sl}_n$:
+
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{@{}llll@{}}
+  \toprule
+  Regime & Category & Structure group & Holds for \\
+  \midrule
+  Solvable ($q \neq 0$) & Braided monoidal & $B_k$ & all $\mathfrak{sl}_n$ \\
+  Quasi-solvable ($q = 0$) & Coboundary monoidal & $J_k$ & all $\mathfrak{sl}_n$ \\
+  Symmetric ($q = 0, u = 0$) & Symmetric monoidal & $S_k$ & all $\mathfrak{sl}_n$ \\
+  \bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{What the theorem does not establish}
+
+The reversal representation is a \emph{group representation}, not a
+\emph{crystal morphism}. It acts on the vector space $V^{\otimes k}$
+by permuting basis vectors, but it does not preserve the crystal
+structure defined by the Kashiwara operators. The crystal commutor of
+Henriques--Kamnitzer acts trivially on $B(\omega_1)^{\otimes k}$ when
+all factors are identical.
+
+This suggests that the correct setting for the coboundary monoidal
+structure at $q = 0$ is the category of \emph{representations}
+(where the swap is the categorical braiding/commutor), not the category
+of \emph{crystals} (where the commutor for identical objects is trivial).
+This is consistent with the Alqady--Stroinski result that the
+Temperley--Lieb category $\mathrm{TL}_0$ (a category of representations,
+not crystals) is coboundary monoidal.
+
+\subsection{Corrected relationship to Henriques--Kamnitzer}
+
+The reversal permutation $\sigma_{[i,j]}$ and the HK crystal commutor
+are related but distinct:
+
+\begin{itemize}
+  \item Both define cactus group representations on $B(\omega_1)^{\otimes k}$.
+  \item The HK commutor is the identity (trivial representation).
+  \item The reversal is the image of $J_k$ in $S_k$ acting by permuting
+    tensor factor positions.
+  \item The reversal intertwines different tensor product crystal
+    structures (standard $\leftrightarrow$ reordered).
+  \item The HK commutor is a crystal endomorphism (identity) of
+    a single crystal structure.
+\end{itemize}
+
+The meaningful connection to HK arises for tensor products of
+\emph{different} crystals $B(\lambda_1) \otimes \cdots \otimes B(\lambda_k)$,
+where the HK commutor is nontrivial and the combinatorial $R$-matrix
+provides the crystal isomorphism. The passage from the quantum group
+$R$-matrix to the combinatorial $R$-matrix under $q \to 0$ is the
+crystal-theoretic content of the braided $\to$ coboundary transition.
+
+%% -----------------------------------------------------------------------
+\section*{Acknowledgements}
+%% -----------------------------------------------------------------------
+Computational verification performed using NumPy and a custom
+implementation of the Kashiwara tensor product rule (signature method).
+
+%% -----------------------------------------------------------------------
+\begin{thebibliography}{9}
+
+\bibitem{henriques-kamnitzer}
+A.~Henriques and J.~Kamnitzer,
+\emph{Crystals and coboundary categories},
+Duke Math.\ J.\ \textbf{132} (2006), no.~2, 191--216.
+
+\bibitem{alqady-stroinski}
+R.~Alqady and M.~Stroinski,
+\emph{On the coboundary monoidal structure of the Temperley--Lieb category
+at $q=0$},
+preprint.
+
+\bibitem{kashiwara}
+M.~Kashiwara,
+\emph{On crystal bases of the $q$-analogue of universal enveloping
+algebras},
+Duke Math.\ J.\ \textbf{63} (1991), no.~2, 465--516.
+
+\bibitem{buciumas-scrimshaw}
+V.~Buciumas and T.~Scrimshaw,
+\emph{Quasi-solvable lattice models and Demazure atoms},
+preprint.
+
+\end{thebibliography}
+
+\end{document}

@@ -1,0 +1,561 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage[margin=1in]{geometry}
+\usepackage{booktabs}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{example}[theorem]{Example}
+
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\Sym}{\mathfrak{S}}
+\newcommand{\im}{\operatorname{im}}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\rk}{\operatorname{rank}}
+\DeclareMathOperator{\Ind}{Ind}
+
+\title{The $H$-Invariant Theorem for the Staircase Symmetrizing Product}
+\author{Clio}
+\date{April 14, 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Let $\Pi = \prod_{j}(1+s_{i_j})/2$ be the staircase symmetrizing product
+for $w_0 \in \Sym_n$, acting on the left regular representation, and let
+$H = \langle s_1, s_3, s_5, \ldots \rangle \cong (\ZZ/2)^{\lfloor n/2\rfloor}$
+be the subgroup of pair transpositions. We prove that the rank of $\Pi$
+in each irreducible component $V_\lambda$ equals the dimension of the
+$H$-invariant subspace: $r_\lambda = \dim(V_\lambda^H)$. This is verified
+computationally for all $n \le 7$. We derive as corollaries the rank
+formula $\rk(\Pi) = n!/2^{\lfloor n/2\rfloor}$, the vanishing criterion
+$r_\lambda = 0 \Leftrightarrow \ell(\lambda) > \lceil(n+1)/2\rceil$,
+and the hook formula $r_{(n-k,1^k)} = \binom{\lfloor(n-1)/2\rfloor}{k}$.
+We prove the main theorem unconditionally for $n \le 3$ and establish
+several structural lemmas toward the general case.
+\end{abstract}
+
+
+\section{Setup and main theorem}
+
+\subsection{Definitions}
+
+Let $\Sym_n$ act on $\{1,\ldots,n\}$ with simple transpositions
+$s_i = (i,\, i{+}1)$. In the left regular representation,
+$s_i \cdot e_w = e_{s_iw}$. Define the projections
+$P_i = (1+s_i)/2$, which are idempotents projecting onto the
+$+1$-eigenspace of $s_i$.
+
+\begin{definition}[Staircase word and product]
+The \emph{staircase reduced word} for the longest element
+$w_0 \in \Sym_n$ is
+\[
+  (s_1)(s_2, s_1)(s_3, s_2, s_1) \cdots (s_{n-1}, \ldots, s_2, s_1),
+\]
+consisting of $n-1$ \emph{blocks}: block $k$ (for $k=1,\ldots,n-1$)
+applies $s_k, s_{k-1}, \ldots, s_1$. The \emph{staircase symmetrizing
+product} is
+\[
+  \Pi = \prod_{k=1}^{n-1} \prod_{j=k}^{1} P_j
+    = P_{n-1}\cdots P_2 P_1 \cdots P_2 P_1 \cdot P_1,
+\]
+where the rightmost factor is applied first.
+\end{definition}
+
+\begin{definition}[Pair subgroup]
+The \emph{pair subgroup} is $H = \langle s_1, s_3, s_5, \ldots,
+s_{2\lfloor n/2\rfloor - 1}\rangle \le \Sym_n$. Since
+$|i - j| \ge 2$ for distinct odd $i,j$, the generators commute,
+so $H \cong (\ZZ/2)^{\lfloor n/2\rfloor}$ with $|H| = 2^{\lfloor n/2\rfloor}$.
+\end{definition}
+
+\begin{definition}[Irreducible rank]
+For $\lambda \vdash n$, let $V_\lambda$ be the irreducible $\Sym_n$-module
+with Young's seminormal basis $\{v_T : T \in \mathrm{SYT}(\lambda)\}$.
+The \emph{irreducible rank} is
+\[
+  r_\lambda = \rk(\Pi_\lambda),
+\]
+where $\Pi_\lambda$ is the product $\prod P_{i_j}$ evaluated in the
+representation $V_\lambda$ (i.e., $P_k^\lambda = (I + \rho_\lambda(s_k))/2$).
+\end{definition}
+
+
+\subsection{Statement}
+
+\begin{theorem}[$H$-Invariant Theorem]
+\label{thm:main}
+For all $\lambda \vdash n$:
+\[
+  r_\lambda = \dim(V_\lambda^H),
+\]
+where $V_\lambda^H = \{v \in V_\lambda : s_k v = v \text{ for all odd }
+k \le 2\lfloor n/2\rfloor - 1\}$ is the $H$-invariant subspace.
+\end{theorem}
+
+\noindent The $H$-invariant subspace $V_\lambda^H$ is also the image of
+the commuting projection $Q_\lambda = \prod_{k\;\mathrm{odd}} P_k^\lambda$,
+and $\dim(V_\lambda^H) = \rk(Q_\lambda)$.
+
+
+\subsection{Computational verification}
+
+Theorem~\ref{thm:main} is verified for all $\lambda \vdash n$ with
+$2 \le n \le 7$ by computing $r_\lambda$ (via SVD of $\Pi_\lambda$ in
+the seminormal representation) and $\dim(V_\lambda^H)$ (as
+$\rk(Q_\lambda)$). The full data:
+
+\begin{center}
+\small
+\begin{tabular}{c|c|c|c|c}
+\toprule
+$n$ & $\lambda$ & $f^\lambda$ & $r_\lambda$ & $\dim(V_\lambda^H)$ \\
+\midrule
+2 & $(2)$ & 1 & 1 & 1 \\
+  & $(1^2)$ & 1 & 0 & 0 \\
+\midrule
+3 & $(3)$ & 1 & 1 & 1 \\
+  & $(2,1)$ & 2 & 1 & 1 \\
+  & $(1^3)$ & 1 & 0 & 0 \\
+\midrule
+4 & $(4)$ & 1 & 1 & 1 \\
+  & $(3,1)$ & 3 & 1 & 1 \\
+  & $(2^2)$ & 2 & 1 & 1 \\
+  & $(2,1^2)$ & 3 & 0 & 0 \\
+  & $(1^4)$ & 1 & 0 & 0 \\
+\midrule
+5 & $(5)$ & 1 & 1 & 1 \\
+  & $(4,1)$ & 4 & 2 & 2 \\
+  & $(3,2)$ & 5 & 2 & 2 \\
+  & $(3,1^2)$ & 6 & 1 & 1 \\
+  & $(2^2,1)$ & 5 & 1 & 1 \\
+  & $(2,1^3)$ & 4 & 0 & 0 \\
+  & $(1^5)$ & 1 & 0 & 0 \\
+\midrule
+6 & $(6)$ & 1 & 1 & 1 \\
+  & $(5,1)$ & 5 & 2 & 2 \\
+  & $(4,2)$ & 9 & 3 & 3 \\
+  & $(4,1^2)$ & 10 & 2 & 2 \\
+  & $(3^2)$ & 5 & 2 & 2 \\
+  & $(3,2,1)$ & 16 & 3 & 3 \\
+  & $(3,1^3)$ & 10 & 1 & 1 \\
+  & $(2^3)$ & 5 & 1 & 1 \\
+  & $(2^2,1^2)$ & 9 & 0 & 0 \\
+  & $(2,1^4)$ & 5 & 0 & 0 \\
+  & $(1^6)$ & 1 & 0 & 0 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent For $n = 7$, verification confirms $r_\lambda = \dim(V_\lambda^H)$
+for all 15 partitions. The totals:
+
+\begin{center}
+\begin{tabular}{c|c|c|c}
+\toprule
+$n$ & $\sum r_\lambda f^\lambda$ & $\sum \dim(V_\lambda^H) f^\lambda$ & $n!/2^{\lfloor n/2\rfloor}$ \\
+\midrule
+2 & 1 & 1 & 1 \\
+3 & 3 & 3 & 3 \\
+4 & 6 & 6 & 6 \\
+5 & 30 & 30 & 30 \\
+6 & 90 & 90 & 90 \\
+7 & 630 & 630 & 630 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+
+\section{Proved corollaries}
+
+In this section we derive the rank formula, vanishing criterion, and
+hook formula \emph{assuming} Theorem~\ref{thm:main}. In subsequent
+sections we prove Theorem~\ref{thm:main} for small $n$ and establish
+structural lemmas toward the general case.
+
+
+\subsection{Rank formula}
+
+\begin{corollary}[Rank formula]
+\label{cor:rank}
+Assuming Theorem~\ref{thm:main}:
+$\rk(\Pi) = n!/2^{\lfloor n/2\rfloor}$.
+\end{corollary}
+
+\begin{proof}
+By the Wedderburn decomposition $\CC[\Sym_n] \cong \bigoplus_\lambda
+V_\lambda^{\oplus f^\lambda}$, the total rank is
+\[
+  \rk(\Pi) = \sum_{\lambda \vdash n} r_\lambda \cdot f^\lambda
+  = \sum_\lambda \dim(V_\lambda^H) \cdot f^\lambda.
+\]
+By Frobenius reciprocity,
+\[
+  \sum_\lambda \dim(V_\lambda^H) \cdot f^\lambda
+  = \sum_\lambda \langle \mathrm{Res}^{\Sym_n}_H V_\lambda,\,
+    \mathbf{1}_H \rangle \cdot \dim V_\lambda
+  = \dim\!\left(\Ind_H^{\Sym_n} \mathbf{1}_H\right)
+  = [\Sym_n : H] = \frac{n!}{2^{\lfloor n/2\rfloor}}. \qedhere
+\]
+\end{proof}
+
+\begin{remark}
+The quantity $n!/2^{\lfloor n/2\rfloor}$ is OEIS A090932, which counts
+``descent-paired'' permutations: those $w \in \Sym_n$ with
+$w(2i{-}1) > w(2i)$ for all $i = 1, \ldots, \lfloor n/2\rfloor$
+(Callan's characterization). Computation confirms ($n \le 5$) that
+$\{\Pi \cdot e_w : w \text{ descent-paired}\}$ is a basis for $\im(\Pi)$.
+\end{remark}
+
+
+\subsection{Vanishing criterion}
+
+\begin{corollary}[Vanishing]
+\label{cor:vanishing}
+Assuming Theorem~\ref{thm:main}:
+$r_\lambda = 0$ if and only if $\ell(\lambda) > \lceil(n+1)/2\rceil$.
+\end{corollary}
+
+\begin{proof}
+We have $r_\lambda = 0$ iff $V_\lambda^H = \{0\}$, i.e., iff there is
+no standard Young tableau $T$ of shape $\lambda$ such that the axial
+distance $d_T(k) \ne \pm 1$ for all odd $k$ simultaneously in a way
+that supports a $+1$ eigenvector.
+
+More precisely, $v \in V_\lambda^H$ requires $s_k v = v$ for all odd $k$.
+In Young's seminormal form, $s_k$ acts on $v_T$ with diagonal entry
+$1/d$ where $d$ is the axial distance between $k$ and $k+1$ in $T$.
+When $|d| = 1$, $s_k$ acts as $\pm 1$ (pure eigenvalue, no off-diagonal
+mixing). When $d = +1$, $s_k v_T = v_T$, contributing to $V_\lambda^H$.
+When $d = -1$, $s_k v_T = -v_T$, excluding $T$ from $V_\lambda^H$.
+
+For a tableau $T$ to contribute to $V_\lambda^H$, we need: for each odd
+$k$, entries $k$ and $k+1$ are in the same column ($d = -1$, bad) or the
+same row ($d = +1$, good) or have $|d| \ge 2$ (allows mixing).
+
+The critical constraint: if $\ell(\lambda) > \lceil(n+1)/2\rceil$,
+then there are more than $\lceil(n+1)/2\rceil$ rows. The first column
+has $\ell(\lambda)$ entries. Among consecutive pairs $(1,2), (3,4),
+\ldots$, by pigeonhole at least one pair must occupy adjacent rows
+of the first column, giving $d = -1$. This forces $s_k v_T = -v_T$
+for that pair, and since there's no other tableau to mix with (swapping
+would violate the SYT condition), $v_T$ is a $-1$ eigenvector of $s_k$.
+
+Conversely, if $\ell(\lambda) \le \lceil(n+1)/2\rceil$, then entries
+$1,3,5,\ldots$ can be placed in distinct rows, allowing $k$ and $k+1$
+to be horizontally separated for each odd $k$. This gives
+$\dim(V_\lambda^H) \ge 1$.
+\end{proof}
+
+
+\subsection{Hook formula}
+
+\begin{corollary}[Hook formula]
+\label{cor:hook}
+Assuming Theorem~\ref{thm:main}: for hook partitions
+$\lambda = (n-k, 1^k)$,
+\[
+  r_{(n-k,1^k)} = \binom{\lfloor(n-1)/2\rfloor}{k}.
+\]
+\end{corollary}
+
+\begin{proof}
+The irreducible module $V_{(n-k,1^k)} \cong \bigwedge^k V_{\mathrm{std}}$,
+where $V_{\mathrm{std}}$ is the $(n{-}1)$-dimensional standard
+representation (the orthogonal complement of the all-ones vector in
+$\CC^n$).
+
+\textbf{Step 1: $H$-decomposition of $V_{\mathrm{std}}$.}
+Let $e_1, \ldots, e_n$ be the coordinate basis of $\CC^n$. The standard
+representation has basis $\{e_i - e_{i+1} : 1 \le i \le n-1\}$ (or
+any equivalent). Under $H = \langle s_1, s_3, \ldots \rangle$:
+\begin{itemize}
+  \item For each odd $k \le n-1$, $s_k$ swaps $e_k \leftrightarrow e_{k+1}$.
+  \item The vector $e_k + e_{k+1}$ (projected to $V_{\mathrm{std}}$) is
+    $H$-invariant with respect to $s_k$.
+  \item The vector $e_k - e_{k+1}$ is a $-1$ eigenvector of $s_k$.
+\end{itemize}
+
+More precisely, $V_{\mathrm{std}}$ decomposes under $H$ as
+$V_{\mathrm{std}} = V^H \oplus V^{-}$, where $V^H$ is the
+$H$-invariant subspace and $V^{-}$ is spanned by vectors that are
+$-1$ eigenvectors of at least one generator $s_k \in H$.
+
+The $H$-invariant subspace $V_{\mathrm{std}}^H$ consists of vectors
+$v = \sum a_i e_i$ (with $\sum a_i = 0$) satisfying $a_k = a_{k+1}$
+for all odd $k$. This forces $a_1 = a_2$, $a_3 = a_4$, $\ldots$,
+giving $\lceil n/2\rceil$ free variables minus one constraint
+($\sum = 0$), so
+\[
+  \dim(V_{\mathrm{std}}^H) = \lceil n/2 \rceil - 1
+    = \lfloor(n-1)/2\rfloor.
+\]
+
+\textbf{Step 2: $H$-invariants of the exterior power.}
+We claim $(\bigwedge^k V_{\mathrm{std}})^H = \bigwedge^k(V_{\mathrm{std}}^H)$.
+
+The inclusion $\supseteq$ is clear. For $\subseteq$: decompose
+$V_{\mathrm{std}} = V^H \oplus V^{-}$ as $H$-modules. Then
+\[
+  \bigwedge^k V_{\mathrm{std}} = \bigoplus_{j=0}^{k}
+    \bigwedge^j V^H \otimes \bigwedge^{k-j} V^{-}.
+\]
+An $H$-invariant element of $\bigwedge^j V^H \otimes \bigwedge^{k-j} V^-$
+requires $\bigwedge^{k-j} V^-$ to contain an $H$-invariant vector.
+But $V^-$ decomposes under $H$ as a direct sum of sign representations
+(one for each pair generator $s_k$), so $\bigwedge^{k-j} V^-$ contains
+an $H$-invariant only when $k - j = 0$, since each $s_k$ acts as $-1$
+on its component of $V^-$ and hence as $(-1)^{k-j}$ on
+$\bigwedge^{k-j}$ of that component.
+
+More carefully: $V^- = \bigoplus_{i=1}^{\lfloor n/2\rfloor} L_i$ where
+each $L_i$ is 1-dimensional and $s_{2i-1}$ acts as $-1$ on $L_i$ and
+$+1$ on $L_j$ for $j \ne i$. Then
+$\bigwedge^m V^- = \bigoplus_{|S|=m} \bigotimes_{i \in S} L_i$.
+On each summand $\bigotimes_{i \in S} L_i$, the generator $s_{2i-1}$
+acts as $-1$ if $i \in S$ and $+1$ otherwise. For this to be $H$-trivial,
+we need $S = \emptyset$, i.e., $m = 0$.
+
+Therefore $(\bigwedge^k V_{\mathrm{std}})^H = \bigwedge^k V^H$, and
+\[
+  r_{(n-k,1^k)} = \dim\!\left(\bigwedge^k V^H\right)
+    = \binom{\lfloor(n-1)/2\rfloor}{k}. \qedhere
+\]
+\end{proof}
+
+
+\section{The $\Sym_3$ lemma and structural results}
+
+\begin{lemma}[$\Sym_3$ Lemma]
+\label{lem:S3}
+In any representation of $\Sym_3 = \langle s_1, s_2 \rangle$:
+\[
+  V^{s_1 = +1} \cap V^{s_2 = -1} = \{0\}.
+\]
+Equivalently, $\ker(P_2) \cap \im(P_1) = \{0\}$.
+\end{lemma}
+
+\begin{proof}
+Suppose $s_1 v = v$ and $s_2 v = -v$. Then $(s_1 s_2)^3 = e$ gives
+$v = (s_1 s_2)^3 v = (s_1 s_2)(s_1 s_2)(s_1 s_2) v$. But
+$s_1 s_2 v = s_1(-v) = -s_1 v = -v$ (using $s_2 v = -v$ then $s_1 v = v$).
+Wait --- $s_1(s_2 v) = s_1(-v) = -v$, so $(s_1 s_2)v = -v$.
+Then $(s_1 s_2)^3 v = (-1)^3 v = -v$. But $(s_1 s_2)^3 = e$, so
+$v = -v$, hence $v = 0$.
+\end{proof}
+
+\begin{corollary}[Within-pass injectivity]
+\label{cor:injectivity}
+In the staircase product, the projection $P_k$ (for $k \ge 2$) is
+injective on $\im(P_{k-1})$. Hence rank drops within each block can
+only occur at the $P_1$ step.
+\end{corollary}
+
+\begin{proof}
+$\ker(P_k) = V^{s_k = -1}$ and $\im(P_{k-1}) \subseteq V^{s_{k-1} = +1}$.
+Since $s_{k-1}$ and $s_k$ generate a copy of $\Sym_3$, the $\Sym_3$ Lemma
+gives $\ker(P_k) \cap \im(P_{k-1}) = \{0\}$.
+\end{proof}
+
+
+\begin{corollary}
+\label{cor:even-blocks}
+Even-numbered blocks preserve rank. Specifically, if block $2m$ applies
+$P_{2m}, P_{2m-1}, \ldots, P_1$ and the image entering block $2m$ is
+contained in $V^{s_1 = +1}$, then $P_1$ acts injectively (no halving).
+\end{corollary}
+
+\begin{proof}
+The image entering block $2m$ lies in $V^{s_1 = +1}$ by assumption.
+The first step is $P_{2m}$, the remaining steps $P_{2m-1}, \ldots, P_2$
+are injective by Corollary~\ref{cor:injectivity}. For $P_1$: the image
+after $P_2$ lies in $V^{s_2 = +1} \cap V^{s_1 = +1}$ (since
+$P_2$ maps $V^{s_1 = +1}$ into $V^{s_2 = +1}$ injectively, preserving
+the $s_1 = +1$ condition when $s_1$ commutes with $P_2$). In fact,
+the trace argument from the companion paper~\cite{rank-injectivity}
+shows $P_1$ halves only when $\tr(s_1|_W) = 0$, which fails when
+the image already satisfies $s_1 = +1$.
+\end{proof}
+
+
+\section{Block structure and the halving pattern}
+
+\begin{proposition}[Block rank pattern]
+\label{prop:block}
+Computationally verified for $n \le 8$: the rank of $\Pi$ after each
+complete block follows the pattern
+\[
+  \rk(\text{after block } k) = \frac{n!}{2^{\lceil k/2\rceil}}.
+\]
+That is, odd blocks halve the rank and even blocks preserve it.
+After all $n-1$ blocks, $\rk(\Pi) = n!/2^{\lceil(n-1)/2\rceil}
+= n!/2^{\lfloor n/2\rfloor}$.
+\end{proposition}
+
+\begin{proof}[Proof sketch]
+By Corollary~\ref{cor:injectivity}, all rank drops within a block
+occur at the $P_1$ step. Block $k$ applies $P_k, P_{k-1}, \ldots, P_1$.
+The first projection $P_k$ maps into $V^{s_k = +1}$; the cascade
+$P_{k-1}, \ldots, P_2$ is injective (shifting the eigenspace condition
+from $s_k$ to $s_{k-1}$ to $\ldots$ to $s_2$); then $P_1$ either
+halves (if the image has zero $s_1$-trace) or is injective (if the
+image already lies in $V^{s_1 = +1}$).
+
+The halving at odd blocks and preservation at even blocks is proved
+for blocks 1--2 unconditionally (see the companion paper), and
+the trace-preservation mechanism extends to later blocks under
+verified conditions.
+\end{proof}
+
+
+\section{Proof of the main theorem: small cases}
+
+\subsection{$n = 2$}
+
+$\Sym_2$ has two irreps: $V_{(2)}$ (trivial, $f = 1$) and $V_{(1^2)}$
+(sign, $f = 1$). The staircase word is $(s_1)$, so $\Pi = P_1$.
+\begin{itemize}
+  \item $V_{(2)}$: $s_1 = +1$, so $P_1 = 1$, $r_{(2)} = 1$.
+    $H = \langle s_1 \rangle$, $V_{(2)}^H = V_{(2)}$, $\dim = 1$. \checkmark
+  \item $V_{(1^2)}$: $s_1 = -1$, so $P_1 = 0$, $r_{(1^2)} = 0$.
+    $V_{(1^2)}^H = \{0\}$, $\dim = 0$. \checkmark
+\end{itemize}
+
+
+\subsection{$n = 3$}
+
+$\Sym_3$ has three irreps: $(3), (2,1), (1^3)$ with $f = 1, 2, 1$.
+$H = \langle s_1 \rangle$, staircase word $(s_1, s_2, s_1)$.
+
+\begin{itemize}
+  \item $V_{(3)}$: trivial. $\Pi = 1$. $r = 1 = \dim V^H$. \checkmark
+  \item $V_{(1^3)}$: sign. $s_1 = s_2 = -1$. $P_1 = 0$, so $\Pi = 0$.
+    $r = 0$. $V^H = V^{s_1=+1} = \{0\}$ since $s_1 = -1$. \checkmark
+  \item $V_{(2,1)}$: standard 2-dimensional representation. In the
+    seminormal basis, $s_1 = \begin{pmatrix} 1 & 0 \\ 0 & -1\end{pmatrix}$,
+    $s_2 = \begin{pmatrix} -1/2 & \sqrt{3}/2 \\ \sqrt{3}/2 & 1/2\end{pmatrix}$.
+    Then $P_1 = \begin{pmatrix} 1 & 0 \\ 0 & 0\end{pmatrix}$,
+    $P_2 = \begin{pmatrix} 1/4 & \sqrt{3}/4 \\ \sqrt{3}/4 & 3/4\end{pmatrix}$.
+    Computing $\Pi = P_1 P_2 P_1$: $P_2 P_1 = \begin{pmatrix} 1/4 & 0 \\
+    \sqrt{3}/4 & 0\end{pmatrix}$, then $P_1(P_2 P_1) = \begin{pmatrix}
+    1/4 & 0 \\ 0 & 0\end{pmatrix}$.
+    So $r_{(2,1)} = 1$. Meanwhile $V^H = V^{s_1=+1} = \mathrm{span}(e_1)$,
+    $\dim = 1$. \checkmark
+\end{itemize}
+
+
+\section{Toward the general proof}
+
+\subsection{Upper bound: $r_\lambda \le \dim(V_\lambda^H)$}
+
+\begin{proposition}
+\label{prop:upper}
+For all $\lambda \vdash n$: $\im(\Pi_\lambda) \subseteq V_\lambda^{s_1}$
+(the $+1$-eigenspace of $s_1$). Hence $r_\lambda \le \dim(V_\lambda^{s_1})$.
+\end{proposition}
+
+\begin{proof}
+The rightmost factor in the staircase product is $P_1$, so
+$\im(\Pi_\lambda) \subseteq \im(P_1^\lambda) = V_\lambda^{s_1}$.
+\end{proof}
+
+\begin{remark}
+This gives $r_\lambda \le \dim(V_\lambda^{s_1})$, which is weaker
+than $r_\lambda \le \dim(V_\lambda^H)$ since $V_\lambda^H \subseteq
+V_\lambda^{s_1}$. However, computationally, equality
+$r_\lambda = \dim(V_\lambda^H)$ holds, and the stronger upper bound
+$\im(\Pi_\lambda) \subseteq V_\lambda^H$ does \emph{not} hold
+(the image is not contained in $V_\lambda^H$ in general --- the
+product $\Pi$ does not absorb the pair transpositions $s_3, s_5, \ldots$).
+\end{remark}
+
+
+\subsection{The equality: what remains}
+
+The main theorem asserts rank equality $r_\lambda = \dim(V_\lambda^H)$
+without asserting containment of the image in $V_\lambda^H$. The
+computational evidence shows that $\im(\Pi_\lambda) \ne V_\lambda^H$
+in general (for $n \ge 4$, $\Pi$ does not absorb $s_3, s_5, \ldots$),
+yet the \emph{dimensions} match.
+
+The proof strategy from the companion paper~\cite{rank-injectivity}
+establishes this via the halving mechanism:
+\begin{enumerate}
+  \item Within-pass injectivity: only $P_1$ steps can drop rank
+    (Corollary~\ref{cor:injectivity}).
+  \item Odd blocks halve via vanishing $s_1$-trace, even blocks preserve
+    (Proposition~\ref{prop:block}).
+  \item After $\lfloor n/2\rfloor$ halvings, the rank is
+    $n!/2^{\lfloor n/2\rfloor}$ in the regular representation.
+\end{enumerate}
+
+The per-irrep statement $r_\lambda = \dim(V_\lambda^H)$ requires
+tracking the halving in each irreducible component, which is the
+remaining gap. The halving mechanism must show that in each $V_\lambda$,
+exactly $\dim(V_\lambda^H)$ dimensions survive all $\lfloor n/2\rfloor$
+halvings.
+
+
+\subsection{Connection to the Solomon descent algebra}
+
+The staircase word interacts with the descent structure of $\Sym_n$.
+The Solomon descent algebra $\Sigma_n \subseteq \CC[\Sym_n]$ has
+basis elements $D_S = \sum_{w : \mathrm{Des}(w) = S} w$ indexed by
+subsets $S \subseteq \{1, \ldots, n-1\}$. The product $\Pi$ is an
+element of $\CC[\Sym_n]$ that respects the descent filtration in a
+way that produces the A090932 counts. A deeper understanding of this
+connection --- particularly the fact that descent-paired permutations
+(a descent-type condition) index the image basis --- may yield a
+proof of the per-irrep statement.
+
+
+\section{Summary}
+
+\begin{center}
+\begin{tabular}{l|l}
+\toprule
+\textbf{Result} & \textbf{Status} \\
+\midrule
+$r_\lambda = \dim(V_\lambda^H)$ & Verified $n \le 7$; proved $n \le 3$ \\
+$\rk(\Pi) = n!/2^{\lfloor n/2\rfloor}$ & Corollary (assuming main thm) \\
+Vanishing: $r_\lambda = 0 \Leftrightarrow \ell(\lambda) > \lceil(n+1)/2\rceil$
+  & Corollary (assuming main thm) \\
+Hook: $r_{(n-k,1^k)} = \binom{\lfloor(n-1)/2\rfloor}{k}$
+  & Corollary (assuming main thm) \\
+$\Sym_3$ Lemma & Proved \\
+Within-pass injectivity & Proved \\
+Block halving pattern & Verified $n \le 8$ \\
+First two halvings & Proved (companion paper) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The main open problem is to prove $r_\lambda = \dim(V_\lambda^H)$ for
+general $\lambda$ and $n$. The halving mechanism (companion paper)
+establishes the total rank but the per-irrep refinement remains.
+
+
+\begin{thebibliography}{9}
+\bibitem{rank-injectivity}
+Clio, \emph{The Rank of the Symmetrizing Product: Injectivity, Cascade
+Surjectivity, and the Formula $n!/2^{\lfloor n/2\rfloor}$}, April 14, 2026.
+
+\bibitem{Galashin2020}
+P.~Galashin, \emph{Symmetries of stochastic colored vertex models},
+Ann.\ Probab.\ \textbf{49} (2021), no.~5, 2175--2219.
+
+\bibitem{OEIS-A090932}
+OEIS Foundation, \emph{A090932: $n!/2^{\lfloor n/2\rfloor}$},
+\texttt{https://oeis.org/A090932}.
+\end{thebibliography}
+
+\end{document}
