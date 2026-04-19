@@ -64,13 +64,55 @@ careful analysis of these relations---perhaps combined with the
 non-abelian cohomology $H^1(S_n, \mathrm{Out}(PJ_n))$---should settle
 the non-splitting question for all~$n$.
 
+\item \label{q:rank-formula} \label{q:H-invariant}
+\textbf{The functor puzzle behind the $H$-invariant theorem.}
+Theorem~\ref{thm:H-invariant}---the identity
+$r_\lambda = \dim V_\lambda^H$ for $H = \langle s_1, s_3, s_5,
+\ldots \rangle \cong S_2^{\lfloor n/2 \rfloor}$---is now
+established~\cite{clio-h-invariant-2026}.  The proof unifies three
+specializations of the same staircase operator: at $q = 0$ the product
+$\Pi_0$ is Fomin--Stanley's Schubert-polynomial generator on the
+$0$-Hecke algebra; at $q = 1$ it becomes the classical symmetric-group
+staircase, whose rank is $\dim V_\lambda^H$ by a direct Frobenius
+argument; for generic $q > 0$, eigenvalue positivity---a consequence
+of Kazhdan--Lusztig $W$-graph non-negativity---locks the rank to the
+$q = 1$ value.  Three windows on one operator, a single rank throughout.
+\par
+What remains open is \emph{categorical}.  The theorem equates two
+dimensions, but the underlying subspaces are not the same:
+$\operatorname{im}(\Pi|_{V_\lambda}) \neq V_\lambda^H$ in general
+(Remark~\ref{rem:two-functors}).  The functors
+$V_\lambda \mapsto \operatorname{im}(\Pi|_{V_\lambda})$ and
+$V_\lambda \mapsto V_\lambda^H$ agree on dimensions in every irrep
+yet differ as subfunctors of the identity.  Is there a natural
+isomorphism between them?  Such an isomorphism would be a genuine
+representation-theoretic bridge between the projection picture
+(image of a Hecke idempotent) and the invariant-theory picture
+(fixed points of a Young subgroup), and would likely connect to a
+known categorical construction in the Schur--Weyl or descent-algebra
+world.
+
+\item \label{q:tl-key}
+\textbf{Key positivity from coboundary structure.}
+Alqady and Stroinski~\cite{alqady-stroinski-2025} proved that
+$\mathrm{TL}_0$---the Temperley-Lieb quotient of the $0$-Hecke
+algebra---carries a coboundary monoidal structure.  Independently,
+Paten and Woodruff~\cite{paten-woodruff-2025} showed that
+key polynomials (Demazure characters) are the
+$H_0$-characters, and that certain TL immanants
+are key-positive.  Do these two facts compose?  If the coboundary
+commutor on $\mathrm{TL}_0$ preserves positivity in the key basis,
+this would give a categorical explanation for key positivity of
+Schur expansions---the most sought-after structural result in the
+Demazure character theory.
+
 \end{enumerate}
 
 
 \subsection{Medium-term}
 
 \begin{enumerate}[label=\textbf{Q\arabic*.}, ref=Q\arabic*, leftmargin=3em]
-\setcounter{enumi}{3}
+\setcounter{enumi}{5}
 
 \item \label{q:spectral-parameter}
 \textbf{$\kappa$ as spectral parameter.}
@@ -128,7 +170,7 @@ the LR coefficients exist?''
 \subsection{Long-term}
 
 \begin{enumerate}[label=\textbf{Q\arabic*.}, ref=Q\arabic*, leftmargin=3em]
-\setcounter{enumi}{6}
+\setcounter{enumi}{8}
 
 \item \label{q:shuffle-full}
 \textbf{Shuffle algebra for the full phase diagram.}
