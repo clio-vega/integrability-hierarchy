@@ -1036,8 +1036,28 @@ this paper:
   $(1 + T_s)$ idempotent pairs in the Lattice path.
 \item $p_\lambda(q)$ is the \emph{Fock} contribution---palindromic,
   positive, and conjecturally a carrier of Kazhdan--Lusztig type
-  positivity.  We do not yet know what duality its palindromy
-  reflects.
+  positivity.  Two reading frames sharpen what its palindromy might
+  mean:
+
+  \emph{(Woo's slogan.)} As articulated by Woo on MathOverflow
+  (Q477404), Kazhdan--Lusztig polynomials are precisely \emph{the
+  correction factor for failure of palindromy} of a rank generating
+  function.  Read in this register, the third factor $p_\lambda(q)$
+  is itself the rank generating function of the eigenspace, and its
+  observed palindromy is exactly what one would expect if the
+  underlying object were a Kazhdan--Lusztig basis element of the
+  Hecke algebra.  No correction is needed because the spectrum is
+  already self-dual.
+
+  \emph{(Monodromic Hecke hypothesis.)} A structural reason for that
+  self-duality is suggested by Sandvik~\cite{sandvik-2026}: the
+  monodromic Hecke category, modelling $\ell$-adic parity sheaves
+  on $U \backslash G / U$, is preserved under Verdier duality up to
+  a cohomological shift.  If $\Pi_q$ is, at the level of central
+  characters, a monodromic Hecke object, then palindromy of its
+  spectrum on every irreducible is automatic: it is the shadow of
+  the self-Verdier-duality of the underlying parity sheaf.  This is
+  the conjectural \emph{a priori} explanation we are missing.
 \end{enumerate}
 The factorisation is an \emph{observation}, not a theorem: we have
 verified it by direct diagonalisation for all $\lambda \vdash n$
@@ -1046,6 +1066,75 @@ is to extract the~$(1+q)^{\lfloor n/2 \rfloor}$ factor from the
 commuting structure of the odd generators, reducing the problem to
 understanding the residual $p_\lambda$.  At the moment the
 factorisation is the shadow of a structure we have not yet named.
+\end{remark}
+
+\begin{remark}[Cross-irrep mixing in the descent-paired compression]
+\label{rem:cross-irrep-mixing}
+The Rosetta Stone is a statement about $\Pi_q$ acting on each
+irreducible $V_\lambda$ separately.  When one passes to the
+descent-paired projection $M_R^{(k)}[D_n, D_n]$ a new phenomenon
+appears.  At $n = 4$ the determinant
+\[
+  d_3(4) \;=\; \det M_R^{(3)}[D_4, D_4]
+            \;=\; q^{18}(q+1)^6 (2q+1)^2
+\]
+factorises with a $(2q+1)$ prefactor that is \emph{not} an
+eigenvalue of $\Pi_q^{(3)}$ on any irreducible of $S_4$: the per-irrep
+spectra are $(q+1)^6$, $q(q+1)^4$, $q^2(q+1)^2$ on the partitions
+$(4), (3,1), (2,2)$ respectively, and zero on the remaining two.  No
+nested factorisation through the Specht decomposition can produce a
+$(2q+1)$ factor.  The conclusion is structural: the descent-paired
+compression mixes irreducibles non-trivially, and the determinants
+$d_k(n)$ live one level above the per-irrep Rosetta Stone.  This
+observation rules out the entire class of Pfaffian-master strategies
+that try to read $d_k$ off the irreducible spectra (see the dead-end
+writeup at \texttt{2026-04-20-pfaffian-dead-end}).
+\end{remark}
+
+\begin{remark}[T-system / Hirota identity for the paired ratios]
+\label{rem:tsystem-hirota}
+The numerical content of the previous remark organises into a
+Hirota-type bilinear identity.  Write
+$d_k(n) = \det M_R^{(k)}[D_n, D_n]$ for the descent-paired
+determinants.  Computation suggests that for every $j \geq 1$ and
+every $n \geq 2j+2$,
+\[
+  d_{2j+1}(n) \cdot d_{2j-1}(n)
+    \;=\; q^{|D_n|} \cdot d_{2j}(n)^{2}
+    \quad \text{in } \Z[q].
+\]
+This is the \emph{T-system} (or discrete Hirota) identity for the
+staircase, with the parity-shifted pair $(d_{2j-1}, d_{2j+1})$
+playing the role of the bilinear partners and $d_{2j}$ the
+intermediate.  At present:
+\begin{itemize}
+\item $j = 1$ is proved unconditionally over $\Z[q]$ via the perfect
+  square identity at $n = 4$ and locality
+  (\cite{clio-first-pair-2026}).
+\item $j = 2$ is proved unconditionally by closing the $n = 6$ base
+  case with a tight degree bound and 1449 integer evaluations
+  (\cite{clio-second-pair-2026}).
+\item $j = 3$ is supported by 9-of-9 mod-prime tests of the
+  conjectured identity at $n = 8$.
+\item For all $j$, \emph{Uniform Locality}~\cite{clio-uniform-locality-2026}
+  reduces the identity at every $n \geq 2j+2$ to the single base case
+  at $n = 2j+2$.
+\end{itemize}
+Three structural homes have been examined.  The
+Chepurnoi--Sharov $\tau$-function framework is incompatible with the
+discrete Hecke setting (different category of bilinear identities).
+Classical Dodgson / Desnanot--Jacobi on $M_R^{(k)}[D_n]$ fails for a
+size reason: every $M_R^{(k)}[D_n]$ has the same shape $|D_n| \times
+|D_n|$, so there is no decreasing chain of minors.  The
+Pfaffian Desnanot--Jacobi route of Fischer--Gangl is more promising
+in shape---it produces a three-term bilinear and accommodates a
+varying matrix size---but the natural skew-symmetric masters at
+$n = 4$ all reduce to the tautology $\mathrm{Pf}^2 = \det$ rather
+than to a structural identity.  A genuinely structural proof, if it
+exists, must therefore live above the Specht decomposition: in the
+KKKO categorification of the Hecke algebra, in the monodromic Hecke
+description of $\Pi_q$, or in a cluster-algebra reading of the
+$d_k(n)$ as cluster variables.
 \end{remark}
 
 
